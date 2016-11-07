@@ -1,0 +1,88 @@
+.bar-graph-main, .bar-graph-graph, .bar-graph-columns {
+	width: 100%;
+	height: 100%;
+}
+
+.bar-graph-main, .bar-graph-main * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.bar-graph-graph {
+	display: flex;
+	flex-direction: column;
+}
+
+.bar-graph-main {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+ 	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin: 15px;
+}
+
+.bar-graph-columns {
+	flex: 1 1 auto;
+}
+
+.bar-graph-labels {
+	flex: 0 0 auto;
+}
+
+.bar-graph-column-wrap {
+	display: inline-block;
+	height: 100%;
+	position: relative;
+}
+
+.bar-graph-column {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.bar-graph-column {
+	margin-right: 1px;
+	min-height: 3%;
+	background-color: #008CBA;
+}
+
+.bar-graph-column:hover {
+	cursor: pointer
+}
+
+.bar-graph-column-wrap:last-child .bar-graph-column {
+	margin-right: 0px;
+}
+
+.bar-graph-labels-texts p {
+	display: inline-block;
+	padding: 5px;
+        font-size: 13px;
+        line-height: 13px;
+        color: #999;
+	vertical-align: top;
+}
+
+.bar-graph-input {
+	display: inline-block;
+	padding: 5px;
+}
+
+.bar-graph-input input {
+	width: 100%;
+	padding: 5px;
+	font-size: 20px;
+	line-height: 20px;
+	padding: 4px;
+	text-align: center;
+	background-color: white;
+	border: 1px solid #ccc;
+}
+

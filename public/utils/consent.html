@@ -1,0 +1,36 @@
+<link href="/utils/consent.css" rel="stylesheet" type="text/css"></link>
+
+<script type="text/javascript">
+
+$("#agree1").click(function() {
+	$("#agree1").html("No").css("background-color", "#F44336");
+	$("#agree2").css("opacity", "1")[0].disabled = false;
+	$(".consent-footer p").css("opacity", "1");
+});
+
+/*$("#cscroller").on("scroll", function() {
+	if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight)
+		$("#agree1")[0].disabled = false;
+});*/
+
+</script>
+
+<div class="trial-main trial-main-loading" onload="this.classList.remove('trial-main-loading');" style="max-width: 600px;">
+	<div class="consent-main">
+		<div class="consent-text">
+			<h3>General Agreement</h3>
+			<p id="cscroller">
+				 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eget posuere velit. Praesent ac ligula sapien. Duis egestas tristique ex et rhoncus. Nulla laoreet eros et fringilla iaculis. Morbi euismod, risus vel vestibulum vehicula, urna enim volutpat nulla, nec fringilla orci est vitae massa. Duis tristique sagittis lacinia. Pellentesque quis leo ac leo volutpat sagittis non non eros. Vestibulum convallis ex ipsum, at maximus mauris tempor vitae. Suspendisse tincidunt nunc eget magna ultrices finibus. Aliquam efficitur aliquet euismod.
+
+Cras augue diam, consequat porttitor magna id, suscipit semper ligula. Pellentesque vitae est id turpis iaculis tempor. Phasellus dictum vestibulum eros consequat tincidunt. Duis nec feugiat ex. Nam molestie, quam ac placerat scelerisque, mauris velit posuere odio, ut ullamcorper elit lacus sit amet lectus. Morbi urna nunc, consequat ut sollicitudin ut, placerat quis est. Duis vestibulum, libero sed euismod tempus, augue metus facilisis tortor, ac egestas nisl nunc id purus. Praesent quam magna, volutpat vel egestas quis, rhoncus ut libero. Proin eu congue dolor, ut tempor erat.
+
+
+			</p>
+		</div>
+		<div class="consent-footer">
+			<p style="opacity:0;">Are you sure you agree?</p>
+			<button id="agree2" style="opacity:0;" disabled>Yes</button>
+			<button id="agree1">I Agree</button>
+		</div>
+	</div>
+</div>
