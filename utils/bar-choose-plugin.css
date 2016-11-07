@@ -23,7 +23,6 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	margin: 15px;
 }
 
 .bar-graph-columns {
@@ -45,11 +44,8 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-}
-
-.bar-graph-column {
 	margin-right: 1px;
-	min-height: 3%;
+	min-height: 10px;
 	background-color: #008CBA;
 }
 
