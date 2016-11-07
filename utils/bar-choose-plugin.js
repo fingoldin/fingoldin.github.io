@@ -74,8 +74,7 @@ console.log(max);
                                         	var sh = $(bgc).height();
                                         	var sy = e.pageY;
 						var maxh = bgc.parentNode.clientHeight;
-						var minh = parseInt(bgc.style.minHeight);
-console.log(minh);
+
                                         	$(document).on("mouseup", function(me) {
                                                 	$(document).off("mouseup").off("mousemove");
                                         	});
@@ -85,7 +84,7 @@ console.log(minh);
                                                 	var my = (me.pageY - sy);
 							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
 
-							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
+							$(bgc).css("height", (maxh * (v - min) / (max - min) + "px");
 							bgc.value = v;
 							$(root).find("#icat" + cat).val(v);
                                         	});
@@ -99,9 +98,8 @@ console.log(minh);
 						var v = parseInt(self.value).clamp(min, max) || min;
 						var bar = $(root).find("#ccat" + cat)[0];
 						var maxh = bar.parentNode.clientHeight;
-						var minh = parseInt(bar.style.minHeight);
-console.log(minh);
-						bar.style.height = ((maxh - minh) * (v - min) / (max - min) + minh) + "px";
+
+						bar.style.height = (maxh * (v - min) / (max - min)) + "px";
 						bar.value = v;
 						self.value = v;
 					});
