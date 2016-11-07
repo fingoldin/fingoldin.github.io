@@ -84,7 +84,7 @@ console.log(max);
                                                 	var my = (me.pageY - sy);
 							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
 
-							$(bgc).css("height", (maxh * (v - min) / (max - min) + "px");
+							$(bgc).css("height", (maxh * (v - min) / (max - min)) + "px");
 							bgc.value = v;
 							$(root).find("#icat" + cat).val(v);
                                         	});
