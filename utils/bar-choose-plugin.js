@@ -18,9 +18,13 @@ console.log(max);
 			$(bgg).addClass("bar-graph-graph");
 			$(bgm).append(bgg);
 
+			var bgcsw = document.createElement("DIV");
+			$(bgcsw).addClass("bar-graph-columns-wrap");
+			$(bgg).append(bgcsw);
+
 			var bgcs = document.createElement("DIV");
 			$(bgcs).addClass("bar-graph-columns");
-			$(bgg).append(bgcs);
+			$(bgcsw).append(bgcs);
 
 			var bgls = document.createElement("DIV");
 			$(bgls).addClass("bar-graph-labels");

@@ -25,8 +25,12 @@
 	user-select: none;
 }
 
-.bar-graph-columns {
+.bar-graph-columns-wrap {
 	flex: 1 1 auto;
+}
+
+.bar-graph-columns {
+	height: 100%;
 }
 
 .bar-graph-labels {
