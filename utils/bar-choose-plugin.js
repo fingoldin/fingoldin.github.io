@@ -47,7 +47,7 @@ console.log(max);
 				$(bgcw).append(bgc);
 				bgc.id = "ccat" + categories[i];
 				bgc.value = min;
-				bgc.style.height = "0px";
+				bgc.style.height = bgc.style.minHeight;
 
 				var bgli = document.createElement("DIV");
 				$(bgli).addClass("bar-graph-input");
@@ -70,6 +70,7 @@ console.log(max);
                                         	var sh = $(bgc).height();
                                         	var sy = e.pageY;
 						var maxh = bgc.parentNode.clientHeight;
+						var minh = parseInt(bgc.style.minHeight);
 
                                         	$(document).on("mouseup", function(me) {
                                                 	$(document).off("mouseup").off("mousemove");
@@ -80,8 +81,8 @@ console.log(max);
                                                 	var my = (me.pageY - sy);
 							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
 
-							$(bgc).css("height", (maxh * (v - min) / (max - min)) + "px");
-							bgc.value = v;console.log(cat);
+							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
+							bgc.value = v;
 							$(root).find("#icat" + cat).val(v);
                                         	});
 					});
@@ -94,8 +95,9 @@ console.log(max);
 						var v = parseInt(self.value).clamp(min, max) || min;
 						var bar = $(root).find("#ccat" + cat)[0];
 						var maxh = bar.parentNode.clientHeight;
-console.log(maxh);
-						bar.style.height = (maxh * (v - min) / (max - min)) + "px";
+						var minh = parseInt(bar.style.minHeight);
+
+						bar.style.height = ((maxh - minh) * (v - min) / (max - min) + minh) + "px";
 						bar.value = v;
 						self.value = v;
 					});
