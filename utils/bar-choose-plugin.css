@@ -17,6 +17,11 @@
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
+	-webkit-box-direction: column;
+	-moz-box-direction: column;
+	-ms-flexbox-direction: column;
+	-ms-flex-direction: column;
+	-webkit-flex-direction: column;
 	flex-direction: column;
 }
 
