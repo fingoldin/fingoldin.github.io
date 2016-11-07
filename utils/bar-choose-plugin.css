@@ -12,6 +12,10 @@
 }
 
 .bar-graph-graph {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-direction: column;
 }
@@ -26,6 +30,10 @@
 }
 
 .bar-graph-columns-wrap {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
 	flex: 1;
 }
 
@@ -34,7 +42,11 @@
 }
 
 .bar-graph-labels {
-	flex: 0 0 auto;
+	-webkit-box-flex: 0 0 auto;
+        -moz-box-flex: 0 0 auto;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
 }
 
 .bar-graph-column-wrap {
