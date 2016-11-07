@@ -71,7 +71,7 @@ console.log(max);
                                         	var sy = e.pageY;
 						var maxh = bgc.parentNode.clientHeight;
 						var minh = parseInt(bgc.style.minHeight);
-
+console.log(minh);
                                         	$(document).on("mouseup", function(me) {
                                                 	$(document).off("mouseup").off("mousemove");
                                         	});
@@ -96,7 +96,7 @@ console.log(max);
 						var bar = $(root).find("#ccat" + cat)[0];
 						var maxh = bar.parentNode.clientHeight;
 						var minh = parseInt(bar.style.minHeight);
-
+console.log(minh);
 						bar.style.height = ((maxh - minh) * (v - min) / (max - min) + minh) + "px";
 						bar.value = v;
 						self.value = v;
