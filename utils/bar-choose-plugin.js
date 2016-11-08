@@ -18,6 +18,11 @@ console.log(max);
 			$(bgg).addClass("bar-graph-graph");
 			$(bgm).append(bgg);
 
+			var bgmr = document.createElement("DIV");
+                        $(bgmr).addClass("bar-graph-main-remaining");
+                        $(bgmr).html("You have " + max + " tickets left to distribute");
+                        $(bgm).append(bgmr);
+
 			/*var bgcsw = document.createElement("DIV");
 			$(bgcsw).addClass("bar-graph-columns-wrap");
 			$(bgg).append(bgcsw);*/
@@ -72,6 +77,8 @@ console.log(max);
 				$(root).find(".bar-graph-column").each(function() {
 					remaining -= this.value;
 				});
+
+				$(bgmr).html("You have " + remaining + " tickets left to distribute");
 			}
 
 			window.setTimeout(function() {
