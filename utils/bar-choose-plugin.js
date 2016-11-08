@@ -112,7 +112,7 @@ console.log(max);
 
 							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
 							bgc.value = v;
-							input.val(v);
+							input.value = v;
 							checkRest();
                                         	});
 					});
