@@ -100,12 +100,12 @@ console.log(max);
                                                 	var my = (me.pageY - sy);
 							var input = $(root).find("#icat" + cat)[0];
 
-							var v = Math.max(parseInt((max - min) * (sh - my) / maxh + min), min);
+							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
 							var pv = parseInt(input.value);
 							console.log(v + " " + (pv + remaining));
 							if(v > (pv + remaining)) {
 								v = pv + remaining;
-								var flash = $(root).find(".bar-graph-main-remaining span");
+								var flash = $(bgmr).find("span");
 
 								flash.addClass("highlight");
 								window.setTimeout(function() { flash.removeClass("hightlight"); }, 1000);
@@ -124,12 +124,10 @@ console.log(max);
 					$(this).change(function() {
 						var cat = self.id.substr(4, self.id.length - 4);
 
-						var v = Math.max(parseInt(self.value), min) || min;
-						var pv = parseInt(self.value);
-						console.log(v + " " + (pv + remaining));
-						if(v > (pv + remaining)) {
-                                                	v = pv + remaining;
-                                                        var flash = $(root).find(".bar-graph-main-remaining span");
+						var v = (parseInt(self.value) || min).clamp(min, max);
+						if(remaining < 0) {
+                                                	v += remaining;
+                                                        var flash = $(bgmr).find("span");
 
                                                         flash.addClass("highlight");
                                                         window.setTimeout(function() { flash.removeClass("hightlight"); }, 50);
