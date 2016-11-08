@@ -20,7 +20,7 @@ console.log(max);
 
 			var bgmr = document.createElement("DIV");
                         $(bgmr).addClass("bar-graph-main-remaining");
-                        $(bgmr).html("<p>You have <span>" + max + "</span> tickets left to distribute</p>");
+                        $(bgmr).html("You have <span>" + max + "</span> tickets left to distribute");
                         $(bgg).append(bgmr);
 
 			/*var bgcsw = document.createElement("DIV");
@@ -108,7 +108,7 @@ console.log(max);
 								var flash = $(root).find(".bar-graph-main-remaining span");
 
 								flash.addClass("highlight");
-								window.setTimeout(function() { flash.removeClass("hightlight"); }, 50);
+								window.setTimeout(function() { flash.removeClass("hightlight"); }, 1000);
 							}
 
 							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
