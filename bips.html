@@ -21,13 +21,17 @@ button {
 	padding: 5px;
 }
 
-button:hover {
+button:hover:not(:disabled) {
 	cursor: pointer;
 	background-color: #3B9E39;
 }
 
-button:active {
+button:active:not(:disabled) {
 	background-color: #2A8D28;
+}
+
+button:disabled {
+	background-color: #666;
 }
 
 .container {
@@ -198,24 +202,31 @@ function getBips(notes)
 
 function setBips()
 {
-	$("#bips-list").empty();
+	$("#calc").html("Calculating...")[0].disabled = true;
 
-        var notes = $("#notes").val().split(',');
-	if(notes.length < 2)
-		return;
+	window.setTimeout(function()
+	{
+		$("#bips-list").empty();
 
-        var bips = getBips(notes);
+        	var notes = $("#notes").val().split(',');
+		if(notes.length < 2)
+			return;
 
-        for(var i = 0; i < bips.length; i++)
-        {
-        	var str = "";
+        	var bips = getBips(notes);
 
-                for(var j = 0; j < bips[i].length; j++)
-                	str = str.concat(bips[i][j] + ", ");
+        	for(var i = 0; i < bips.length; i++)
+        	{
+        		var str = "";
+
+                	for(var j = 0; j < bips[i].length; j++)
+                		str = str.concat(bips[i][j] + ", ");
 		
-                str = str.slice(0, -2);
-                $("#bips-list").append("<li class='bip'>" + str + "</li>");
-	}
+                	str = str.slice(0, -2);
+                	$("#bips-list").append("<li class='bip'>" + str + "</li>");
+		}
+		
+		$("#calc").html("Calculate")[0].disabled = false;
+	}, 10);
 }
 
 $(document).ready(function()
