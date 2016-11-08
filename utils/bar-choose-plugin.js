@@ -74,8 +74,8 @@ console.log(max);
 			function checkRest()
 			{
 				remaining = max;
-				$(root).find(".bar-graph-column").each(function() {
-					remaining -= this.value;
+				$(root).find(".bar-graph-input input").each(function() {
+					remaining -= parseInt(this.value);
 				});
 
 				$(bgmr).html("You have " + remaining + " tickets left to distribute");
