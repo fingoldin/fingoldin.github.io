@@ -64,8 +64,18 @@ console.log(max);
 			 	$(bglps).append(bglp);
 			}
 
+			var remaining = max;
+
+			function checkRest()
+			{
+				remaining = max;
+				$(root).find(".bar-graph-column").each(function() {
+					remaining -= this.value;
+				});
+			}
+
 			window.setTimeout(function() {
-				$(".bar-graph-column").each(function() {
+				$(root).find(".bar-graph-column").each(function() {
 					var bgc = this;
 
 					$(bgc).on("mousedown", function (e)
@@ -81,7 +91,9 @@ console.log(max);
                                         	$(document).on("mousemove", function(me) {
 							var cat = bgc.id.substr(4, bgc.id.length - 4);
                                                 	var my = (me.pageY - sy);
-							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
+
+							checkRest();
+							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, remaining);
 
 							$(bgc).css("height", (maxh * (v - min) / (max - min)) + "px");
 							bgc.value = v;
@@ -90,11 +102,13 @@ console.log(max);
 					});
                                 });
 
-				$(".bar-graph-input input").each(function() {
+				$(root).find(".bar-graph-input input").each(function() {
 					var self = this;
 					$(this).change(function() {
 						var cat = self.id.substr(4, self.id.length - 4);
-						var v = parseInt(self.value).clamp(min, max) || min;
+
+						checkRest();
+						var v = parseInt(self.value).clamp(min, remaining) || min;
 						var bar = $(root).find("#ccat" + cat)[0];
 						var maxh = bar.parentNode.clientHeight;
 

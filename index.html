@@ -38,11 +38,11 @@ var start_trial = {
 	cont_btn: "start1"
 }
 
-var mean = 50;
+var mean = 75;
 var variance = 40;
 var num = 20;
-var min = 0;
-var max = 50;
+var min = 50;
+var max = 100;
 var animdata = new GAnimData(mean, variance, min, max, num);
 		//new GAnimData2(50, 150, 20, 0.3);
 
@@ -56,11 +56,11 @@ var animation_trial = {
 
 var training_trial = {
 	type: "bar-choose",
-	instructions: "Now imagine the .",
-	subtitle: "Drag the bars or type in the fields below them to adjust their values",
-	categories: ["50-60", "60-70", "70-80", "80-90", "90-100", "100-110", "110-120", "120-130", "130-140", "140-150"],
+	instructions: "Now, imagine that you are given the tickets you just saw as " + num + " offers, each between " + min + " and " + max + " dollars, for a plane ticket to Timbuktu. How many tickets do you think will be in each of the below price ranges?",
+	subtitle: "Drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range. Press continue when you are sure of your answers.",
+	categories: ["$50 - $60", "$60 - $70", "$70 - $80", "$80 - $90", "$90 - $100"],
 	min_val: 0,
-	max_val: 50
+	max_val: max
 }
 
 function init()
