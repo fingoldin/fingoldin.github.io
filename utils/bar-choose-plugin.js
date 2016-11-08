@@ -98,13 +98,14 @@ console.log(max);
                                         	$(document).on("mousemove", function(me) {
 							var cat = bgc.id.substr(4, bgc.id.length - 4);
                                                 	var my = (me.pageY - sy);
+							var in = $(root).find("#icat" + cat);
 
 							checkRest();
-							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, remaining);
+							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, parseInt(in.val()) + remaining);
 
 							$(bgc).css("height", (maxh * (v - min) / (max - min)) + "px");
 							bgc.value = v;
-							$(root).find("#icat" + cat).val(v);
+							in.val(v);
                                         	});
 					});
                                 });
@@ -115,7 +116,7 @@ console.log(max);
 						var cat = self.id.substr(4, self.id.length - 4);
 
 						checkRest();
-						var v = parseInt(self.value).clamp(min, remaining) || min;
+						var v = parseInt(self.value).clamp(min, parseInt(self.value) + remaining) || min;
 						var bar = $(root).find("#ccat" + cat)[0];
 						var maxh = bar.parentNode.clientHeight;
 
