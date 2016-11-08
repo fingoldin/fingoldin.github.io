@@ -42,7 +42,6 @@ console.log(max);
 			{
 				var bgcw = document.createElement("DIV");
 				$(bgcw).addClass("bar-graph-column-wrap");
-				bgcw.style.width = cw;
 				bgcw.id = "cwcat" + categories[i];
 				$(bgcs).append(bgcw);
 
