@@ -33,25 +33,31 @@ button:active {
 .container {
         max-width: 600px;
         margin: auto;
+	display: -webkit-flex;
         display: flex;
-        flex-direction: column;
+        -webkit-flex-direction: column;
+	flex-direction: column;
         height: 600px;
 	text-align: center;
 }
 
 .bips-input {
+	-webkit-flex: 0 0 auto;
         flex: 0 0 auto;
 	padding: 20px;
 	text-align: center;
 }
 
 .bips-form {
+	display: -webkit-flex;
 	display: flex;
+	-webkit-flex-direction: row;
 	flex-direction: row;
 }
 
 .bips-form input, .bips-form button {
 	vertical-align: top;
+	-webkit-flex: 1;
 	flex: 1;
 }
 
@@ -74,16 +80,21 @@ button:active {
 }
 
 .bips-list-wrap {
-        flex: 1;
+        -webkit-flex: 1;
+	flex: 1;
+	display: -webkit-flex;
 	display: flex;
+	-webkit-flex-direction: column;
 	flex-direction: column;
 }
 
 .bips-list-wrap h2 {
+	-webkit-flex: 0 0 auto;
 	flex: 0 0 auto;
 }
 
 #bips-list {
+	-webkit-flex: 1;
         flex: 1;
         overflow: auto;
 	list-style-type: none;
