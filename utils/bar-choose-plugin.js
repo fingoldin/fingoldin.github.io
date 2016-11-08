@@ -98,9 +98,8 @@ console.log(max);
                                         	$(document).on("mousemove", function(me) {
 							var cat = bgc.id.substr(4, bgc.id.length - 4);
                                                 	var my = (me.pageY - sy);
-							var input = $(root).find("#icat" + cat);
+							var input = $(root).find("#icat" + cat)[0];
 
-							checkRest();
 							var v = Math.max(parseInt((max - min) * (sh - my) / maxh + min), min);
 							var pv = parseInt(input.value);
 							if(v > (pv + remaining)) {
@@ -114,6 +113,7 @@ console.log(max);
 							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
 							bgc.value = v;
 							input.val(v);
+							checkRest();
                                         	});
 					});
                                 });
@@ -123,7 +123,6 @@ console.log(max);
 					$(this).change(function() {
 						var cat = self.id.substr(4, self.id.length - 4);
 
-						checkRest();
 						var v = Math.max(parseInt(self.value), min) || min;
 						var pv = parseInt(self.value);
 						if(v > (pv + remaining)) {
@@ -141,6 +140,7 @@ console.log(max);
 						bar.style.height = ((maxh - minh) * (v - min) / (max - min) + minh) + "px";
 						bar.value = v;
 						self.value = v;
+						checkRest();
 					});
 				});
 			}, 100);
