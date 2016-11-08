@@ -60,7 +60,7 @@ console.log(max);
 				var bgli = document.createElement("DIV");
 				$(bgli).addClass("bar-graph-input");
 				bgli.style.width = cw;
-				$(bgli).append("<input type='text' value='" + min + "' id='icat" + categories[i] + "'></input>");
+				$(bgli).append("<input type='text' value='" + min + "' id='icat" + i + "'></input>");
 				$(bglis).append(bgli);
 
 				var bglp = document.createElement("P");
