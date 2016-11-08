@@ -20,7 +20,7 @@ console.log(max);
 
 			var bgmr = document.createElement("DIV");
                         $(bgmr).addClass("bar-graph-main-remaining");
-                        $(bgmr).html("You have " + max + " tickets left to distribute");
+                        $(bgmr).html("<p>You have <span>" + max + "</span> tickets left to distribute</p>");
                         $(bgg).append(bgmr);
 
 			/*var bgcsw = document.createElement("DIV");
@@ -101,7 +101,14 @@ console.log(max);
 							var input = $(root).find("#icat" + cat);
 
 							checkRest();
-							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, parseInt(input.val()) + remaining);
+							var v = Math.max(parseInt((max - min) * (sh - my) / maxh + min), min);
+							if(v > input.value + remaining) {
+								v = input.value + remaining;
+								var flash = $(root).find(".bar-graph-main-remaining span");
+
+								flash.addClass("highlight");
+								window.setTimeout(function() { flash.removeClass("hightlight"); }, 50);
+							}
 
 							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
 							bgc.value = v;
@@ -116,7 +123,15 @@ console.log(max);
 						var cat = self.id.substr(4, self.id.length - 4);
 
 						checkRest();
-						var v = parseInt(self.value).clamp(min, parseInt(self.value) + remaining) || min;
+						var v = Math.max(parseInt(self.value), min) || min;
+						if(v > self.value + remaining) {
+                                                	v = self.value + remaining;
+                                                        var flash = $(root).find(".bar-graph-main-remaining span");
+
+                                                        flash.addClass("highlight");
+                                                        window.setTimeout(function() { flash.removeClass("hightlight"); }, 50);
+                                                }
+
 						var bar = $(root).find("#ccat" + cat)[0];
 						var maxh = bar.parentNode.clientHeight;
 						var minh = 15;

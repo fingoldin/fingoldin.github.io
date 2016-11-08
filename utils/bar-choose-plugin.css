@@ -66,6 +66,19 @@
 	font-size: 18px;
 }
 
+.bar-graph-main-remaining span {
+	-moz-transition: color 0.4s;
+	-ms-transition: color 0.4s;
+	-o-transition: color 0.4s;
+	-webkit-transition: color 0.4s;
+	transition: color 0.4s;
+	color: black;
+}
+
+.bar-graph-main-remaining span.highlight {
+	color: red;
+}
+
 .bar-graph-column-wrap {
 	position: relative;
 	-webkit-box-flex: 1;
