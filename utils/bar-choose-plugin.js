@@ -47,13 +47,13 @@ console.log(max);
 			{
 				var bgcw = document.createElement("DIV");
 				$(bgcw).addClass("bar-graph-column-wrap");
-				bgcw.id = "cwcat" + categories[i].replace(/\s/g, '');;
+				bgcw.id = "cwcat" + i;
 				$(bgcs).append(bgcw);
 
 				var bgc = document.createElement("DIV");
 				$(bgc).addClass("bar-graph-column");
 				$(bgcw).append(bgc);
-				bgc.id = "ccat" + categories[i].replace(/\s/g, '');
+				bgc.id = "ccat" + i;
 				bgc.value = min;
 				bgc.style.height = bgc.style.minHeight;
 
