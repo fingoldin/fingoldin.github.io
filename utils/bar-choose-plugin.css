@@ -56,8 +56,6 @@
 }
 
 .bar-graph-column-wrap {
-	display: inline-block;
-	height: 100%;
 	position: relative;
 }
 
