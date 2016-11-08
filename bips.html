@@ -62,11 +62,11 @@ button:disabled {
 
 .bips-form input, .bips-form button {
 	vertical-align: top;
-	-webkit-flex: 1;
-	flex: 1;
 }
 
 .bips-form input {
+	-webkit-flex: 1;
+	flex: 1;
 	text-align: left;
 	background-color: white;
 	border-radius: 0px;
@@ -75,11 +75,11 @@ button:disabled {
 	font-size: 25px;
 	line-height: 25px;
 	border: 1px solid #777;
-	max-width: 75%;
 }
 
 .bips-form button {
-	max-width: 20%;
+	-webkit-flex: 0 0 auto;
+	flex: 0 0 auto;
 	margin-left: 10px;
 	font-size: 18px;
 }
@@ -210,9 +210,12 @@ function setBips()
 	{
 		$("#bips-list").empty();
 
-        	var notes = $("#notes").val().split(',');
+        	var notes = $("#notes").val().replace(/\s+/g, '').split(',');
 		if(notes.length < 2)
 			return;
+		else
+			for(var i = 0; i < notes.length; i++)
+				notes[i] = parseInt(notes[i]);
 
         	var bips = getBips(notes);
 
