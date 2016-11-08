@@ -98,14 +98,14 @@ console.log(max);
                                         	$(document).on("mousemove", function(me) {
 							var cat = bgc.id.substr(4, bgc.id.length - 4);
                                                 	var my = (me.pageY - sy);
-							var in = $(root).find("#icat" + cat);
+							var input = $(root).find("#icat" + cat);
 
 							checkRest();
-							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, parseInt(in.val()) + remaining);
+							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, parseInt(input.val()) + remaining);
 
 							$(bgc).css("height", (maxh * (v - min) / (max - min)) + "px");
 							bgc.value = v;
-							in.val(v);
+							input.val(v);
                                         	});
 					});
                                 });
