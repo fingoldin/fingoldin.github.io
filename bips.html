@@ -2,40 +2,246 @@
 
 <head>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
 <style>
 
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	background-color: #4CAF50;
+        border-radius: 0px;
+        border: none;
+        color: white;
+        outline: 0;
+	padding: 5px;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: #3B9E39;
+}
+
+button:active {
+	background-color: #2A8D28;
+}
+
 .container {
-	max-width: 600px;
-	margin: auto;
+        max-width: 600px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+	text-align: center;
 }
 
 .bips-input {
-	flex: 0 0 auto;
+        flex: 0 0 auto;
+	padding: 20px;
+	text-align: center;
+}
+
+.bips-form {
+	display: flex;
+	flex-direction: row;
+}
+
+.bips-form input, .bips-form button {
+	vertical-align: top;
+	flex: 1;
+}
+
+.bips-form input {
+	text-align: left;
+	background-color: white;
+	border-radius: 0px;
+	outline: 0;
+	padding: 10px;
+	font-size: 25px;
+	line-height: 25px;
+	border: 1px solid #777;
+	max-width: 75%;
+}
+
+.bips-form button {
+	max-width: 20%;
+	margin-left: 10px;
+	font-size: 18px;
 }
 
 .bips-list-wrap {
-	flex: 1 1 auto;
+        flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
-.bips-list {
-	height: 100%;
-	overflow: auto;
+.bips-list-wrap h2 {
+	flex: 0 0 auto;
+}
+
+#bips-list {
+        flex: 1;
+        overflow: auto;
+	list-style-type: none;
+	border: 1px solid #111;
+	text-align: left;
+}
+
+.bip {
+	display: inline-block;
+	padding: 10px;
+	margin: 2px;
+	text-align: center;
+	border: 1px solid #aaa;
+}
+
+h2 {
+	font-weight: 500;
+	font-size: 25px;
+	margin: 15px 0;
 }
 
 </style>
+
+<script>
+
+function permutator(inputArr)
+{
+	var results = [];
+
+	function permute(arr, memo)
+	{
+    		var cur, memo = memo || [];
+
+    		for (var i = 0; i < arr.length; i++)
+		{
+      			cur = arr.splice(i, 1);
+      			if (arr.length === 0)
+        			results.push(memo.concat(cur));
+
+      			permute(arr.slice(), memo.concat(cur));
+      			arr.splice(i, 0, cur[0]);
+    		}
+
+    		return results;
+  	}
+
+  	return permute(inputArr);
+}
+
+function aComp(a, b, x)
+{
+	var res = true;
+
+	for(var i = 0; i < x; i++)
+	{
+		if(a[i] !== b[i])
+		{
+			res = false;
+			break;
+		}
+	}
+
+	return res;
+}
+
+function getBips(notes)
+{
+	var perms = permutator(notes);
+	var bips = [];
+
+	for(var i = 0; i < perms.length; i++)
+	{
+		var bip = [];
+
+		for(var j = 1; j < perms[i].length; j++)
+		{
+			var d = Math.abs(perms[i][j] - perms[i][j-1]);
+			if(d > 6)
+				d = 12 - d;
+		
+			bip.push(d);
+		}
+
+		bip.sort();
+		
+		var ex = false;
+		for(var j = 0; j < bips.length; j++)
+		{
+			if(aComp(bips[j], bip, bip.length))
+			{
+				ex = true;
+				break;
+			}
+		}
+		if(!ex)
+			bips.push(bip);
+	}
+
+	return bips;
+}
+
+function setBips()
+{
+	$("#bips-list").empty();
+
+        var notes = $("#notes").val().split(',');
+	if(notes.length < 2)
+		return;
+
+        var bips = getBips(notes);
+
+        for(var i = 0; i < bips.length; i++)
+        {
+        	var str = "";
+
+                for(var j = 0; j < bips[i].length; j++)
+                	str = str.concat(bips[i][j] + ", ");
+		
+                str = str.slice(0, -2);
+                $("#bips-list").append("<li class='bip'>" + str + "</li>");
+	}
+}
+
+$(document).ready(function()
+{
+	$("#calc").click(setBips);
+
+	$("#notes").keypress(function(e) {
+		if(e.which == 13)
+			setBips();
+	});
+});
+
+</script>
 
 </head>
 
 <body>
 
 <div class="main">
-	<div class="container">
-		<div class="bips-input">
-			<input type="text"></input>
+        <div class="container">
+                <div class="bips-input">
+			<h2>Enter a comma-separated list of numbers (notes) here:</h2>
+			<div class="bips-form">
+                        	<input id="notes" type="text" placeholder="Enter here" value="1,2,3"></input>
+				<button id="calc">Calculate</button>
+                	</div>
 		</div>
-	</div>
+		<div class="bips-list-wrap">
+			<h2>And the calculated bips will be outputted here:</h2>
+			<ul id="bips-list">		
+			</ul>
+		</div>
+        </div>
 </div>
 
 </body>
 
 </html>
+
+
