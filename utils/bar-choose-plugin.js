@@ -102,9 +102,9 @@ console.log(max);
 
 							checkRest();
 							var v = Math.max(parseInt((max - min) * (sh - my) / maxh + min), min);
-							console.log(v, input.value + remaining);
-							if(v >= (input.value + remaining)) {
-								v = input.value + remaining;
+							var pv = parseInt(input.value);
+							if(v > (pv + remaining)) {
+								v = pv + remaining;
 								var flash = $(root).find(".bar-graph-main-remaining span");
 
 								flash.addClass("highlight");
@@ -125,8 +125,9 @@ console.log(max);
 
 						checkRest();
 						var v = Math.max(parseInt(self.value), min) || min;
-						if(v > self.value + remaining) {
-                                                	v = self.value + remaining;
+						var pv = parseInt(self.value);
+						if(v > (pv + remaining)) {
+                                                	v = pv + remaining;
                                                         var flash = $(root).find(".bar-graph-main-remaining span");
 
                                                         flash.addClass("highlight");
