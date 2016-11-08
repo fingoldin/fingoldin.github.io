@@ -103,12 +103,11 @@ console.log(max);
 							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
 							var pv = parseInt(input.value);
 							console.log(v + " " + (pv + remaining));
-							if(v > (pv + remaining)) {
+							if(v >= (pv + remaining)) {
 								v = pv + remaining;
-								var flash = $(bgmr).find("span");
 
-								flash.addClass("highlight");
-								window.setTimeout(function() { flash.removeClass("hightlight"); }, 100);
+								$(bgmr).find("span").addClass("highlight");
+								window.setTimeout(function() { $(bgmr).find("span").removeClass("hightlight"); }, 100);
 							}
 
 							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
@@ -127,12 +126,11 @@ console.log(max);
 
 						var v = (parseInt(self.value) || min).clamp(min, max);
 						var pv = parseInt(bar.value);
-						if(v > (pv + remaining)) {
+						if(v >= (pv + remaining)) {
                                                 	v  = pv + remaining;
-                                                        var flash = $(bgmr).find("span");
 
-                                                        flash.addClass("highlight");
-                                                        window.setTimeout(function() { flash.removeClass("hightlight"); }, 100);
+                                                        $(bgmr).find("span").addClass("highlight");
+                                                        window.setTimeout(function() { $(bgmr).find("span").removeClass("hightlight"); }, 100);
                                                 }
 
 						var maxh = bar.parentNode.clientHeight;
