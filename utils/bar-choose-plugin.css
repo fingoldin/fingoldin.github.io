@@ -45,6 +45,12 @@
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
+	-webkit-box-direction: row;
+        -moz-box-direction: row;
+        -ms-flexbox-direction: row;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
 }
 
 .bar-graph-labels {
@@ -57,6 +63,11 @@
 
 .bar-graph-column-wrap {
 	position: relative;
+	-webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
 }
 
 .bar-graph-column {
