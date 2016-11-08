@@ -61,6 +61,7 @@ jsPsych.plugins['number-animation'] = (function() {
     trial.sequence_reps = trial.sequence_reps || 1;
     trial.choices = trial.choices || jsPsych.ALL_KEYS;
     trial.prompt = (typeof trial.prompt === 'undefined') ? "" : trial.prompt;
+    trial.prefix = trial.prefix || "";
 
     // if any trial variables are functions
     // this evaluates the function and replaces
@@ -99,7 +100,7 @@ jsPsych.plugins['number-animation'] = (function() {
         "id": 'jspsych-animation-image'
       })).html(
 		"<div class='number-animation'>" + 
-			trial.stimuli[animate_frame] + 
+			trial.prefix + trial.stimuli[animate_frame] + 
 		"</div>"
 	      );
 

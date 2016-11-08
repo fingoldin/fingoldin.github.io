@@ -18,7 +18,7 @@ function gaussian(mean, stdev)
             do {
                  x1 = 2.0 * Math.random() - 1.0;
                  x2 = 2.0 * Math.random() - 1.0;
-                 w  = x1 * x1 + x2 * x2;               
+                 w  = x1 * x1 + x2 * x2;
             } while( w >= 1.0);
             w = Math.sqrt((-2.0 * Math.log(w))/w);
             y1 = x1 * w;
@@ -33,7 +33,31 @@ function gaussian(mean, stdev)
    }
 }
 
-function GAnimData(min, max, num, clamp) {
+function GAnimData(mean, variance, min, max, num)
+{
+	this.mean = mean;
+	this.variance = variance;
+	this.min = min;
+	this.max = max;
+	this.num = num;
+
+	this.g = gaussian(this.mean, Math.sqrt(this.variance));
+	this.data = [];
+
+	var i = 0;
+	while(i < this.num)
+	{
+		var x = parseInt(this.g());
+		if(x >= this.min && x <= this.max)
+		{
+			this.data.push(x);
+			i++;
+		}
+	}
+}
+
+
+function GAnimData2(min, max, num, clamp) {
         this.min = min;
         this.max = max;
         this.num = num;
