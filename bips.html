@@ -210,19 +210,19 @@ function getBips(notes)
 
 function setBips()
 {
+	$("#bips-list").empty();
+
+        var notes = $("#notes").val().replace(/\s+/g, '').split(',');
+        if(notes.length < 2)
+                return;
+        else
+                for(var i = 0; i < notes.length; i++)
+                        notes[i] = parseInt(notes[i]);
+
 	$("#calc").html("Calculating...")[0].disabled = true;
 
 	window.setTimeout(function()
 	{
-		$("#bips-list").empty();
-
-        	var notes = $("#notes").val().replace(/\s+/g, '').split(',');
-		if(notes.length < 2)
-			return;
-		else
-			for(var i = 0; i < notes.length; i++)
-				notes[i] = parseInt(notes[i]);
-
         	var bips = getBips(notes);
 
         	for(var i = 0; i < bips.length; i++)
