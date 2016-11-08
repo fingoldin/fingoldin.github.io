@@ -17,6 +17,12 @@
         overflow: auto;
         text-align: left;
 	max-height: 80vh;
+	font-size: 15px;
+}
+
+.consent-text p span {
+	font-size: 22px;
+	text-align: center;
 }
 
 #confirm {
