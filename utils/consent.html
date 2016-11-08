@@ -1,9 +1,16 @@
 <script type="text/javascript">
 
 $("#agree1").click(function() {
-	$("#agree1").html("No").css("background-color", "#F44336");
-	$("#agree2").css("opacity", "1")[0].disabled = false;
-	$(".consent-footer p").css("opacity", "1");
+	if($("#agree2")[0].disabled == true) {
+		$("#agree1").html("No").css("background-color", "#F44336");
+		$("#agree2").css("opacity", "1")[0].disabled = false;
+		$(".consent-footer p").css("opacity", "1");
+	}
+	else {
+		$("#agree1").html("Continue").css("background-color", "#4CAF50");
+        	$("#agree2").css("opacity", "0")[0].disabled = true;
+        	$(".consent-footer p").css("opacity", "0");
+	}
 });
 
 /*$("#cscroller").on("scroll", function() {
@@ -18,17 +25,37 @@ $("#agree1").click(function() {
 		<div class="consent-text">
 			<h3>General Agreement</h3>
 			<p id="cscroller">
-				 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eget posuere velit. Praesent ac ligula sapien. Duis egestas tristique ex et rhoncus. Nulla laoreet eros et fringilla iaculis. Morbi euismod, risus vel vestibulum vehicula, urna enim volutpat nulla, nec fringilla orci est vitae massa. Duis tristique sagittis lacinia. Pellentesque quis leo ac leo volutpat sagittis non non eros. Vestibulum convallis ex ipsum, at maximus mauris tempor vitae. Suspendisse tincidunt nunc eget magna ultrices finibus. Aliquam efficitur aliquet euismod.
+				Please read this consent agreement carefully before deciding whether or not to participate in this experiment.<br>
+				<b>Purpose of the research:</b> To examine the way people make decisions and learn about the relationships between stimuli, actions and rewards.
+				<br><br>
+				<b>What you will do in this research:</b> Stimuli (images) will be presented on the computer and you will be asked to choose between different actions in order to earn monetary reward.
+				<br><br>
+				<b>Time required:</b> Participation will take between 1 and 10 minutes to complete.
+				<br><br>
+				<b>Risks:</b> There are no anticipated risks associated with participating in this study. The effects of participating should be comparable to those you would experience from viewing a computer monitor for 10 minutes and using a mouse or keyboard.
+				<br><br>
+				<b>Benefits:</b> This study provides no benefits to you individually. The study provides important information about the nature of learning and decision making. This has potential implications for public domains, such as healthcare policy and the justice system, where understanding the processes governing choice (e.g., of insurance, medical care, illegal substances) can lead to more psychologically effective public policy.
+				<br><br>
+				<b>Compensation:</b> You will receive $1.00 - $2.00 on Amazon Mechanical Turk.
+				<br><br>
+				<b>Confidentiality:</b> Your participation in this study will remain confidential. No personally identifiable information will be associated with your data. Your de-identified data may be shared with other researchers and used in future projects.
+				<br><br>
+				<b>Participation and withdrawal:</b> Your participation in this study is completely voluntary and you may refuse to participate or you may choose to withdraw at any time without penalty or loss of benefits to which you are otherwise entitled.
+				<br><br>
+				<b>How to contact the researcher:</b> If you have questions or concerns about your participation or payment, or want to request a summary of research findings, please contact Sam Gershman, gershman@fas.harvard.edu, (773) 607-9817.
+				<br><br>
+				<b>Whom to contact about your rights in this research:</b> For questions, concerns, suggestions, or complaints that have not been or cannot be addressed by the researcher, or to report research-related harm, please contact the Committee on the Use of Human Subjects in Research at Harvard University, 1414 Massachusetts Avenue, Second Floor, Cambridge, MA 02138. Phone: 617-496-2847. Email: cuhs@fas.harvard.edu Please print or save a copy of this form for your records.
 
-Cras augue diam, consequat porttitor magna id, suscipit semper ligula. Pellentesque vitae est id turpis iaculis tempor. Phasellus dictum vestibulum eros consequat tincidunt. Duis nec feugiat ex. Nam molestie, quam ac placerat scelerisque, mauris velit posuere odio, ut ullamcorper elit lacus sit amet lectus. Morbi urna nunc, consequat ut sollicitudin ut, placerat quis est. Duis vestibulum, libero sed euismod tempus, augue metus facilisis tortor, ac egestas nisl nunc id purus. Praesent quam magna, volutpat vel egestas quis, rhoncus ut libero. Proin eu congue dolor, ut tempor erat.
-
-
+				<br><br><br>
+				<span style="font-size: 24px;">Agreement:</span>
+				The nature and purpose of this research have been sufficiently explained and I agree to participate in this study. I understand that I am free to withdraw at any time without incurring any penalty.
+				Please consent by clicking the button below to continue. Otherwise, please exit the study at this time.
 			</p>
 		</div>
 		<div class="consent-footer">
 			<p style="opacity:0;">Are you sure you agree?</p>
 			<button id="agree2" style="opacity:0;" disabled>Yes</button>
-			<button id="agree1">I Agree</button>
+			<button id="agree1">Continue</button>
 		</div>
 	</div>
 </div>
