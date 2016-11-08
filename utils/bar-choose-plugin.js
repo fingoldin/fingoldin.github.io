@@ -77,7 +77,7 @@ console.log(max);
 					remaining -= parseInt(this.value);
 				});
 
-				$(bgmr).html("You have " + remaining + " tickets left to distribute");
+				$(bgmr).html("You have <span>" + remaining + "</span> tickets left to distribute");
 			}
 
 			window.setTimeout(function() {
