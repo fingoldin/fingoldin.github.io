@@ -102,6 +102,7 @@ console.log(max);
 
 							checkRest();
 							var v = Math.max(parseInt((max - min) * (sh - my) / maxh + min), min);
+							console.log(v, input.value + remaining);
 							if(v >= (input.value + remaining)) {
 								v = input.value + remaining;
 								var flash = $(root).find(".bar-graph-main-remaining span");
