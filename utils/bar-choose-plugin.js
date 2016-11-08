@@ -123,17 +123,18 @@ console.log(max);
 					var self = this;
 					$(this).change(function() {
 						var cat = self.id.substr(4, self.id.length - 4);
+						var bar = $(root).find("#ccat" + cat)[0];
 
 						var v = (parseInt(self.value) || min).clamp(min, max);
-						if(remaining < 0) {
-                                                	v += remaining;
+						var pv = parseInt(bar.value);
+						if(v > (pv + remaining)) {
+                                                	v  = pv + remaining;
                                                         var flash = $(bgmr).find("span");
 
                                                         flash.addClass("highlight");
                                                         window.setTimeout(function() { flash.removeClass("hightlight"); }, 50);
                                                 }
 
-						var bar = $(root).find("#ccat" + cat)[0];
 						var maxh = bar.parentNode.clientHeight;
 						var minh = 15;
 
