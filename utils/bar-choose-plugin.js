@@ -108,7 +108,7 @@ console.log(max);
 								var flash = $(bgmr).find("span");
 
 								flash.addClass("highlight");
-								window.setTimeout(function() { flash.removeClass("hightlight"); }, 1000);
+								window.setTimeout(function() { flash.removeClass("hightlight"); }, 100);
 							}
 
 							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
@@ -132,7 +132,7 @@ console.log(max);
                                                         var flash = $(bgmr).find("span");
 
                                                         flash.addClass("highlight");
-                                                        window.setTimeout(function() { flash.removeClass("hightlight"); }, 50);
+                                                        window.setTimeout(function() { flash.removeClass("hightlight"); }, 100);
                                                 }
 
 						var maxh = bar.parentNode.clientHeight;
