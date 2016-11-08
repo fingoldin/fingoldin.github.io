@@ -21,7 +21,7 @@ console.log(max);
 			var bgmr = document.createElement("DIV");
                         $(bgmr).addClass("bar-graph-main-remaining");
                         $(bgmr).html("You have " + max + " tickets left to distribute");
-                        $(bgm).append(bgmr);
+                        $(bgg).append(bgmr);
 
 			/*var bgcsw = document.createElement("DIV");
 			$(bgcsw).addClass("bar-graph-columns-wrap");

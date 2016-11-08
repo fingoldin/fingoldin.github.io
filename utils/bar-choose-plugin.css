@@ -53,12 +53,17 @@
         flex-direction: row;
 }
 
-.bar-graph-labels {
+.bar-graph-labels, .bar-graph-main-remaining {
 	-webkit-box-flex: 0 0 auto;
         -moz-box-flex: 0 0 auto;
         -webkit-flex: 0 0 auto;
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
+}
+
+.bar-graph-main-remaining {
+	padding: 5px;
+	font-size: 15px;
 }
 
 .bar-graph-column-wrap {
