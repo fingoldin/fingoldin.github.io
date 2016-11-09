@@ -11,18 +11,25 @@
         border-bottom: 1px solid #ddd;
 }
 
-.consent-text p {
+.cscroller {
 	margin: 10px 0px;
         padding: 5px 10px;
         overflow: auto;
-        text-align: left;
 	max-height: 80vh;
-	font-size: 15px;
 }
 
-.consent-text p span {
+.cscroller span {
 	font-size: 22px;
 	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+.cscroller p {
+	text-align: left;
+	font-size: 15px;
+	margin: 0;
+	padding: 0;
 }
 
 #confirm {
