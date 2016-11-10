@@ -195,7 +195,7 @@ function getBips(notes)
 		var ex = false;
 		for(var j = 0; j < bips.length; j++)
 		{
-			if(aComp(bips[j], bip, bip.length))
+			if(aComp(bips[j].bip, bip, bip.length))
 			{
 				ex = true;
 				bips[j].causes.push(perms[i]);
