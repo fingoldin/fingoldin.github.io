@@ -175,7 +175,7 @@ function aComp(a, b, x)
 function getBips(notes)
 {
 	var perms = permutator(notes);
-	var bips = [];
+	var bips = [{}];
 
 	for(var i = 0; i < perms.length; i++)
 	{
@@ -198,11 +198,12 @@ function getBips(notes)
 			if(aComp(bips[j], bip, bip.length))
 			{
 				ex = true;
+				bips[j].causes.push(perms[i]);
 				break;
 			}
 		}
 		if(!ex)
-			bips.push(bip);
+			bips.push({ bip: bip, causes: [perms[i]] });
 	}
 
 	return bips;
@@ -229,8 +230,8 @@ function setBips()
         	{
         		var str = "";
 
-                	for(var j = 0; j < bips[i].length; j++)
-                		str = str.concat(bips[i][j] + ", ");
+                	for(var j = 0; j < bips[i].bip.length; j++)
+                		str = str.concat(bips[i].bip[j] + ", ");
 		
                 	str = str.slice(0, -2);
                 	$("#bips-list").append("<li class='bip'>" + str + "</li>");
