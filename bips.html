@@ -7,6 +7,8 @@
 <style>
 
 * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -116,10 +118,56 @@ button:disabled {
 
 .bip {
 	display: inline-block;
-	padding: 10px;
-	margin: 2px;
 	text-align: center;
 	border: 1px solid #aaa;
+	position: relative;
+	margin: 2px;
+	padding: 10px;
+}
+
+.causes-root {
+	position: fixed;
+	top: 100px;
+	left: 100px;
+	width: 250px;
+	height: auto;
+	padding: 10px 5px;
+	background-color: white;
+	border: 2px solid rgba(150, 150, 150, .25);
+	-webkit-box-shadow: 5px 8px 20px -18px rgba(50,50,50,50.75);
+	-moz-box-shadow: 5px 8px 20px -18px rgba(50,50,50,50.75);
+	box-shadow: 5px 8px 20px -18px rgba(50,50,50,0.75);
+	display: none;
+}
+
+.causes-wrap, .causes-root {
+	overflow: hidden;
+}
+
+.causes-body {
+	padding: 5px;
+	margin: 5px 0px;
+	border: 1px solid rgba(150, 150, 150, 0.2);
+	overflow: auto;
+	max-height: 300px;
+}
+
+.causes-header {
+	text-align: center;
+}
+
+.causes-list {
+	list-style-type: none;
+}
+
+.causes-list li {
+	border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+	text-align: center;
+	padding: 4px 1px;
+}
+
+.causes-list li:last-child {
+	border-bottom: none;
 }
 
 h2 {
@@ -209,6 +257,33 @@ function getBips(notes)
 	return bips;
 }
 
+function getBipString(arr)
+{
+	var str = "";
+
+	for(var i = 0; i < arr.length - 1; i++)
+        	str = str.concat(arr[i] + ", ");
+
+	str = str.concat(arr[arr.length - 1]);
+
+	return str;
+}
+
+function togglePermsList(on, bip, causes)
+{
+	if(on) {
+		$(".causes-root").css("display", "initial");
+
+		$(".causes-list").empty();
+		for(var i = 0; i < causes.length; i++)
+			$(".causes-list").append("<li>" + getBipString(causes[i]) + "</li>");
+	}
+	else
+		$(".causes-root").css("display", "none");dd
+}
+
+var currentBip = {};
+
 function setBips()
 {
 	$("#bips-list").empty();
@@ -228,14 +303,23 @@ function setBips()
 
         	for(var i = 0; i < bips.length; i++)
         	{
-        		var str = "";
+        		var str = getBipString(bips[i].bip);
 
-                	for(var j = 0; j < bips[i].bip.length; j++)
-                		str = str.concat(bips[i].bip[j] + ", ");
+			var li = document.createElement("LI");
+			li.classList.add("bip");
+			li.causes = bips[i].causes;
+			$(li).append(str);
+                	$("#bips-list").append(li);
 		
-                	str = str.slice(0, -2);
-                	$("#bips-list").append("<li class='bip'>" + str + "</li>");
-		}
+			$(li).click(function(event) {		
+				togglePermsList(true, $(this).html(), this.causes);
+				$(this).css("border", "2px solid rgba(10, 10, 250, 0.6)");
+				
+				if(currentBip)
+					$(currentBip).css("border", "1px solid #aaa");
+				currentBip = this;
+			});
+		}    
 		
 		$("#calc").html("Calculate")[0].disabled = false;
 	}, 50);
@@ -248,6 +332,10 @@ $(document).ready(function()
 	$("#notes").keypress(function(e) {
 		if(e.which == 13)
 			setBips();
+	});
+
+	$("#bips-list").mouseout(function(event) {
+		//togglePermsList(false);
 	});
 });
 
@@ -274,6 +362,22 @@ $(document).ready(function()
         </div>
 </div>
 
+<div class="tooltips">
+	<div class="tooltip causes-root">
+		<div class="causes-wrap">
+			<div class="causes-header">
+				<p>
+					Notes for this bip:
+				</p>
+			</div>
+			<div class="causes-body">
+				<ul class="causes-list">
+					<li>1, 2, 3</li>
+					<li>2, 3, 4</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
