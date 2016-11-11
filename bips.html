@@ -50,6 +50,7 @@ button:disabled {
 	flex-direction: column;
         height: 600px;
 	text-align: center;
+	position: relative;
 }
 
 .bips-input {
@@ -126,9 +127,9 @@ button:disabled {
 }
 
 .causes-root {
-	position: fixed;
-	top: 100px;
-	left: 100px;
+	position: absolute;
+	top: 50px;
+	right: 50px;
 	width: 250px;
 	height: auto;
 	padding: 10px 5px;
@@ -359,25 +360,26 @@ $(document).ready(function()
 			<ul id="bips-list">		
 			</ul>
 		</div>
-        </div>
-</div>
 
-<div class="tooltips">
-	<div class="tooltip causes-root">
-		<div class="causes-wrap">
-			<div class="causes-header">
-				<p>
-					Notes for this bip:
-				</p>
-			</div>
-			<div class="causes-body">
-				<ul class="causes-list">
-					<li>1, 2, 3</li>
-					<li>2, 3, 4</li>
-				</ul>
+		<div class="tooltips">
+			<div class="tooltip causes-root">
+				<div class="causes-wrap">
+					<div class="causes-header">
+						<p>
+							Notes for this bip:
+						</p>
+					</div>
+					<div class="causes-body">
+						<ul class="causes-list">
+							<li>1, 2, 3</li>
+							<li>2, 3, 4</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </body>
 
 </html>
