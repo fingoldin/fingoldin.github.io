@@ -12,6 +12,7 @@
 <script src="/jsPsych/plugins/jspsych-bar-choose.js"></script>
 <script src="/utils/general.js"></script>
 <script src="/utils/bar-choose-plugin.js"></script>
+<script src="/utils/jquery.transform2d.js"></script>
 <link href="/jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/general.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/bar-choose-plugin.css" rel="stylesheet" type="text/css"></link>
@@ -50,7 +51,7 @@ var animation_trial = {
 	type: "number-animation",
 	prefix: "$",
 	stimuli: animdata.data,
-	frame_time: 500,
+	frame_time: 2000,
 	sequence_reps: 1
 }
 
@@ -63,6 +64,8 @@ var training_trial = {
 	max_val: num
 }
 
+var images = ["https://s-media-cache-ak0.pinimg.com/originals/3d/f3/33/3df333457997359bc72e33b68900aaff.jpg"];
+
 function init()
 {
 	var timeline = [];
@@ -73,8 +76,10 @@ function init()
 	timeline.push(animation_trial);
 	timeline.push(training_trial);
 
-	jsPsych.init({
-		timeline: timeline
+	jsPsych.pluginAPI.preloadImages(images, function() {
+		jsPsych.init({
+			timeline: timeline
+		});
 	});
 }
 

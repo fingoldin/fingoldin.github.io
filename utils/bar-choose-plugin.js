@@ -141,12 +141,22 @@ console.log(max);
 						self.value = v;
 						checkRest();
 					});
+					$(this).focus(function() {
+						self.select();
+					});
 				});
 			}, 100);
 		}
 		else if(type == "get")
 		{
-			
+			var vals = $(this).find(".bar-graph-input input");
+			var cats = $(this).find(".bar-graph-labels-texts p");
+			var data = [];
+
+			for(var i = 0; i < vals.length && i < cats.length; i++)
+				data.push([ parseInt(vals[i].value), cats[i].innerHTML ]);
+
+			return data;
 		}
 
 		return this;

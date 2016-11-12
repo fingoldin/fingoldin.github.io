@@ -76,9 +76,12 @@ jsPsych.plugins['number-animation'] = (function() {
     var responses = [];
     var current_stim = "";
 
+    display_element.append("<div id='jspsych-animation-image'></div>");
+    display_element.append("<img class='jspsych-animation-ticket' src='https://s-media-cache-ak0.pinimg.com/originals/3d/f3/33/3df333457997359bc72e33b68900aaff.jpg'></img>");
+
     var animate_interval = setInterval(function() {
       var showImage = true;
-      display_element.html(""); // clear everything
+      //display_element.html(""); // clear everything
       animate_frame++;
       if (animate_frame == trial.stimuli.length) {
         animate_frame = 0;
@@ -96,13 +99,19 @@ jsPsych.plugins['number-animation'] = (function() {
 
     function show_next_frame() {
       // show html file
-      display_element.append($('<div>', {
-        "id": 'jspsych-animation-image'
-      })).html(
-		"<div class='number-animation'>" + 
-			trial.prefix + trial.stimuli[animate_frame] + 
-		"</div>"
-	      );
+      var wrap = display_element.find("#jspsych-animation-image");
+      $(wrap).html("");
+      $(wrap).append("<div class='number-animation-above'>Price of ticket:</div>");
+
+      var number = document.createElement("DIV");
+      number.classList.add("number-animation");
+      number.innerHTML = "<span>" + trial.prefix + "</span>" + trial.stimuli[animate_frame];
+      $(wrap).append(number);
+
+      $(number).css("transform", "translateX(0px)").css("opacity", "0");
+      $(number).stop().animate({ transform: "translateX(0px)", opacity: "1" }, interval_time / 2, function() {
+	$(number).stop().animate({ transform: "translateX(0px)", opacity: "0" }, interval_time / 2);
+      });
 
       current_stim = trial.stimuli[animate_frame];
 

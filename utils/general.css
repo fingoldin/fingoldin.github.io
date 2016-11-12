@@ -60,11 +60,34 @@ button:hover:not(:disabled) {
 .number-animation {
 	font-size: 70px;
 	border-radius: 50%;
-	background-color: #4CAF50;
-	color: white;
+	//background-color: #4CAF50;
+	color: #333;
 	width: 200px;
 	height: 200px;
 	line-height: 200px;
 	display: inline-block;
 	text-align: center;
+	position: relative;
+}
+
+.number-animation span {
+	font-size: 30px;
+}
+
+.number-animation-above, .number-animation-below {
+	color: black;
+	font-size: 35px;
+	line-height: 22px;
+	text-align: center;
+	padding: 10px;
+	font-weight: 200;
+}
+
+.jspsych-animation-ticket {
+	width: auto;
+	height: auto;
+	position: fixed;
+	top: 50px;
+	left: 70px;
+	z-index: 999;
 }

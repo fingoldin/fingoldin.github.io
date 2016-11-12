@@ -1,3 +1,7 @@
+.trial-main {
+	max-width: 800px;
+}
+
 .consent-main {
         padding: 10px 30px;
 }
@@ -27,7 +31,7 @@
 
 .cscroller p {
 	text-align: left;
-	font-size: 15px;
+	font-size: 18px;
 	margin: 0;
 	padding: 0;
 }

@@ -273,11 +273,16 @@ function getBipString(arr)
 function togglePermsList(on, bip, causes)
 {
 	if(on) {
-		$(".causes-root").css("display", "initial");
+		$("#causes-numbers-root").css("display", "initial");
 
-		$(".causes-list").empty();
+		$("#causes-numbers-list").empty();
 		for(var i = 0; i < causes.length; i++)
 			$(".causes-list").append("<li>" + getBipString(causes[i]) + "</li>");
+	
+
+		$("#causes-notes-root").css("display", "initial");
+
+		$("#causes-notes-list").empty();
 	}
 	else
 		$(".causes-root").css("display", "none");dd
