@@ -4,42 +4,103 @@ jsPsych.plugins["ticket-choose"] = (function()
 
 	plugin.trial = function(display_element, trial)
 	{
+console.log("called");
 		trial.prices = trial.prices || [];
-		trial.num_trials = trial.num_trials || 0;
+		trial.continue_message = trial.continue_message || "Continue";
+
+		var num_prices = trial.prices.length;
+		if(!num_prices)
+			jsPsych.finishTrial({ "result": "error" });
 
     		trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
 
-		if(trial.prices.length != trial.num_trials)
+		display_element.html("");
+		display_element.load("/utils/ticket-choose.html", function()
 		{
-			console.log("Error in ticket choose plugin: the number of trials does not equal the number of price arrays given");
-			end_trial();
-		}
+			var price_num = -1;
 
-		var trial_num = 0;
-		var price_num = 0;
+/*	var wrap = display_element.find("#jspsych-animation-image");
+      $(wrap).html("");
+      $(wrap).append("<div class='number-animation-above'>Price of ticket:</div>");
 
-		jsPsych.pluginAPI.getKeyBoardResponse({
-			callback_function: step_price,
-			valid_responses: [],
-			rt_method: "date",
-			persist: true,
-			allow_held_key: false
+      var number = document.createElement("DIV");
+      number.classList.add("number-animation");
+      number.innerHTML = "<span>" + trial.prefix + "</span>" + trial.stimuli[animate_frame];
+      $(wrap).append(number);
+
+      $(number).css("transform", "translateX(0px)").css("opacity", "0");
+      $(number).stop().animate({ transform: "translateX(0px)", opacity: "1" }, interval_time / 2, function() {
+        $(number).stop().animate({ transform: "translateX(0px)", opacity: "0" }, interval_time / 2);
+      });*/
+
+
+			var price = display_element.find(".number-animation");
+			next_price();
+
+			var select = display_element.find("#ticket-choose-select");
+			select.click(select_price);
+
+			var next = display_element.find("#ticket-choose-next");
+			next.click(next_price);
+
+			var listener = jsPsych.pluginAPI.getKeyboardResponse({
+				callback_function: next_price,
+				valid_responses: [32],
+				rt_method: "date",
+				persist: true,
+				allow_held_key: false
+			});
+
+			var selected = false;
+
+			function select_price()
+			{
+				if(price_num < num_prices)
+				{
+					price.html("<span>$</span>" + trial.prices[price_num]);
+					display_element.find(".number-animation-above").html("You chose the ticket with price:");
+
+					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
+
+					select.hide();
+					next.html(trial.continue_message).off("click").click(end_trial);
+
+					selected = true;
+				}
+			}
+
+			function next_price()
+			{
+//				if(selected)
+//					end_trial();
+				if(++price_num >= num_prices) {
+					price_num = num_prices - 1;
+					price.fadeOut(400, function() {
+						select_price();
+						price.fadeIn(400);
+					});
+				}
+				else {
+					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
+						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
+						price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
+					});
+				}
+			}
+
+			function end_trial()
+                	{
+				display_element.children().fadeOut(200);
+                                jsPsych.pluginAPI.cancelAllKeyboardResponses();
+
+                        	var trial_data = {
+                                	"result": trial.prices[price_num]
+                        	};
+
+                        	jsPsych.finishTrial(trial_data);
+                	}
 		});
-
-		function step_price(info)
-		{
-			if(price_num)
-		}
-
-		function end_trial()
-		{
-    			var trial_data = {
-      				parameter_name: 'parameter value'
-    			};
-
-    			jsPsych.finishTrial(trial_data);
-  		}
-	};
+	}
 
   	return plugin;
 })();

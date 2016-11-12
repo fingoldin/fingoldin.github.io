@@ -10,6 +10,7 @@
 <script src="/jsPsych/plugins/jspsych-number-animation.js"></script>
 <script src="/jsPsych/plugins/jspsych-html-animation.js"></script>
 <script src="/jsPsych/plugins/jspsych-bar-choose.js"></script>
+<script src="/jsPsych/plugins/jspsych-ticket-choose.js"></script>
 <script src="/utils/general.js"></script>
 <script src="/utils/bar-choose-plugin.js"></script>
 <script src="/utils/jquery.transform2d.js"></script>
@@ -18,6 +19,8 @@
 <link href="/utils/bar-choose-plugin.css" rel="stylesheet" type="text/css"></link>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 <link href="/utils/consent.css" rel="stylesheet" type="text/css"></link>
+<link href="/utils/ticket-choose.css" rel="stylesheet" type="text/css"></link>
+<link href="/utils/start.css" rel="stylesheet" type="text/css"></link>
 
 <script type="text/javascript">
 
@@ -41,7 +44,7 @@ var start_trial = {
 
 var mean = 75;
 var variance = 40;
-var num = 20;
+var num = 2;
 var min = 50;
 var max = 100;
 var animdata = new GAnimData(mean, variance, min, max, num);
@@ -64,6 +67,14 @@ var training_trial = {
 	max_val: num
 }
 
+var testing_trials_num = 3;
+
+var testing_instructions_trial = {
+	type: "html",
+        url: "/utils/testing.html",
+        cont_btn: "testingstart",
+}
+
 var images = ["https://s-media-cache-ak0.pinimg.com/originals/3d/f3/33/3df333457997359bc72e33b68900aaff.jpg"];
 
 function init()
@@ -71,10 +82,20 @@ function init()
 	var timeline = [];
 
 	timeline.push(consent_trial);
-	timeline.push(instructions_trial);
-	timeline.push(start_trial);
-	timeline.push(animation_trial);
-	timeline.push(training_trial);
+        timeline.push(instructions_trial);
+        timeline.push(start_trial);
+        timeline.push(animation_trial);
+        timeline.push(training_trial);
+        timeline.push(testing_instructions_trial);
+
+	for(var i = 0; i < testing_trials_num-1; i++)
+	{
+        	timeline.push({ type: "ticket-choose",
+               		                prices: [10, 10, 10], 
+                        	        continue_message: "Next sequence"
+        	});
+	}
+	timeline.push({ type: "ticket-choose", prices: [10, 10, 10], continue_message: "Finish" });
 
 	jsPsych.pluginAPI.preloadImages(images, function() {
 		jsPsych.init({
