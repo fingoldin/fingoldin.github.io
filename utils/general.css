@@ -66,6 +66,10 @@ button:hover:not(:disabled) {
         line-height: 25px;
 }
 
+.bit-btn:hover {
+        background-color: #145614;
+}
+
 .number-animation {
 	font-size: 120px;
 	border-radius: 50%;
