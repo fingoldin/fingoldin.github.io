@@ -22,6 +22,8 @@ jsPsych.plugins["bar-choose"] = (function()
 			display_element.find("#bar-graph").height(600).barChooseGraph("init", trial.categories, trial.min_val, trial.max_val);
 
 			display_element.find("#bar-submit").click(function() {
+				display_element.html("");
+
 				var data = {
 					responses: display_element.find("#bar-graph").barChooseGraph("get")
 				}

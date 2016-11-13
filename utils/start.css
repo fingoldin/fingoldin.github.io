@@ -10,13 +10,6 @@
         text-align: left;
 }
 
-.start-btn button {
-        padding: 20px 30px;
-        transition: width 0.5s, height 0.5s, background-color 0.5s;
-        font-size: 25px;
-        line-height: 25px;
-}
-
 .start-btn button:hover {
         background-color: #145614;
 }

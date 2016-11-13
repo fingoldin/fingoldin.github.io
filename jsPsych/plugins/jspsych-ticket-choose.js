@@ -63,7 +63,7 @@ console.log("called");
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
 					select.hide();
-					next.html(trial.continue_message).off("click").click(end_trial);
+					next.html(trial.continue_message).addClass("big-btn").off("click").click(end_trial);
 
 					selected = true;
 				}
@@ -73,7 +73,9 @@ console.log("called");
 			{
 //				if(selected)
 //					end_trial();
-				if(++price_num >= num_prices) {
+				if(price.is(":animated"))
+					return;
+				else if(++price_num >= num_prices) {
 					price_num = num_prices - 1;
 					price.fadeOut(400, function() {
 						select_price();
