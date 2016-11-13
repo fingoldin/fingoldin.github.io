@@ -67,7 +67,7 @@ var training_trial = {
 	max_val: num
 }
 
-var testing_trials_num = 3;
+var testing_trials_num = 4;
 
 var testing_instructions_trial = {
 	type: "html",
@@ -95,7 +95,7 @@ function init()
                         	        continue_message: "Next sequence"
         	});
 	}
-	timeline.push({ type: "ticket-choose", prices: [10, 10, 10], continue_message: "Finish" });
+	timeline.push({ type: "ticket-choose", prices: [10, 15, 12, 17, 18], continue_message: "Finish" });
 
 	jsPsych.pluginAPI.preloadImages(images, function() {
 		jsPsych.init({
