@@ -86,6 +86,8 @@ console.log("called");
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
 						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
 						price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
+
+						display_element.find(".number-animation-above").html("Ticket number <span>" + (price_num + 1) + "</span> of <span>10</span>");
 					});
 				}
 			}

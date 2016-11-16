@@ -66,7 +66,7 @@ button:hover:not(:disabled) {
         line-height: 25px;
 }
 
-.bit-btn:hover {
+.big-btn:hover:not(:disabled) {
         background-color: #145614;
 }
 
@@ -94,6 +94,10 @@ button:hover:not(:disabled) {
 	text-align: center;
 	padding: 10px;
 	font-weight: 200;
+}
+
+.number-animation-above span, .number-animation-below span {
+	color: #ee1112;
 }
 
 .jspsych-animation-ticket {
