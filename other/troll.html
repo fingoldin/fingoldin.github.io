@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<style>
+	body {
+		overflow: hidden;
+		background-image: url("https://media.giphy.com/media/26DHprpz3hM52/giphy.gif");
+		background-size: 2000px 2000px;
+	}
+	.main {
+		background-image: url("http://images.akamai.steamusercontent.com/ugc/385414506605524720/02A4668D5A67BDBEE95D1C34C06A64B0812A300F/");
+		position: absolute;
+		width: 1000px;
+		height: 1000px;
+		background-size: 10% 10%;
+		animation: spin 6s linear infinite;
+		left: 50%;
+		top: 50%;
+	}
+	@keyframes spin {
+                0% { transform: translate(-50%, -50%) scale(0.7) rotate(0deg); }
+		50% { transform: translate(-50%, -50%) scale(1.4) rotate(180deg); }
+                100% { transform: translate(-50%, -50%) scale(0.7) rotate(360deg); }
+        }
+	.harambe {
+		position: relative;
+		width: 500px;
+		height: 500px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+                animation: harambe 4s linear infinite;
+        }
+        @keyframes harambe {
+                0% { left: 50px; top: 50px; }
+                50% { left: 80%; top: 80%; }
+        	100% { left: 50px; top: 50px; }
+	}
+	.text {
+		font-weight: 900;
+		font-size: 60px;
+		color: green;
+		left: 400px;
+		top: 400px;
+		width: 500px;
+		z-index: 10;
+		position: relative;
+		animation: spasm 3s linear infinite;
+	}
+	@keyframes spasm {
+		0% { transform: translate(0, 0) rotate(0deg); }
+		20% { transform: translate(100px, 100px) rotate(180deg); }
+		40% { transform: translate(500px, -300px) rotate(360deg); }
+		60% { transform: translate(-300px, 500px) rotate(240deg); }
+		80% { transform: translate(-100px, -100px) rotate(120deg); }
+		100% { transform: translate(0, 0) rotate(0deg); }
+	}
+</style>
+
+<script>
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
+var startTime = 0;
+var endTime = 100;
+var trala;
+window.onload = function()
+{
+	trala = new sound("trala.mp3");
+	trala.sound.currentTime = startTime;
+	trala.play();
+};
+window.setInterval(function() { if(trala.sound.currentTime > endTime) trala.sound.currentTime = startTime; }, 1);
+</script>
+
+<body>
+	<div class="main">
+		<div class="text">RIP HARAMBE</div>
+		<div class="harambe">
+			<img width="500px" height="500px" src="http://static.boredpanda.com/blog/wp-content/uploads/2016/05/gorilla-shot-after-boy-fall-zoo-enclosure-cincinnati-harambe-16.gif"></img>
+		</div>
+	</div>
+</body>
+
+</html>
