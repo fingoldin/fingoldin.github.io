@@ -8,20 +8,26 @@
  /* Container holding jsPsych content */
 
  .jspsych-display-element {
+   -webkit-display: flex;
    display: flex;
+   -webkit-flex-direction: column;
    flex-direction: column;
+   -webkit-justify-content: center;
    justify-content: center;
+   -webkit-align-items: center;
    align-items: center;
    height: 100%;
    width: 100%;
-   overflow-y: scroll;
+   overflow-y: auto;
  }
 
  .jspsych-top {
+   -webkit-align-items: flex-start;
    align-items: flex-start;
  }
 
  .jspsych-middle {
+   -webkit-align-items: center;
    align-items: center;
  }
 
@@ -32,9 +38,13 @@
  }
 
  .jspsych-content-wrapper {
+   -webkit-display: flex;
    display: flex;
+   -webkit-justify-content: center;
    justify-content: center;
+   -webkit-align-items: center;
    align-items: center;
+   -webkit-flex: 1 1 auto;
    flex: 1 1 auto;
    width: 100%;
  }
