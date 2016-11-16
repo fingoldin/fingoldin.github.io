@@ -58,7 +58,7 @@ console.log("called");
 				if(price_num < num_prices)
 				{
 					price.html("<span>$</span>" + trial.prices[price_num]).css("font-size", "150px");
-					display_element.find(".number-animation-above").html("You chose the ticket with price:");
+					display_element.find(".number-animation-above").css("font-size", "35px").html("You chose the ticket with price:");
 
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
