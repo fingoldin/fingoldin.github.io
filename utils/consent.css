@@ -4,15 +4,22 @@
 
 .consent-main {
         padding: 10px 30px;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	max-height: 1000px;
 }
 
-.consent-text h3 {
+.consent-main h3 {
         text-align: center;
         font-weight: normal;
         font-size: 30px;
         padding: 15px 0;
         margin: 0;
         border-bottom: 1px solid #ddd;
+	-webkit-flex: 0 0 auto;
+	flex: 0 0 auto;
 }
 
 .cscroller {
@@ -20,6 +27,8 @@
         padding: 5px 10px;
         overflow: auto;
 	max-height: 80vh;
+	-webkit-flex: 1;
+	flex: 1;
 }
 
 .cscroller span {
@@ -51,6 +60,8 @@
 
 .consent-footer {
         text-align: right;
+	-webkit-flex: 0 0 auto;
+	flex: 0 0 auto;
 }
 
 .consent-footer p {
