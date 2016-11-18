@@ -9,6 +9,7 @@
 	-webkit-flex-direction: column;
 	flex-direction: column;
 	max-height: 95vh;
+	height: 100%;
 }
 
 .consent-main h3 {
