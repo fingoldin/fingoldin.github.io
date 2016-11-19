@@ -88,13 +88,13 @@ function init()
         	timeline.push({ type: "ticket-choose",
                	                prices: testing_data[i], 
                        	        continue_message: "Next sequence",
-				sequence: "Of sequence <span> " + (i + 1) + "out of <span> " + testing_data.length + "</span>"
+				sequence: "Of sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>"
         	});
 	}
 	timeline.push({ type: "ticket-choose",
                        	prices: testing_data[testing_data.length-1], 
         		continue_message: "Finish",
-			sequence: "Of sequence <span> " + testing_data.length + "out of <span> " + testing_data.length + "</span>"
+			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>"
         });
 
 
