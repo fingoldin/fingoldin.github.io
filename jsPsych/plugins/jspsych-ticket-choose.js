@@ -7,6 +7,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 console.log("called");
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
+		trial.sequence = trial.sequence || "";
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
@@ -43,6 +44,10 @@ console.log("called");
 			var next = display_element.find("#ticket-choose-next");
 			next.click(next_price);
 
+			var above = display_element.find(".number-animation-above");
+			var below = display_element.find(".number-animation-below");
+			below.html(trial.sequence);
+
 			var listener = jsPsych.pluginAPI.getKeyboardResponse({
 				callback_function: next_price,
 				valid_responses: [32],
@@ -58,7 +63,8 @@ console.log("called");
 				if(price_num < num_prices)
 				{
 					price.html("<span>$</span>" + trial.prices[price_num]).css("font-size", "150px");
-					display_element.find(".number-animation-above").css("font-size", "35px").html("You chose the ticket with price:");
+					above.css("font-size", "35px").html("You chose the ticket with price:");
+					below.html("");
 
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
@@ -87,7 +93,7 @@ console.log("called");
 						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
 						price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
 
-						display_element.find(".number-animation-above").html("Ticket number <span>" + (price_num + 1) + "</span> of <span>10</span>");
+						above.html("Ticket number <span>" + (price_num + 1) + "</span> of <span>10</span>");
 					});
 				}
 			}
