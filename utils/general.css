@@ -89,11 +89,19 @@ button:hover:not(:disabled) {
 
 .number-animation-above, .number-animation-below {
 	color: black;
-	font-size: 25px;
 	line-height: 22px;
 	text-align: center;
 	padding: 10px;
 	font-weight: 200;
+}
+
+.number-animation-above {
+	font-size: 25px;
+}
+
+.number-animation-below {
+	font-size: 20px;
+	margin: 4px 5px 12px 5px;
 }
 
 .number-animation-above span, .number-animation-below span {

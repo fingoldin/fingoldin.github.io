@@ -8,7 +8,7 @@
  /* Container holding jsPsych content */
 
  .jspsych-display-element {
-   -webkit-display: flex;
+   display: -webkit-flex;
    display: flex;
    -webkit-flex-direction: column;
    flex-direction: column;
@@ -38,7 +38,7 @@
  }
 
  .jspsych-content-wrapper {
-   -webkit-display: flex;
+   display: -webkit-flex;
    display: flex;
    -webkit-justify-content: center;
    justify-content: center;
