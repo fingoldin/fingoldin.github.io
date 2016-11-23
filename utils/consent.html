@@ -13,10 +13,11 @@ $("#agree1").click(function() {
 	}
 });
 
-/*$("#cscroller").on("scroll", function() {
-	if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight)
-		$("#agree1")[0].disabled = false;
-});*/
+$(window).resize(function() {
+	var height = window.innerHeight;
+
+	$(".consent-main").css("height", height*0.95 + "px");
+});
 
 </script>
 
