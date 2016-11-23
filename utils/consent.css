@@ -8,6 +8,7 @@
 	-webkit-justify-content: center;
 	justify-content: center;
 	max-height: 1000px;
+	min-height: 450px;
 }
 
 .consent-main h3 {
