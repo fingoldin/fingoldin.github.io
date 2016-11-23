@@ -13,11 +13,16 @@ $("#agree1").click(function() {
 	}
 });
 
-$(window).resize(function() {
+$(window).resize(resize);
+
+function resize()
+{
 	var height = window.innerHeight;
 
 	$(".consent-main").css("height", height*0.95 + "px");
-});
+}
+
+resize();
 
 </script>
 
