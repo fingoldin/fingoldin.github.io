@@ -1,4 +1,18 @@
-<div class="trial-main trial-main-loading" onload="this.classList.remove('trial-main-loading');">
+<script type="text/javascript">
+
+$(window).resize(resize);
+
+function resize()
+{
+        var height = window.innerHeight;
+
+        $(".consent-main").css("height", height*0.95 + "px");
+}
+
+resize();
+
+</script>
+
         <div class="consent-main">
                 <h3>Experiment Instructions</h3>
 		<div class="cscroller">
@@ -29,5 +43,4 @@
                         <button id="continue1">Continue</button>
                 </div>
         </div>
-</div>
 
