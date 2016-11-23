@@ -5,6 +5,8 @@
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-direction: column;
+	-webkit-justify-content: center;
+	justify-content: center;
 	max-height: 1000px;
 }
 
