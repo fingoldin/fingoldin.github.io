@@ -67,6 +67,12 @@ var testing_instructions_trial = {
         cont_btn: "testingstart",
 }
 
+// Second testing instructions (after example sequence)
+var testing_instructions2_trial = {
+	type: "html",
+	url: "/utils/testing2.html",
+}
+
 var images = ["https://s-media-cache-ak0.pinimg.com/originals/3d/f3/33/3df333457997359bc72e33b68900aaff.jpg"];
 
 function init()
@@ -79,6 +85,15 @@ function init()
         timeline.push(animation_trial);
         timeline.push(training_trial);
         timeline.push(testing_instructions_trial);
+
+	// example testing sequence
+	timeline.push({ type: "ticket-choose",
+			prices: [10, 50, 20, 30, 45, 87, 18, 98, 94, 89],
+			continue_mesage: "Finish",
+			sequence: ""
+	});
+
+	timeline.push(testing_instructions2_trial);
 
 	for(var i = 0; i < testing_data.length-1; i++)
 	{
@@ -94,6 +109,9 @@ function init()
 			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>"
         });
 
+	// Second bar graph to see learning
+	training_trial.instructions = "New instructions inserted here";
+	timeline.push(training_trial);
 
 	jsPsych.pluginAPI.preloadImages(images, function() {
 		jsPsych.init({
