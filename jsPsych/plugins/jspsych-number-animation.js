@@ -57,7 +57,7 @@ jsPsych.plugins["number-animation"] = (function()
 				else if(++price_num >= num_prices) {
 					price_num = num_prices - 1;
 					price.fadeOut(400, function() {
-						select_price();
+						end_trial();
 						price.fadeIn(400);
 					});
 				}
