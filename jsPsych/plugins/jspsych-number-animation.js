@@ -56,10 +56,7 @@ jsPsych.plugins["number-animation"] = (function()
 					return;
 				else if(++price_num >= num_prices) {
 					price_num = num_prices - 1;
-					price.fadeOut(400, function() {
-						end_trial();
-						price.fadeIn(400);
-					});
+					end_trial();
 				}
 				else {
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
@@ -75,7 +72,6 @@ jsPsych.plugins["number-animation"] = (function()
                                 jsPsych.pluginAPI.cancelAllKeyboardResponses();
 
                         	var trial_data = {
-                                	"result": trial.prices[price_num]
                         	};
 
                         	jsPsych.finishTrial(trial_data);
