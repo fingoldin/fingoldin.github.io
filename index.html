@@ -73,6 +73,16 @@ var testing_instructions2_trial = {
 	url: "/utils/testing2.html",
 }
 
+// Second bar graph to see learning
+var training2_trial = {
+	type: "bar-choose",
+        instructions: "Insert new instructions here",
+        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
+        categories: ["$85 - $90", "$90 - $95", "$95 - $100", "$100 - $105", "$105 - $110", "$110 - $115"],
+        min_val: 0,
+        max_val: 20
+}
+
 var images = ["https://s-media-cache-ak0.pinimg.com/originals/3d/f3/33/3df333457997359bc72e33b68900aaff.jpg"];
 
 function init()
@@ -109,9 +119,7 @@ function init()
 			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>"
         });
 
-	// Second bar graph to see learning
-	training_trial.instructions = "New instructions inserted here";
-	timeline.push(training_trial);
+	timeline.push(training2_trial);
 
 	jsPsych.pluginAPI.preloadImages(images, function() {
 		jsPsych.init({
