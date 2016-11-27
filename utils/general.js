@@ -2,6 +2,14 @@ Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
+function showPoints(e, p)
+{
+	e.load("/utils/points.html", function()
+	{
+		e.find("#points-p").html(p.points);
+		e.find("#points-s").html(p.subtitle);
+	});
+}
 
 function gaussian(mean, stdev)
 {

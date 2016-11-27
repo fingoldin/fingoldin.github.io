@@ -4,10 +4,10 @@ jsPsych.plugins["ticket-choose"] = (function()
 
 	plugin.trial = function(display_element, trial)
 	{
-console.log("called");
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.sequence = trial.sequence || "";
+		trial.points = trial.points || { points: 0, subtitle: "" };
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
@@ -18,6 +18,8 @@ console.log("called");
 		display_element.html("");
 		display_element.load("/utils/ticket-choose.html", function()
 		{
+			showPoints(display_element, trial.points);
+
 			var price_num = -1;
 
 /*	var wrap = display_element.find("#jspsych-animation-image");
@@ -103,8 +105,21 @@ console.log("called");
 				display_element.children().fadeOut(200);
                                 jsPsych.pluginAPI.cancelAllKeyboardResponses();
 
+				var prices = trial.prices;
+				prices.sort(function(a, b){return a - b});
+
+				var points = 0;
+
+				if(trial.prices[price_num] === prices[prices.length-1])
+					points = 2;
+				else if(trial.prices[price_num] === prices[prices.length-2])
+					points = 1;
+
+				trial.points.points += points;
+
                         	var trial_data = {
-                                	"result": trial.prices[price_num]
+                                	"result": trial.prices[price_num],
+					"points": points
                         	};
 
                         	jsPsych.finishTrial(trial_data);

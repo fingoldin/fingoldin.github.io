@@ -9,6 +9,7 @@ jsPsych.plugins["bar-choose"] = (function()
 		trial.categories = trial.categories || [];
 		trial.min_val = trial.min_val || 0;
 		trial.max_val = trial.max_val || 100;
+		trial.points = trial.points || { points: 0, subtitle: "" };
 
 		trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
 
@@ -16,6 +17,8 @@ jsPsych.plugins["bar-choose"] = (function()
 
 		display_element.load("/utils/bar-choose.html", function()
 		{
+			showPoints(display_element, trial.points);
+
 			display_element.find("#bar-instructions").html(trial.instructions);
 			display_element.find("#bar-subtitle").html(trial.subtitle);
 
