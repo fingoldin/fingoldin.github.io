@@ -4,10 +4,14 @@ Number.prototype.clamp = function(min, max) {
 
 function showPoints(e, p)
 {
-	e.load("/utils/points.html", function()
+	var e2 = document.createElement("DIV");
+
+	$(e2).load("/utils/points.html", function()
 	{
-		e.find("#points-p").html(p.points);
-		e.find("#points-s").html(p.subtitle);
+		$(e2).find("#points-p").html(p.points);
+		$(e2).find("#points-s").html(p.subtitle);
+
+		e.append(e2)
 	});
 }
 
