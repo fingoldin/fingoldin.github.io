@@ -7,6 +7,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.sequence = trial.sequence || "";
+		trial.showpoints = trial.showpoints || true;
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
@@ -82,9 +83,12 @@ jsPsych.plugins["ticket-choose"] = (function()
 					//console.log(points);
 
 					var pr = parseInt($("#points-p").html());
-					$("#points-p").fadeOut(150, function() {
-						$("#points-p").html(pr + points).fadeIn(150);
-					});
+					if(trial.showpoints && pr !== points)
+					{
+						$("#points-p").fadeOut(150, function() {
+							$("#points-p").html(pr + points).fadeIn(150);
+						});
+					}
 
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
