@@ -53,7 +53,7 @@ var animation_trial = {
 	type: "number-animation",
 	prices: animdata,
 	continue_message: "Next step",
-	on_finish: function() { $("#jspsych-points").fadeIn(200); }
+	on_finish: function() { $("#jspsych-points").animate({ opacity: 1 }, 200); }
 }
 
 var training_trial = {
