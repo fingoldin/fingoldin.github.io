@@ -66,18 +66,16 @@ jsPsych.plugins["ticket-choose"] = (function()
 			{
 				if(price_num < num_prices)
 				{
-					price.html("<span>$</span>" + trial.prices[price_num]).css("font-size", "150px");
-					above.css("font-size", "35px").html("You chose the ticket with price:");
-					below.html("");
-
 					var prices = trial.prices.slice(0);
 	                                prices.sort(function(a, b){return a - b});
 
 					console.log(prices);
 					console.log(trial.prices[price_num]);
-                                	if(trial.prices[price_num] === prices[0])
+
+					var r = prices.indexOf(trial.prices[price_num]);
+                                	if(r === 0)
                                         	points = 2;
-                                	else if(trial.prices[price_num] === prices[1])
+                                	else if(r === 1)
                                         	points = 1;
 
 					//console.log(points);
@@ -89,6 +87,21 @@ jsPsych.plugins["ticket-choose"] = (function()
 							$("#points-p").html(pr + points).fadeIn(150);
 						});
 					}
+
+					var am = "";
+					if(r === 0)
+						am = "You chose the best ticket and get 2 points.<br>You now have";
+					else if(r === 1)
+						am = "You chose the 2nd best ticket and get 1 point.<br>You now have";
+					else if(r === 2)
+						am = "You chose the 3rd best ticket and get 0 points.<br>You now have";
+					else
+						am = "You chose the " + r + "th best ticket and get 0 points.<br>You now have";
+
+					price.html(pr + points).css("font-size", "100px");
+                                        above.css("font-size", "30px").html(am);
+					below.css("font-size", "30px").html("points.");
+                                        below.html("");
 
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
