@@ -105,7 +105,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 				display_element.children().fadeOut(200);
                                 jsPsych.pluginAPI.cancelAllKeyboardResponses();
 
-				var prices = trial.prices;
+				var prices = trial.prices.slice(0);
 				prices.sort(function(a, b){return a - b});
 
 				var points = 0;
