@@ -171,7 +171,7 @@ function init()
 				on_finish: function(data) {
                                 	points_counter.p += data.points;
                                		console.log(points_counter.p);
-                        		showPoints($("body")[0], points_counter);
+                        		showPoints($("#jspsych-points")[0], points_counter);
 				}
 		});
 	}
@@ -183,7 +183,7 @@ function init()
 			on_finish: function(data) {
                                 points_counter.p += data.points;
                                 console.log(points_counter.p);
-				showPoints($("body")[0], points_counter);
+				showPoints($("#jspsych-points")[0], points_counter);
                         }
 	});
 
@@ -191,7 +191,8 @@ function init()
 
 	jsPsych.pluginAPI.preloadImages(images, function() {		
 		jsPsych.init({
-			timeline: timeline
+			timeline: timeline,
+			display_element: $("#jspsych-main")
 		});
 	});
 }
@@ -201,7 +202,8 @@ function init()
 </head>
 
 <body onload="init()">
-
+	<div id="jspsych-points"></div>
+	<div id="jspsych-main"></div>
 </body>
 
 </html>
