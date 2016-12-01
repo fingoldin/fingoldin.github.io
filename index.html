@@ -189,9 +189,7 @@ function init()
 
 	timeline.push(training2_trial);
 
-	jsPsych.pluginAPI.preloadImages(images, function() {
-		jsPsych.data.addProperties({ points: 0 });
-		
+	jsPsych.pluginAPI.preloadImages(images, function() {		
 		jsPsych.init({
 			timeline: timeline
 		});
