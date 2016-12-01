@@ -2,14 +2,13 @@ Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
-function showPoints(e, p, s)
+function showPoints(e, p)
 {
 	var e2 = document.createElement("DIV");
 
 	$(e2).load("/utils/points.html", function()
 	{
 		$(e2).find("#points-p").html(p.p);
-		$(e2).find("#points-s").html(s);
 
 		e.append(e2)
 	});

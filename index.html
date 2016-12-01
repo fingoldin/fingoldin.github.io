@@ -167,21 +167,23 @@ function init()
                	                prices: testing_data[i], 
                        	        continue_message: "Next sequence",
 				sequence: "Of sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>",
-				points: function() { return points_counter; },
+			//	points: function() { return points_counter; },
 				on_finish: function(data) {
                                 	points_counter.p += data.points;
-                               		console.log(points_counter.p)
-                        	}
+                               		console.log(points_counter.p);
+                        		showPoints($("body")[0], points_counter);
+				}
 		});
 	}
 	timeline.push({ type: "ticket-choose",
                        	prices: testing_data[testing_data.length-1], 
         		continue_message: "Finish",
 			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>",
-        		points: function() { return points_counter; },
+        		//points: function() { return points_counter; },
 			on_finish: function(data) {
                                 points_counter.p += data.points;
-                                console.log(points_counter.p)
+                                console.log(points_counter.p);
+				showPoints($("body")[0], points_counter);
                         }
 	});
 
