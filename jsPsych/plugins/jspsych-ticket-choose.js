@@ -18,7 +18,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 		display_element.html("");
 		display_element.load("/utils/ticket-choose.html", function()
 		{
-			//showPoints(display_element, trial.points);
+			showPoints(display_element, trial.points);
 
 			var price_num = -1;
 

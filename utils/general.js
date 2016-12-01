@@ -8,8 +8,7 @@ function showPoints(e, p)
 
 	$(e2).load("/utils/points.html", function()
 	{
-		$(e2).find("#points-p").html(p.points);
-		$(e2).find("#points-s").html(p.subtitle);
+		$(e2).find("#points-p").html(p.p);
 
 		e.append(e2)
 	});
