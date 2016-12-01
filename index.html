@@ -25,6 +25,10 @@
 
 <script type="text/javascript">
 
+var points_counter = {
+	p: 0
+}
+
 var consent_trial = {
 	type: "html",	
 	url: "/utils/consent.html",
@@ -152,7 +156,11 @@ function init()
 	timeline.push({ type: "ticket-choose",
 			prices: [10, 50, 20, 30, 45, 87, 18, 98, 94, 89],
 			continue_mesage: "Finish",
-			sequence: ""
+			sequence: "",
+			on_finish = function(data) {
+				points_counter.p += data.points;
+				console.log(points_counter.p)
+			}
 	});
 
 	timeline.push(testing_instructions2_trial);
@@ -162,14 +170,22 @@ function init()
         	timeline.push({ type: "ticket-choose",
                	                prices: testing_data[i], 
                        	        continue_message: "Next sequence",
-				sequence: "Of sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>"
+				sequence: "Of sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>",
+				on_finish = function(data) {
+                                	points_counter.p += data.points;
+                               		console.log(points_counter.p)
+                        	}
 		});
 	}
 	timeline.push({ type: "ticket-choose",
                        	prices: testing_data[testing_data.length-1], 
         		continue_message: "Finish",
-			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>"
-        });
+			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>",
+        		on_finish = function(data) {
+                                points_counter.p += data.points;
+                                console.log(points_counter.p)
+                        }
+	});
 
 	timeline.push(training2_trial);
 

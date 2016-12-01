@@ -7,6 +7,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.sequence = trial.sequence || "";
+		trial.points = trial.points || { p: 0 };
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
@@ -114,8 +115,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 				else if(trial.prices[price_num] === prices[prices.length-2])
 					points = 1;
 
-				jsPsych.data.addProperties({ points: (trial.points + points) });
-console.log(trial.points + points);
+//console.log(points);
                         	var trial_data = {
                                 	"result": trial.prices[price_num],
 					"points": points
