@@ -109,10 +109,11 @@ jsPsych.plugins["ticket-choose"] = (function()
 				prices.sort(function(a, b){return a - b});
 
 				var points = 0;
-
-				if(trial.prices[price_num] === prices[prices.length-1])
+console.log(prices);
+console.log(trial.prices[price_num]);
+				if(trial.prices[price_num] === prices[0])
 					points = 2;
-				else if(trial.prices[price_num] === prices[prices.length-2])
+				else if(trial.prices[price_num] === prices[1])
 					points = 1;
 
 //console.log(points);

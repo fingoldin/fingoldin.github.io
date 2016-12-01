@@ -1,7 +1,7 @@
 (function($) {
 	$.fn.barChooseGraph = function(type, categories, min, max)
 	{
-console.log(max);
+//console.log(max);
 		if(type == "init")
 		{
 			var nc = categories.length;
@@ -102,7 +102,7 @@ console.log(max);
 
 							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
 							var pv = parseInt(input.value);
-							console.log(v + " " + (pv + remaining));
+							//console.log(v + " " + (pv + remaining));
 							if(v >= (pv + remaining)) {
 								v = pv + remaining;
 
