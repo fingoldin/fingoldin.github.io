@@ -171,7 +171,7 @@ function init()
 				on_finish: function(data) {
                                 	points_counter.p += data.points;
                                		console.log(points_counter.p);
-                        		showPoints($("#jspsych-points")[0], points_counter);
+					$("#points-p").html(points_counter.p);
 				}
 		});
 	}
@@ -183,7 +183,7 @@ function init()
 			on_finish: function(data) {
                                 points_counter.p += data.points;
                                 console.log(points_counter.p);
-				showPoints($("#jspsych-points")[0], points_counter);
+				$("#points-p").html(points_counter.p);
                         }
 	});
 
@@ -202,7 +202,21 @@ function init()
 </head>
 
 <body onload="init()">
-	<div id="jspsych-points"></div>
+	<div id="jspsych-points">
+		<div class="points-main">
+        		<div class="points-header">
+                		<h2></h2>
+        		</div>
+        		<div class="points-body">
+                		<div class="points-points">
+                        		<h2 id="points-p">0</h2>
+                		</div>
+                		<div class="points-subtitle">
+                        		<p id="points-s"></p>
+                		</div>
+        		</div>
+		</div>
+	</div>
 	<div id="jspsych-main"></div>
 </body>
 
