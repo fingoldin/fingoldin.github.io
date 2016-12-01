@@ -98,7 +98,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 					else
 						am = "You chose the " + r + "th best ticket.";
 
-					if(showpoints)
+					if(trial.showpoints)
 					{
 						if(points == 1)
 							am.slice(0, -1).concat(" and get 1 point. You now have");
