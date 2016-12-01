@@ -59,6 +59,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 			});
 
 			var selected = false;
+			var points = 0;
 
 			function select_price()
 			{
@@ -67,6 +68,23 @@ jsPsych.plugins["ticket-choose"] = (function()
 					price.html("<span>$</span>" + trial.prices[price_num]).css("font-size", "150px");
 					above.css("font-size", "35px").html("You chose the ticket with price:");
 					below.html("");
+
+					var prices = trial.prices.slice(0);
+	                                prices.sort(function(a, b){return a - b});
+
+					console.log(prices);
+					console.log(trial.prices[price_num]);
+                                	if(trial.prices[price_num] === prices[0])
+                                        	points = 2;
+                                	else if(trial.prices[price_num] === prices[1])
+                                        	points = 1;
+
+					//console.log(points);
+
+					var pr = parseInt($("#points-p").html());
+					$("#points-p").fadeOut(150, function() {
+						$("#points-p").html(pr + points).fadeIn(150);
+					});
 
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
@@ -105,18 +123,6 @@ jsPsych.plugins["ticket-choose"] = (function()
 				display_element.children().fadeOut(200);
                                 jsPsych.pluginAPI.cancelAllKeyboardResponses();
 
-				var prices = trial.prices.slice(0);
-				prices.sort(function(a, b){return a - b});
-
-				var points = 0;
-console.log(prices);
-console.log(trial.prices[price_num]);
-				if(trial.prices[price_num] === prices[0])
-					points = 2;
-				else if(trial.prices[price_num] === prices[1])
-					points = 1;
-
-//console.log(points);
                         	var trial_data = {
                                 	"result": trial.prices[price_num],
 					"points": points
