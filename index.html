@@ -157,8 +157,7 @@ function init()
 	timeline.push({ type: "ticket-choose",
 			prices: [10, 50, 20, 30, 45, 87, 18, 98, 94, 89],
 			continue_mesage: "Finish",
-			sequence: "",
-			showpoints: false
+			sequence: ""
 	});
 
 	timeline.push(testing_instructions2_trial);
@@ -170,6 +169,7 @@ function init()
                        	        continue_message: "Next sequence",
 				sequence: "Of sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>",
 			//	points: function() { return points_counter; },
+				showpoints: true,
 				on_finish: function(data) {
                                 	points_counter.p += data.points;
                                		console.log(points_counter.p);
@@ -182,6 +182,7 @@ function init()
         		continue_message: "Finish",
 			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>",
         		//points: function() { return points_counter; },
+			showpoints: true,
 			on_finish: function(data) {
                                 points_counter.p += data.points;
                                 console.log(points_counter.p);

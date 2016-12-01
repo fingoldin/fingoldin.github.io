@@ -7,7 +7,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.sequence = trial.sequence || "";
-		trial.showpoints = trial.showpoints || true;
+		trial.showpoints = trial.showpoints || false;
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
