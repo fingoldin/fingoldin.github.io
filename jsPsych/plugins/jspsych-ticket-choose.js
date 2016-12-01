@@ -49,7 +49,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 
 			var above = display_element.find(".number-animation-above");
 			var below = display_element.find(".number-animation-below");
-			below.html(trial.sequence);
+//			below.html(trial.sequence);
 
 			var listener = jsPsych.pluginAPI.getKeyboardResponse({
 				callback_function: next_price,
@@ -101,14 +101,15 @@ jsPsych.plugins["ticket-choose"] = (function()
 					if(trial.showpoints)
 					{
 						if(points == 1)
-							am.slice(0, -1).concat(" and get 1 point. You now have");
+							am = am.slice(0, -1).concat(" and get 1 point:");
 						else
-							am.slice(0, -1).concat(" and get " + points + " points. You now have");
+							am = am.slice(0, -1).concat(" and get " + points + " points:");
 					}
 
-					price.html(pr + points).css("font-size", "100px");
+					price.html("<span>$</span>" + trial.prices[price_num]).css("font-size", "150px");
                                         above.html(am);
-					below.html("points.");
+					if(trial.showpoints)
+						below.html("You now have " + (pr + points) + ((pr+points) === 1 ? " point." : " points."));
 
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
