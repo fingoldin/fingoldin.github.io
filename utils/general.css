@@ -96,6 +96,11 @@ button:hover:not(:disabled) {
 	margin: 0px;
 }
 
+.number-animation-below {
+	line-height: 50px;
+	padding: 0px;
+}
+
 .number-animation-above span, .number-animation-below span {
 	color: #ee1112;
 }
