@@ -7,7 +7,6 @@ jsPsych.plugins["ticket-choose"] = (function()
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.sequence = trial.sequence || "";
-		trial.points = trial.points || { p: 0 };
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
@@ -18,7 +17,8 @@ jsPsych.plugins["ticket-choose"] = (function()
 		display_element.html("");
 		display_element.load("/utils/ticket-choose.html", function()
 		{
-			showPoints(display_element, trial.points);
+			if(trial.points)
+				showPoints(display_element, trial.points, trial.sequence);
 
 			var price_num = -1;
 
