@@ -1,9 +1,10 @@
 .points-main {
 	position: fixed;
-	left: 100px;
-	top: 200px;
-	width: 150px;
-	height: 320px;
+	left: 20px;
+	top: 20px;
+	width: auto;
+	height: auto;
+	padding: 20px;
 	border-radius: 7px;
 	background-color: #6754fe;
 	border: 1px solid #aea;
