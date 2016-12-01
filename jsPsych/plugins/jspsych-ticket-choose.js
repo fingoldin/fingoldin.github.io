@@ -115,8 +115,8 @@ jsPsych.plugins["ticket-choose"] = (function()
 				else if(trial.prices[price_num] === prices[prices.length-2])
 					points = 1;
 
-				trial.points.points += points;
-
+				jsPsych.data.addProperties({ points: (trial.points + points) });
+console.log(trial.points + points);
                         	var trial_data = {
                                 	"result": trial.prices[price_num],
 					"points": points
