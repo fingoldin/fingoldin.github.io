@@ -83,7 +83,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 					//console.log(points);
 
 					var pr = parseInt($("#points-p").html());
-					if(trial.showpoints && pr !== points)
+					if(trial.showpoints && points)
 					{
 						$("#points-p").fadeOut(150, function() {
 							$("#points-p").html(pr + points).fadeIn(150);
