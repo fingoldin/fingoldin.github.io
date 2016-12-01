@@ -90,18 +90,25 @@ jsPsych.plugins["ticket-choose"] = (function()
 
 					var am = "";
 					if(r === 0)
-						am = "You chose the best ticket and get 2 points.<br>You now have";
+						am = "You chose the best ticket!";
 					else if(r === 1)
-						am = "You chose the 2nd best ticket and get 1 point.<br>You now have";
+						am = "You chose the 2nd best ticket!";
 					else if(r === 2)
-						am = "You chose the 3rd best ticket and get 0 points.<br>You now have";
+						am = "You chose the 3rd best ticket.";
 					else
-						am = "You chose the " + r + "th best ticket and get 0 points.<br>You now have";
+						am = "You chose the " + r + "th best ticket.";
+
+					if(showpoints)
+					{
+						if(points == 1)
+							am.slice(0, -1).concat(" and get 1 point. You now have");
+						else
+							am.slice(0, -1).concat(" and get " + points + " points. You now have");
+					}
 
 					price.html(pr + points).css("font-size", "100px");
-                                        above.css("font-size", "30px").html(am);
-					below.css("font-size", "30px").html("points.");
-                                        below.html("");
+                                        above.html(am);
+					below.html("points.");
 
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
