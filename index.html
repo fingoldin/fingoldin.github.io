@@ -157,7 +157,7 @@ function init()
 			prices: [10, 50, 20, 30, 45, 87, 18, 98, 94, 89],
 			continue_mesage: "Finish",
 			sequence: "",
-			points: points_counter,
+			points: function() { return points_counter; },
 			on_finish: function(data) {
 				points_counter.p += data.points;
 				console.log(points_counter.p)
@@ -172,7 +172,7 @@ function init()
                	                prices: testing_data[i], 
                        	        continue_message: "Next sequence",
 				sequence: "Of sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>",
-				points: points_counter,
+				points: function() { return points_counter; },
 				on_finish: function(data) {
                                 	points_counter.p += data.points;
                                		console.log(points_counter.p)
@@ -183,7 +183,7 @@ function init()
                        	prices: testing_data[testing_data.length-1], 
         		continue_message: "Finish",
 			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>",
-        		points: points_counter,
+        		points: function() { return points_counter; },
 			on_finish: function(data) {
                                 points_counter.p += data.points;
                                 console.log(points_counter.p)
