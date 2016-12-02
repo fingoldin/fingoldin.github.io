@@ -130,10 +130,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 					return;
 				else if(++price_num >= num_prices) {
 					price_num = num_prices - 1;
-					price.fadeOut(400, function() {
-						select_price();
-						price.fadeIn(400);
-					});
+					select_price();
 				}
 				else {
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
