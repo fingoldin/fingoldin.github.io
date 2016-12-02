@@ -141,13 +141,14 @@ var training2_trial = {
 }
 
 
-var images = [];
+var TICKET_IMAGES = [];
 function preload()
 {
-	for(var i = 0; i < numtickets; i++)
+	for(var i = 0; i < NUM_IMAGES; i++)
 	{
-		images[i] = new Image();
-		images[i].src = "/utils/tickets/ticket" + (i+1) + ".jpg";
+		TICKET_IMAGES[i] = new Image();
+		TICKET_IMAGES[i].src = "/utils/tickets/ticket" + (i+1) + ".jpg";
+		TICKET_IMAGES[i].classList.add("ticket-img");
 		console.log("loaded " + (i+1));
 	}
 }

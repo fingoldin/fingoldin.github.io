@@ -2,14 +2,15 @@ Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
-var numtickets = 30;
+var NUM_TICKETS = 30;
+var TICKET_IMAGES = [];
 
 function showTicket(e)
 {
-	var n = Math.floor(Math.random() * (numtickets - 1)) + 1;
+	var n = Math.floor(Math.random() * (numtickets - 1));
 
 	$(e).empty();
-	$(e).append("<img class='ticket-img' src='/utils/tickets/ticket" + n + ".jpg'></img>");
+	$(e).append(TICKET_IMAGES[n]);
 }
 
 function showPoints(e, p)
