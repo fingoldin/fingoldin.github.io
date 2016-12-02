@@ -113,6 +113,8 @@ jsPsych.plugins["ticket-choose"] = (function()
 					if(trial.showpoints)
 						below.html("You now have a total of " + (pr + points) + ((pr+points) === 1 ? " point" : " points") + " out of 100");
 
+					$("#ticket-wrap").hide();
+
 					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
 
 					select.hide();
