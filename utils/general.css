@@ -126,4 +126,10 @@ button:hover:not(:disabled) {
         margin: 10px;
 }
 
-
+.ticket-img {
+	width: auto;
+	height: auto;
+	right: 20px;
+	bottom: 20px;
+	position: absolute;
+}

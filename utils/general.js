@@ -2,6 +2,18 @@ Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
+var numtickets = 30;
+var ticketnums = [];
+for(var i = 0; i < numtickets; i++)
+	ticketnums[i] = i+1;
+
+function showTicket(e)
+{
+	var n = jsPsych.randomization(ticketnums, 1, false)[0];
+
+	$(e).append("<img class='ticket-img' src='/utils/tickets/ticket" + n + "'></img>");
+}
+
 function showPoints(e, p)
 {
 	var e2 = document.createElement("DIV");
