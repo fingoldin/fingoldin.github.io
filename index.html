@@ -140,7 +140,10 @@ var training2_trial = {
         max_val: 20
 }
 
-var images = ["https://s-media-cache-ak0.pinimg.com/originals/3d/f3/33/3df333457997359bc72e33b68900aaff.jpg"];
+var numtickets = 30;
+var images = [];
+for(var i = 0; i < numtickets; i++)
+	images.push("/utils/tickets/ticket" + (numtickets+1) + ".jpg");
 
 function init()
 {
