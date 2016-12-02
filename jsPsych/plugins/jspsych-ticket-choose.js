@@ -106,7 +106,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 							am = am.slice(0, -1).concat(" and get " + points + " points:");
 					}
 
-					price.html("");
+					price.hide();
                                         above.html(am);
 					if(trial.showpoints)
 						below.html("You now have " + (pr + points) + ((pr+points) === 1 ? " point." : " points."));
