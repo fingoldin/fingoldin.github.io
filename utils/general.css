@@ -127,9 +127,13 @@ button:hover:not(:disabled) {
 }
 
 .ticket-img {
-	width: auto;
-	height: auto;
-	right: 20px;
-	bottom: 20px;
+	width: 164px;
+	height: 69px;
+	bottom: 100%;
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
 	position: absolute;
 }
