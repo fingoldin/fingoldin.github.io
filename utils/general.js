@@ -7,7 +7,7 @@ var TICKET_IMAGES = [];
 
 function showTicket(e)
 {
-	var n = Math.floor(Math.random() * (numtickets - 1));
+	var n = Math.floor(Math.random() * (NUM_TICKETS - 1));
 
 	$(e).empty();
 	$(e).append(TICKET_IMAGES[n]);
