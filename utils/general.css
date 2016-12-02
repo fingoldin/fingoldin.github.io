@@ -116,6 +116,7 @@ button:hover:not(:disabled) {
 
 .ticket-choose-main {
 	position: relative;
+	text-align: center;
 }
 
 .ticket-choose-footer {
@@ -127,13 +128,8 @@ button:hover:not(:disabled) {
 }
 
 .ticket-img {
-	width: 492px;
+	width: auto;
 	height: 207px;
 	bottom: 100%;
-	-ms-transform: translateX(-50%);
-	-o-transform: translateX(-50%);
-	-moz-transform: translateX(-50%);
-	-webkit-transform: translateX(-50%);
-	transform: translateX(-50%);
-	position: absolute;
+	display: inline-block;
 }
