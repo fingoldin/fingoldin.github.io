@@ -140,10 +140,18 @@ var training2_trial = {
         max_val: 20
 }
 
-var numtickets = 30;
+
 var images = [];
-for(var i = 0; i < numtickets; i++)
-	images.push("/utils/tickets/ticket" + (i+1) + ".jpg");
+function preload()
+{
+	for(var i = 0; i < numtickets; i++)
+	{
+		images[i] = new Image();
+		images[i].src = "/utils/tickets/ticket" + (i+1) + ".jpg";
+	}
+}
+
+preload();
 
 function init()
 {
@@ -195,11 +203,9 @@ function init()
 
 	timeline.push(training2_trial);
 
-	jsPsych.pluginAPI.preloadImages(images, function() {		
-		jsPsych.init({
-			timeline: timeline,
-			display_element: $("#jspsych-main")
-		});
+	jsPsych.init({
+		timeline: timeline,
+		display_element: $("#jspsych-main")
 	});
 }
 

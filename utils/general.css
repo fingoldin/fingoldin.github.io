@@ -127,6 +127,10 @@ button:hover:not(:disabled) {
         margin: 10px;
 }
 
+.ticket-choose-footer button {
+	margin-bottom: 4px;
+}
+
 .ticket-img {
 	width: 500px;
 	height: auto;
