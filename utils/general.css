@@ -127,8 +127,8 @@ button:hover:not(:disabled) {
 }
 
 .ticket-img {
-	width: 164px;
-	height: 69px;
+	width: 492px;
+	height: 207px;
 	bottom: 100%;
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);

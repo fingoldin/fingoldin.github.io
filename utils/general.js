@@ -8,6 +8,7 @@ function showTicket(e)
 {
 	var n = Math.floor(Math.random() * (numtickets - 1)) + 1;
 
+	$(e).empty();
 	$(e).append("<img class='ticket-img' src='/utils/tickets/ticket" + n + ".jpg'></img>");
 }
 
