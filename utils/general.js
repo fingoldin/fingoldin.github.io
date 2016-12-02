@@ -3,13 +3,10 @@ Number.prototype.clamp = function(min, max) {
 };
 
 var numtickets = 30;
-var ticketnums = [];
-for(var i = 0; i < numtickets; i++)
-	ticketnums[i] = i+1;
 
 function showTicket(e)
 {
-	var n = jsPsych.randomization(ticketnums, 1, false)[0];
+	var n = Math.floor(Math.random() * (numtickets - 1)) + 1;
 
 	$(e).append("<img class='ticket-img' src='/utils/tickets/ticket" + n + "'></img>");
 }
