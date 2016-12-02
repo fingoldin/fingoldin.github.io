@@ -8,7 +8,7 @@ function showTicket(e)
 {
 	var n = Math.floor(Math.random() * (numtickets - 1)) + 1;
 
-	$(e).append("<img class='ticket-img' src='/utils/tickets/ticket" + n + "'></img>");
+	$(e).append("<img class='ticket-img' src='/utils/tickets/ticket" + n + ".jpg'></img>");
 }
 
 function showPoints(e, p)
