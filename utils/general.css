@@ -114,7 +114,15 @@ button:hover:not(:disabled) {
 	z-index: 999;
 }
 
+.ticket-choose-main {
+	position: relative;
+}
+
 .ticket-choose-footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: auto;
         margin: 10px;
 }
 

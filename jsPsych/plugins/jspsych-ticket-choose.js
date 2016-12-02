@@ -101,9 +101,11 @@ jsPsych.plugins["ticket-choose"] = (function()
 					if(trial.showpoints)
 					{
 						if(points == 1)
-							am = am.slice(0, -1).concat(" and get 1 point:");
+							am = am.slice(0, -1).concat(" and get 1 point!");
+						else if(points == 2)
+							am = am.slice(0, -1).concat(" and get 2 points!");
 						else
-							am = am.slice(0, -1).concat(" and get " + points + " points:");
+							am = am.slice(0, -1).concat(" and get " + points + " points.");
 					}
 
 					price.hide();
