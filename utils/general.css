@@ -128,8 +128,8 @@ button:hover:not(:disabled) {
 }
 
 .ticket-img {
-	width: auto;
-	height: 207px;
-	bottom: 100%;
+	width: 500px;
+	height: auto;
+	max-width: 95vw;
 	display: inline-block;
 }
