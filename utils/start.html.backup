@@ -1,18 +1,13 @@
 <div class="start-main">
-	<div class="start-header">
-		Part 1: Training Phase
-	</div>
 	<div class="start-text">
 		Let’s start with the training part!
 		<br><br>
 		In order to get familiar with the possible ticket prices for your trip we will
-		show you on the next screen 50 prices of potential tickets from different providers, 
+		show you on the next screen fifty prices of potential tickets, 
 		one at a time, very quickly. 
 		<br><br>
 		This will take about a minute.
 		You do not have to do anything but try to remember as much as you can.
-		<br><br>
-		At the end we will examine how well you learned the distribution of the possible prices for you trip to Canada.
 	</div>
 	<div class="start-btn">
 		<button class="big-btn" id="start1">Begin</button>

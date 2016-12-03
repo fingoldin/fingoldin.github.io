@@ -51,14 +51,13 @@ var animdata = [98, 91, 101, 107, 107, 92, 98, 107];//, 109, 108, 101, 101, 104,
 var animation_trial = {
 	type: "number-animation",
 	prices: animdata,
-	continue_message: "Next step",
-	on_finish: function() { $("#jspsych-points").css("opacity", "1"); }
+	continue_message: "Next step"
 }
 
 var training_trial = {
 	type: "bar-choose",
-	instructions: "Did you learn enough about the potential prices for your ticket? Let’s see ! Imagine we would show you twenty more ticket prices same as the ones seen before.",
-	subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
+	instructions: "Now let's imagine you would see 20 more tickets for your trip to Canada.",
+	subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. <br>Press continue when you are sure of your answers.",
 	categories: ["$85 - $90", "$90 - $95", "$95 - $100", "$100 - $105", "$105 - $110", "$110 - $115"],
 	min_val: 0,
 	max_val: 20
@@ -126,7 +125,8 @@ var testing_instructions_trial = {
 var testing_instructions2_trial = {
 	type: "html",
 	url: "/utils/testing2.html",
-	cont_btn: "testingstart"
+	cont_btn: "testingstart",
+	on_finish: function() { $("#jspsych-points").css("opacity", "1"); }
 }
 
 // Second bar graph to see learning
@@ -169,7 +169,7 @@ function init()
 	timeline.push({ type: "ticket-choose",
 			prices: [10, 50, 20, 30, 45, 87, 18, 98, 94, 89],
 			continue_mesage: "Finish",
-			sequence: ""
+			sequence: "In trial sequence"
 	});
 
 	timeline.push(testing_instructions2_trial);

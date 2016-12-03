@@ -2,9 +2,15 @@
         max-width: 1000px;
 }
 
+.start-header {
+	font-size: 25px;
+	text-align: center;
+	padding: 10px;
+}
+
 .start-text {
         padding: 30px;
-        font-size: 24px;
+        font-size: 21px;
         line-height: 30px;
         text-align: left;
 }
