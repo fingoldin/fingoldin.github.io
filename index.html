@@ -179,7 +179,7 @@ function init()
         	timeline.push({ type: "ticket-choose",
                	                prices: testing_data[i], 
                        	        continue_message: "Next sequence",
-				sequence: "Of sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>",
+				sequence: "In sequence <span>" + (i + 1) + "</span> out of <span>" + testing_data.length + "</span>",
 			//	points: function() { return points_counter; },
 				showpoints: true,
 				on_finish: function(data) {
@@ -192,7 +192,7 @@ function init()
 	timeline.push({ type: "ticket-choose",
                        	prices: testing_data[testing_data.length-1], 
         		continue_message: "Finish",
-			sequence: "Of sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>",
+			sequence: "In sequence <span>" + testing_data.length + "</span> out of <span>" + testing_data.length + "</span>",
         		//points: function() { return points_counter; },
 			showpoints: true,
 			on_finish: function(data) {
@@ -218,7 +218,7 @@ function init()
 	<div id="jspsych-points" style="opacity:0">
 		<div class="points-main">
         		<div class="points-header">
-               			<h2></h2>
+               			<h2>Your Points:</h2>
         		</div>
                 	<div class="points-points">
                        		<h2 id="points-p">0</h2>
