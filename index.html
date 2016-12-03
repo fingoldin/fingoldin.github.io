@@ -52,7 +52,7 @@ var animation_trial = {
 	type: "number-animation",
 	prices: animdata,
 	continue_message: "Next step",
-	on_finish: function() { $("#jspsych-points").animate({ opacity: 1 }, 200); }
+	on_finish: function() { $("#jspsych-points").css("opacity", "1"); }
 }
 
 var training_trial = {
@@ -218,16 +218,14 @@ function init()
 	<div id="jspsych-points" style="opacity:0">
 		<div class="points-main">
         		<div class="points-header">
-                		<h2></h2>
+               			<h2></h2>
         		</div>
-        		<div class="points-body">
-                		<div class="points-points">
-                        		<h2 id="points-p">0</h2>
-                		</div>
-                		<div class="points-subtitle">
-                        		<p id="points-s"></p>
-                		</div>
-        		</div>
+                	<div class="points-points">
+                       		<h2 id="points-p">0</h2>
+                	</div>
+                	<div class="points-subtitle">
+                       		<p id="points-s"></p>
+                	</div>
 		</div>
 	</div>
 	<div id="jspsych-main"></div>

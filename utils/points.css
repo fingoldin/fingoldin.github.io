@@ -3,9 +3,25 @@
 	left: 20px;
 	top: 20px;
 	width: auto;
+	max-width: 200px;
 	height: auto;
 	padding: 20px;
 	border-radius: 7px;
-	background-color: #6754fe;
+	background-color: rgb(150, 150, 250);
+	background-color: rgba(50, 50, 200, 0.4);
 	border: 1px solid #aea;
+	text-align: center;
+}
+
+.points-header {
+	font-size: 20px;
+	color: #555;
+	padding: 5px;
+	border-bottom: 1px solid #bbb;
+}
+
+.points-subtitle {
+	margin-top: 20px;
+	color: #666;
+	font-size: 14px;
 }
