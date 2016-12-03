@@ -11,17 +11,22 @@
 	background-color: rgba(50, 50, 200, 0.4);
 	border: 1px solid #aea;
 	text-align: center;
+	z-index: 999;
 }
 
 .points-header {
-	font-size: 20px;
+	font-size: 16px;
 	color: #555;
 	padding: 5px;
-	border-bottom: 1px solid #bbb;
+}
+
+.points-points {
+	font-size: 25px;
+	padding: 15px;
 }
 
 .points-subtitle {
-	margin-top: 20px;
 	color: #666;
 	font-size: 14px;
+	padding: 5px;
 }
