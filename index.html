@@ -220,7 +220,8 @@ var p2_testing_data = [
 var p2_testing_instructions_trial = {
         type: "html",
         url: "/utils/testing2.html",
-        cont_btn: "testingstart"
+        cont_btn: "testingstart",
+	on_finish: function() { $("#jspsych-points").css("opacity", "1"); }
 }
 
 // Second bar graph to see learning
@@ -283,6 +284,7 @@ function init()
 		});
 	}
 	timeline[timeline.length-1].continue_message = "Finish";
+	timeline[timeline.length-1].on_finish = function() { $("#jspsych-points").css("opacity", "1"); };
 
 	timeline.push(training_trial2);
 
