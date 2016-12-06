@@ -159,8 +159,8 @@ var p2_animation_trial = {
 var p2_training_trial = {
         type: "bar-choose",
         instructions: "Now let's imagine you would see 20 more tickets for your trip to Alaska.",
-        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets",
-        categories: ["$85 - $90", "$90 - $95", "$95 - $100", "$100 - $105", "$105 - $110", "$110 - $120"],
+        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
+        categories: ["$85 - $90", "$90 - $95", "$95 - $100", "$100 - $105", "$105 - $110", "$110 - $115"],
         min_val: 0,
         max_val: 20
 }
@@ -284,6 +284,8 @@ function init()
 	}
 	timeline[timeline.length-1].continue_message = "Finish";
 
+	timeline.push(training_trial2);
+
 	timeline.push(p2_start_trial);
         timeline.push(p2_animation_trial);
         timeline.push(p2_training_trial);
@@ -306,7 +308,7 @@ function init()
         }
         timeline[timeline.length-1].continue_message = "Finish";
 
-	timeline.push(training_trial2);
+	timeline.push(p2_training_trial2);
 
 	jsPsych.init({
 		timeline: timeline,
