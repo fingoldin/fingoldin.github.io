@@ -284,7 +284,7 @@ function init()
 		});
 	}
 	timeline[timeline.length-1].continue_message = "Finish";
-	timeline[timeline.length-1].on_finish = function() { $("#jspsych-points").css("opacity", "1"); };
+	timeline[timeline.length-1].on_finish = function() { $("#jspsych-points").css("opacity", "0"); };
 
 	timeline.push(training_trial2);
 
