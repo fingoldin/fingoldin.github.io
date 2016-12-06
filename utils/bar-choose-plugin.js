@@ -1,5 +1,5 @@
 (function($) {
-	$.fn.barChooseGraph = function(type, categories, min, max)
+	$.fn.barChooseGraph = function(type, categories, min, max, answers)
 	{
 //console.log(max);
 		if(type == "init")
@@ -55,6 +55,11 @@
 				$(bgcw).append(bgc);
 				bgc.id = "ccat" + i;
 				bgc.value = min;
+
+				var bgca = document.createElement("DIV");
+				$(bgca).addClass("bar-graph-column-a");
+				$(bgcw).append(bgca);
+				bgca.id = "cacat" + i;
 
 				var bgli = document.createElement("DIV");
 				$(bgli).addClass("bar-graph-input");
