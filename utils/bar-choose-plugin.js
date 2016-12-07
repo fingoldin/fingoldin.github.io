@@ -187,7 +187,8 @@ console.log(data);
 			for(var i = 0; i < acols.length && i < data.answers.length && i < ccols.length; i++)
 			{
 				var maxh = acols[i].parentNode.clientHeight;
-				var h = parseInt(maxh * data.answers[i] / data.max) + "px";
+				var minh = 15;
+				var h = parseInt((maxh - minh) * data.answers[i] / data.max + minh) + "px";
 
 				$(acols[i]).css("opacity", "0.5").css("height", h);
 
