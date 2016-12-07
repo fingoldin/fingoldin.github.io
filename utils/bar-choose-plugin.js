@@ -176,7 +176,7 @@ console.log(data);
 		{
 			var root = this;
 
-			$(root).find(".bar-graph-input input").off("change").prop("disabled", true);
+ 			$(root).find(".bar-graph-input input").off("change").prop("disabled", true);
 			$(root).find(".bar-graph-column").off("mousedown").css("opacity", "0.4");
 
 			var acols = $(root).find(".bar-graph-column-a");
@@ -190,7 +190,7 @@ console.log(data);
 
 				$(acols[i]).css("opacity", "0.5").css("height", h);
 
-				var a = $(acols[i]).data("value");
+				var a = parseInt($(acols[i]).data("value"));
 
 				diff += Math.abs(data.answers[i] - a);
 				maxdiff += Math.max(Math.abs(data.answers[i] - $(root).data("max_val")), data.answers[i]);
