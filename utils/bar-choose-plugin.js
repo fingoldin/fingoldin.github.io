@@ -11,6 +11,7 @@
 			var root = this;
 
 			$(root).data("categories", data.categories);
+			$(root).data("max_val", data.max);
 
 			var bgm = document.createElement("DIV");
 			$(bgm).addClass("bar-graph-main");
@@ -28,7 +29,7 @@
 			var bgcow = document.createElement("DIV");
 			$(bgcow).addClass("bar-graph-congrats-wrap");
 			bgcow.id = "bar-graph-cw";
-			bgcow.innerHTML = "<div class='bar-graph-congrats'><div class='bar-graph-congrats-top'>Hell Yeah!</div><div class='bar-graph-congrats-bottom'>You got this many right</div></div>";
+			bgcow.innerHTML = "<div class='bar-graph-congrats'><div class='bar-graph-congrats-top'>Hell Yeah!</div><div class='bar-graph-congrats-bottom'></div></div>";
 			$(bgg).append(bgcow);
 
 			/*var bgcsw = document.createElement("DIV");
@@ -179,17 +180,34 @@ console.log(data);
 			$(root).find(".bar-graph-column").off("mousedown").css("opacity", "0.4");
 
 			var acols = $(root).find(".bar-graph-column-a");
-			for(var i = 0; i < acols.length; i++)
+			var diff = 0;
+			var maxdiff = 0;
+
+			for(var i = 0; i < acols.length && i < data.answers.length; i++)
 			{
 				var maxh = acols[i].parentNode.clientHeight;
 				var h = parseInt(maxh * data.answers[i] / data.max) + "px";
 
 				$(acols[i]).css("opacity", "0.5").css("height", h);
 
-				window.setTimeout(function() {
-					$(root).find("#bar-graph-cw").css("transform", "scale(1, 1)");
-				}, 500);
+				var a = $(acols[i]).data("value");
+
+				diff += Math.abs(data.answers[i] - a);
+				maxdiff += Math.max(Math.abs(data.answers[i] - $(root).data("max_val")), data.answers[i]);
 			}
+
+			diff = Math.floor(diff);
+			var mes = "";
+			if(diff === 0)
+				mes = "Amazing! You were dead right";
+			else if(diff < maxdiff/2)
+				mes = "Nice! You were off by " + diff;
+			else
+				mes = "Better luck next time! You were off by " + diff;
+
+			window.setTimeout(function() {
+				$(root).find("#bar-graph-cw").css("transform", "scale(1, 1)").find(".bar-graph-congrats-top").html(mes);
+			}, 500);
 		}
 
 		return this;

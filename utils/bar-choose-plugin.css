@@ -159,13 +159,16 @@
 	left: 0;
 	right: 0;
 	top: 20%;
+	text-align: center;
 }
 
 .bar-graph-congrats {
 	text-align: center;
-	padding: 20px 25px;
+	padding: 40px 45px;
 	background-color: rgb(230, 230, 230);
 	background-color: rgba(150, 150, 150, 0.2);
+	border-radius: 12px;
+	display: inline-block;
 }
 
 .bar-graph-congrats-top {
