@@ -160,20 +160,20 @@
 		}
 		else if(type == "get")
 		{
-			var vals = $(this).find(".bar-graph-input input");
+			var vals = $(this).find(".bar-graph-column");
 			var cats = $(this).find(".bar-graph-labels-texts p");
 			var data = [];
 
 			for(var i = 0; i < vals.length && i < cats.length; i++)
 				data.push([ parseInt(vals[i].value), cats[i].innerHTML ]);
-
+console.log(data);
 			return data;
 		}
 		else if(type == "show")
 		{
 			var root = this;
 
-			$(root).find(".bar-graph-input input").off("change");
+			$(root).find(".bar-graph-input input").off("change").prop("disabled", true);
 			$(root).find(".bar-graph-column").off("mousedown").css("opacity", "0.4");
 
 			var acols = $(root).find(".bar-graph-column-a");
