@@ -180,20 +180,21 @@ console.log(data);
 			$(root).find(".bar-graph-column").off("mousedown").css("opacity", "0.4");
 
 			var acols = $(root).find(".bar-graph-column-a");
+			var ccols = $(root).find(".bar-graph-column");
 			var diff = 0;
 			var maxdiff = 0;
 
-			for(var i = 0; i < acols.length && i < data.answers.length; i++)
+			for(var i = 0; i < acols.length && i < data.answers.length && i < ccols.length; i++)
 			{
 				var maxh = acols[i].parentNode.clientHeight;
 				var h = parseInt(maxh * data.answers[i] / data.max) + "px";
 
 				$(acols[i]).css("opacity", "0.5").css("height", h);
 
-				var a = parseInt($(acols[i]).data("value"));
-
+				var a = parseInt($(ccols[i]).data("value"));
+console.log(a);
 				diff += Math.abs(data.answers[i] - a);
-				maxdiff += Math.max(Math.abs(data.answers[i] - $(root).data("max_val")), data.answers[i]);
+				maxdiff += Math.max(Math.abs(data.answers[i] - parseInt($(root).data("max_val"))), data.answers[i]);
 			}
 
 			diff = Math.floor(diff);
