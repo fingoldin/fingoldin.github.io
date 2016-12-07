@@ -23,6 +23,7 @@
 	-ms-flex-direction: column;
 	-webkit-flex-direction: column;
 	flex-direction: column;
+	position: relative;
 }
 
 .bar-graph-main {
@@ -147,3 +148,11 @@
 	border: 1px solid #ccc;
 }
 
+.bar-graph-cw {
+	transform: scale(0, 0);
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
