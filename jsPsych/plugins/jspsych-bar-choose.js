@@ -9,6 +9,7 @@ jsPsych.plugins["bar-choose"] = (function()
 		trial.categories = trial.categories || [];
 		trial.min_val = trial.min_val || 0;
 		trial.max_val = trial.max_val || 100;
+		trial.answers = trial.answers || [];
 //		trial.points = trial.points || { points: 0, subtitle: "" };
 
 		trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
@@ -22,16 +23,22 @@ jsPsych.plugins["bar-choose"] = (function()
 			display_element.find("#bar-instructions").html(trial.instructions);
 			display_element.find("#bar-subtitle").html(trial.subtitle);
 
-			display_element.find("#bar-graph").height(600).barChooseGraph("init", trial.categories, trial.min_val, trial.max_val);
+			display_element.find("#bar-graph").height(600).barChooseGraph("init", { categories: trial.categories, min: trial.min_val, max: trial.max_val });
 
 			display_element.find("#bar-submit").click(function() {
-				display_element.html("");
+				display_element.find("#bar-graph").barChooseGraph("show", { answers: trial.answers, max: trial.max_val });
 
-				var data = {
-					responses: display_element.find("#bar-graph").barChooseGraph("get")
-				}
+				$(this).html("Next section");
 
-				jsPsych.finishTrial(data);
+				display_element.find("#bar-submit").off("click").click(function() {
+					display_element.html("");
+
+					var data = {
+						responses: display_element.find("#bar-graph").barChooseGraph("get")
+					}
+
+					jsPsych.finishTrial(data);
+				});
 			});
 		});
 	}

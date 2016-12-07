@@ -98,6 +98,12 @@
 	background-color: #008CBA;
 }
 
+.bar-graph-column-a {
+	height: 0px;
+	min-height: 0px;
+	background-color: #BA8C00;
+}
+
 .bar-graph-column:hover {
 	cursor: pointer
 }

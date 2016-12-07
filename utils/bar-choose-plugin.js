@@ -1,10 +1,10 @@
 (function($) {
-	$.fn.barChooseGraph = function(type, categories, min, max, answers)
+	$.fn.barChooseGraph = function(type, data)
 	{
 //console.log(max);
 		if(type == "init")
 		{
-			var nc = categories.length;
+			var nc = data.categories.length;
 			var w = this.width();
 			var cw = (100 / nc) + "%";
 			var h = this.height();
@@ -20,7 +20,7 @@
 
 			var bgmr = document.createElement("DIV");
                         $(bgmr).addClass("bar-graph-main-remaining");
-                        $(bgmr).html("You have <span>" + max + "</span> tickets left to distribute");
+                        $(bgmr).html("You have <span>" + data.max + "</span> tickets left to distribute");
                         $(bgg).append(bgmr);
 
 			/*var bgcsw = document.createElement("DIV");
@@ -54,7 +54,7 @@
 				$(bgc).addClass("bar-graph-column");
 				$(bgcw).append(bgc);
 				bgc.id = "ccat" + i;
-				bgc.value = min;
+				bgc.value = data.min;
 
 				var bgca = document.createElement("DIV");
 				$(bgca).addClass("bar-graph-column-a");
@@ -64,20 +64,20 @@
 				var bgli = document.createElement("DIV");
 				$(bgli).addClass("bar-graph-input");
 				bgli.style.width = cw;
-				$(bgli).append("<input type='text' value='" + min + "' id='icat" + i + "'></input>");
+				$(bgli).append("<input type='text' value='" + data.min + "' id='icat" + i + "'></input>");
 				$(bglis).append(bgli);
 
 				var bglp = document.createElement("P");
 				bglp.style.width = cw;
-				bglp.innerHTML = categories[i];
+				bglp.innerHTML = data.categories[i];
 			 	$(bglps).append(bglp);
 			}
 
-			var remaining = max;
+			var remaining = data.max;
 
 			function checkRest()
 			{
-				remaining = max;
+				remaining = data.max;
 				$(root).find(".bar-graph-input input").each(function() {
 					remaining -= parseInt(this.value);
 				});
@@ -105,7 +105,7 @@
                                                 	var my = (me.pageY - sy);
 							var input = $(root).find("#icat" + cat)[0];
 
-							var v = parseInt((max - min) * (sh - my) / maxh + min).clamp(min, max);
+							var v = parseInt((data.max - data.min) * (sh - my) / maxh + data.min).clamp(data.min, data.max);
 							var pv = parseInt(input.value);
 							//console.log(v + " " + (pv + remaining));
 							if(v >= (pv + remaining)) {
@@ -115,7 +115,7 @@
 								//window.setTimeout(function() { $(bgmr).find("span").removeClass("hightlight"); }, 100);
 							}
 
-							$(bgc).css("height", ((maxh - minh) * (v - min) / (max - min) + minh) + "px");
+							$(bgc).css("height", ((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px");
 							bgc.value = v;
 							input.value = v;
 							checkRest();
@@ -129,7 +129,7 @@
 						var cat = self.id.substr(4, self.id.length - 4);
 						var bar = $(root).find("#ccat" + cat)[0];
 
-						var v = (parseInt(self.value) || min).clamp(min, max);
+						var v = (parseInt(self.value) || data.min).clamp(data.min, data.max);
 						var pv = parseInt(bar.value);
 						if(v >= (pv + remaining)) {
                                                 	v  = pv + remaining;
@@ -141,7 +141,7 @@
 						var maxh = bar.parentNode.clientHeight;
 						var minh = 15;
 
-						bar.style.height = ((maxh - minh) * (v - min) / (max - min) + minh) + "px";
+						bar.style.height = ((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px";
 						bar.value = v;
 						self.value = v;
 						checkRest();
@@ -162,6 +162,26 @@
 				data.push([ parseInt(vals[i].value), cats[i].innerHTML ]);
 
 			return data;
+		}
+		else if(type == "show")
+		{
+			var root = this;
+
+			$(root).find(".bar-graph-input input").off("change");
+			$(root).find(".bar-graph-column").off("mousedown").animate({
+				opacity: 0.4
+			}, 200, function() {
+				var acols = $(root).find(".bar-graph-column-a");
+				for(var i = 0; i < acols.length; i++)
+				{
+					var maxh = acols[i].parentNode.clientHeight;
+					var h = (maxh * data.answers[i] / data.max) + "px";
+
+					$(acols[i]).animate({ opacity: 0.5, height: h }, 300, function() {
+						
+					});
+				}
+			});
 		}
 
 		return this;
