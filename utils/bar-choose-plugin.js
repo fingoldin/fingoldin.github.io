@@ -115,7 +115,7 @@
 								//window.setTimeout(function() { $(bgmr).find("span").removeClass("hightlight"); }, 100);
 							}
 
-							$(bgc).css("height", ((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px");
+							$(bgc).css("height", parseInt((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px");
 							bgc.value = v;
 							input.value = v;
 							checkRest();
@@ -141,7 +141,7 @@
 						var maxh = bar.parentNode.clientHeight;
 						var minh = 15;
 
-						bar.style.height = ((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px";
+						bar.style.height = parseInt((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px";
 						bar.value = v;
 						self.value = v;
 						checkRest();
@@ -174,7 +174,7 @@
 			for(var i = 0; i < acols.length; i++)
 			{
 				var maxh = acols[i].parentNode.clientHeight;
-				var h = (maxh * data.answers[i] / data.max) + "px";
+				var h = parseInt(maxh * data.answers[i] / data.max) + "px";
 
 				$(acols[i]).css("opacity", "0.5").css("height", h);
 			}
