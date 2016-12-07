@@ -168,20 +168,16 @@
 			var root = this;
 
 			$(root).find(".bar-graph-input input").off("change");
-			$(root).find(".bar-graph-column").off("mousedown").animate({
-				opacity: 0.4
-			}, 200, function() {
-				var acols = $(root).find(".bar-graph-column-a");
-				for(var i = 0; i < acols.length; i++)
-				{
-					var maxh = acols[i].parentNode.clientHeight;
-					var h = (maxh * data.answers[i] / data.max) + "px";
+			$(root).find(".bar-graph-column").off("mousedown").css("opacity", "0.4");
 
-					$(acols[i]).animate({ opacity: 0.5, height: h }, 300, function() {
-						
-					});
-				}
-			});
+			var acols = $(root).find(".bar-graph-column-a");
+			for(var i = 0; i < acols.length; i++)
+			{
+				var maxh = acols[i].parentNode.clientHeight;
+				var h = (maxh * data.answers[i] / data.max) + "px";
+
+				$(acols[i]).css("opacity", "0.5").css("height", h);
+			}
 		}
 
 		return this;
