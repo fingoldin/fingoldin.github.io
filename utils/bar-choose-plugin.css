@@ -163,6 +163,9 @@
 
 .bar-graph-congrats {
 	text-align: center;
+	padding: 20px 25px;
+	background-color: rgb(230, 230, 230);
+	background-color: rgba(150, 150, 150, 0.2);
 }
 
 .bar-graph-congrats-top {

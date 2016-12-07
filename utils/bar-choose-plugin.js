@@ -167,7 +167,7 @@
 			var data = [];
 
 			for(var i = 0; i < vals.length && i < cats.length; i++)
-				data.push([ parseInt($(vals[i]).data("value")), cats[i].innerHTML ]);
+				data.push([ parseInt($(vals[i]).data("value")), cats[i] ]);
 console.log(data);
 			return data;
 		}
