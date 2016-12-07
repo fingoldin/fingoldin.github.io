@@ -24,9 +24,9 @@
                         $(bgg).append(bgmr);
 
 			var bgcow = document.createElement("DIV");
-			$(bgcow).addClass("bar-graph-cw");
-			bgcow.id = "bar-graph-congrats-wrap";
-			bgcow.innerHTML = "<div class='bar-graph-congrats-top'>Hell Yeah!</div><div class='bar-graph-congrats-bottom'>You got this many right</div>";
+			$(bgcow).addClass("bar-graph-congrats-wrap");
+			bgcow.id = "bar-graph-cw";
+			bgcow.innerHTML = "<div class='bar-graph-congrats'><div class='bar-graph-congrats-top'>Hell Yeah!</div><div class='bar-graph-congrats-bottom'>You got this many right</div></div>";
 			$(bgg).append(bgcow);
 
 			/*var bgcsw = document.createElement("DIV");
@@ -185,7 +185,7 @@
 				$(acols[i]).css("opacity", "0.5").css("height", h);
 
 				window.setTimeout(function() {
-					$(root).find("#bar-graph-congrats-wrap").css("transform", "scale(1, 1)");
+					$(root).find("#bar-graph-cw").css("transform", "scale(1, 1)");
 				}, 500);
 			}
 		}
