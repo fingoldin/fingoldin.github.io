@@ -10,6 +10,8 @@
 			var h = this.height();
 			var root = this;
 
+			$(root).data("categories", data.categories);
+
 			var bgm = document.createElement("DIV");
 			$(bgm).addClass("bar-graph-main");
 			root.append(bgm);
@@ -60,7 +62,7 @@
 				$(bgc).addClass("bar-graph-column");
 				$(bgcw).append(bgc);
 				bgc.id = "ccat" + i;
-				bgc.value = data.min;
+				$(bgc).data("value", data.min);
 
 				var bgca = document.createElement("DIV");
 				$(bgca).addClass("bar-graph-column-a");
@@ -84,8 +86,8 @@
 			function checkRest()
 			{
 				remaining = data.max;
-				$(root).find(".bar-graph-input input").each(function() {
-					remaining -= parseInt(this.value);
+				$(root).find(".bar-graph-column").each(function() {
+					remaining -= parseInt($(this).data("value"));
 				});
 
 				$(bgmr).find("span").html(remaining);
@@ -112,7 +114,7 @@
 							var input = $(root).find("#icat" + cat)[0];
 
 							var v = parseInt((data.max - data.min) * (sh - my) / maxh + data.min).clamp(data.min, data.max);
-							var pv = parseInt(input.value);
+							var pv = parseInt($(bgc).data("value"));
 							//console.log(v + " " + (pv + remaining));
 							if(v >= (pv + remaining)) {
 								v = pv + remaining;
@@ -122,7 +124,7 @@
 							}
 
 							$(bgc).css("height", parseInt((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px");
-							bgc.value = v;
+							$(bgc).data("value", v);
 							input.value = v;
 							checkRest();
                                         	});
@@ -136,7 +138,7 @@
 						var bar = $(root).find("#ccat" + cat)[0];
 
 						var v = (parseInt(self.value) || data.min).clamp(data.min, data.max);
-						var pv = parseInt(bar.value);
+						var pv = parseInt($(bar).data("value"));
 						if(v >= (pv + remaining)) {
                                                 	v  = pv + remaining;
 
@@ -148,7 +150,7 @@
 						var minh = 15;
 
 						bar.style.height = parseInt((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px";
-						bar.value = v;
+						$(bar).data("value", v);
 						self.value = v;
 						checkRest();
 					});
@@ -161,11 +163,11 @@
 		else if(type == "get")
 		{
 			var vals = $(this).find(".bar-graph-column");
-			var cats = $(this).find(".bar-graph-labels-texts p");
+			var cats = $(this).data("categories");
 			var data = [];
 
 			for(var i = 0; i < vals.length && i < cats.length; i++)
-				data.push([ parseInt(vals[i].value), cats[i].innerHTML ]);
+				data.push([ parseInt($(vals[i]).data("value")), cats[i].innerHTML ]);
 console.log(data);
 			return data;
 		}
