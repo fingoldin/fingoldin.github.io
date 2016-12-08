@@ -102,17 +102,17 @@ jsPsych.plugins["ticket-choose"] = (function()
 					if(trial.showpoints)
 					{
 						if(points == 1)
-							am = am.slice(0, -1).concat(" and get 1 point");
+							am = am.slice(0, -1).concat(" and get 1 point.");
 						else if(points == 2)
-							am = am.slice(0, -1).concat(" and get 2 points");
+							am = am.slice(0, -1).concat(" and get 2 points.");
 						else
-							am = am.slice(0, -1).concat(" and get " + points + " points");
+							am = am.slice(0, -1).concat(" and get " + points + " points.");
 					}
 
 					price.hide();
                                         above.html(am);
 					if(trial.showpoints)
-						below.html("You now have a total of " + (pr + points) + ((pr+points) === 1 ? " point" : " points") + " out of 100");
+						below.html("You now have a total of " + (pr + points) + ((pr+points) === 1 ? " point" : " points") + " out of 100.");
 
 					$("#ticket-wrap").hide();
 
@@ -140,7 +140,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
 						price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
 						showTicket($("#ticket-wrap"));
-						above.html("Ticket number <span>" + (price_num + 1) + "</span> of <span>10</span>:");
+						above.html("Ticket <span>" + (price_num + 1) + "</span> of <span>10</span>:");
 					});
 				}
 			}
