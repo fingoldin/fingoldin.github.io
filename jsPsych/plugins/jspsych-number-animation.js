@@ -76,7 +76,7 @@ jsPsych.plugins["number-animation"] = (function()
 
 			function end_trial()
                 	{
-				display_element.children().fadeOut(200);
+				display_element.find(".ticket-choose-main").css("opacity", "0");
                                 jsPsych.pluginAPI.cancelAllKeyboardResponses();
 
                         	var trial_data = {
