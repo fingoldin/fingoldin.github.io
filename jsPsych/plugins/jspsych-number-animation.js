@@ -60,6 +60,11 @@ jsPsych.plugins["number-animation"] = (function()
 					price_num = num_prices - 1;
 					end_trial();
 				}
+				else if(price_num === 0) {
+					price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
+                                        showTicket($("#ticket-wrap"));
+                                        price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
+				}
 				else {
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
 						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
