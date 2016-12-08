@@ -160,6 +160,7 @@
 	right: 0;
 	top: 20%;
 	text-align: center;
+	display: none;
 }
 
 .bar-graph-congrats {

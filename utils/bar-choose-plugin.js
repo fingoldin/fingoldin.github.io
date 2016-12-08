@@ -208,7 +208,7 @@ console.log(a);
 				mes = "Better luck next time! You were off by " + diff;
 
 			window.setTimeout(function() {
-				$(root).find("#bar-graph-cw").css("transform", "scale(1, 1)").find(".bar-graph-congrats-top").html(mes);
+				$(root).find("#bar-graph-cw").css("display", "block").css("transform", "scale(1, 1)").find(".bar-graph-congrats-top").html(mes);
 			}, 500);
 		}
 
