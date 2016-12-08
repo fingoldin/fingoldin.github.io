@@ -153,3 +153,24 @@ button:hover:not(:disabled) {
 	max-width: 95vw;
 	display: inline-block;
 }
+
+.wheel-loader {
+    	border: 4px solid #f3f3f3;
+    	border-top: 4px solid #db9834;
+    	border-radius: 50%;
+    	width: 120px;
+    	height: 120px;
+    	animation: wheel-spin 2s linear infinite;
+    	position: fixed;
+    	left: 50%;
+    	right: 50%;
+    	transform: translate(-50%, -50%);
+    	-ms-transform: translate(-50%, -50%);
+    	-webkit-transform: translate(-50%, -50%);
+    	display: none;
+}
+
+@keyframes wheel-spin {
+ 	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
