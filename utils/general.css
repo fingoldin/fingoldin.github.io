@@ -160,7 +160,7 @@ button:hover:not(:disabled) {
     	border-radius: 50%;
     	width: 20vmin;
     	height: 20vmin;
-	min-height: 50px;
+	min-width: 50px;
 	max-height: 50px;
     	animation: wheel-spin 2s linear infinite;
     	position: fixed;
