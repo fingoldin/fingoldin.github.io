@@ -41,8 +41,6 @@ jsPsych.plugins["ticket-choose"] = (function()
 			var price = display_element.find(".number-animation");
 			next_price();
 
-			display_element.find(".ticket-choose-main").css("opacity", "1");
-
 			var select = display_element.find("#ticket-choose-select");
 			select.click(select_price);
 
@@ -138,9 +136,11 @@ jsPsych.plugins["ticket-choose"] = (function()
 					select_price();
 				}
 				else if(price_num === 0) {
-					price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
-                                        showTicket($("#ticket-wrap"));
-                                        price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
+					display_element.find(".ticket-choose-main").animate({ opacity: "1" }, 200, function() {
+						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
+                                        	showTicket($("#ticket-wrap"));
+                                        	price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
+					});
 				}
 				else {
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
