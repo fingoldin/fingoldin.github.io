@@ -105,11 +105,11 @@
 }
 
 .bar-graph-column-a {
-	-moz-transition: height 0.5s ease-out;
-        -webkit-transition: height 0.5s ease-out;
-        -ms-transition: height 0.5s ease-out; 
-        -o-transition: height 0.5s ease-out;
-        transition: height 0.5s ease-out;
+	-moz-transition: height 0.5s;
+        -webkit-transition: height 0.5s;
+        -ms-transition: height 0.5s; 
+        -o-transition: height 0.5s;
+        transition: height 0.5s;
 	height: 0px;
 	min-height: 0px;
 	background-color: #BA8C00;
