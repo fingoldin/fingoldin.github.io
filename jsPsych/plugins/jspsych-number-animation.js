@@ -59,11 +59,11 @@ jsPsych.plugins["number-animation"] = (function()
 					end_trial();
 				}
 				else if(price_num === 0) {
-					display_element.find(".ticket-choose-main").animate({ opacity: "1" }, 200, function() {
-						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
-                                        	showTicket($("#ticket-wrap"));
-                                        	price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
-					});
+					price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
+                                       	showTicket($("#ticket-wrap"));
+                                       	price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
+
+					display_element.find(".ticket-choose-main").css("opacity", "1");
 				}
 				else {
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {

@@ -116,6 +116,11 @@ button:hover:not(:disabled) {
 .ticket-choose-main {
 	position: relative;
 	text-align: center;
+	-ms-transition: opacity 0.2s;
+	-moz-transition: opacity 0.2s;
+	-o-transition: opacity 0.2s
+	-webkit-transition: opacity 0.2s;
+	transition: opacity 0.2s;
 	opacity: 0;
 }
 
