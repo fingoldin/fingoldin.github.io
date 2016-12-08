@@ -36,6 +36,8 @@ jsPsych.plugins["number-animation"] = (function()
 			var price = display_element.find(".number-animation");
 			next_price();
 
+			display_element.find(".ticket-choose-main").css("opacity", "1");
+
 			var next = display_element.find("#ticket-choose-next");
 			next.click(next_price);
 

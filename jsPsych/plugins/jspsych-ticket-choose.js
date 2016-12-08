@@ -41,6 +41,8 @@ jsPsych.plugins["ticket-choose"] = (function()
 			var price = display_element.find(".number-animation");
 			next_price();
 
+			display_element.find(".ticket-choose-main").css("opacity", "1");
+
 			var select = display_element.find("#ticket-choose-select");
 			select.click(select_price);
 

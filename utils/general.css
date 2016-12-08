@@ -116,6 +116,7 @@ button:hover:not(:disabled) {
 .ticket-choose-main {
 	position: relative;
 	text-align: center;
+	opacity: 0;
 }
 
 .ticket-choose-footer {
