@@ -20,12 +20,12 @@ jsPsych.plugins["final"] = (function()
 
 		function tfs(s) {
 			top.style.fontSize = s + "px";
-			top.style.lineHeight = s + "px";
+			top.style.lineHeight = Math.floor(1.4 * s) + "px";
 		}
 
 		function bfs(s) {
                         bot.style.fontSize = s + "px";
-                        bot.style.lineHeight = s + "px";
+                        bot.style.lineHeight = Math.floor(1.4 * s) + "px";
                 }
 
 		tfs(55);
@@ -35,21 +35,23 @@ jsPsych.plugins["final"] = (function()
 		bot.innerHTML = "The experiment is now over.";
 
 		$(bot).hide();
-		$(top).hide().fadeIn(400, function() {
-			$(bot).fadeIn(400);
+		$(top).hide().fadeIn(1000, function() {
 			setTimeout(function() {
-				$(wrap).fadeOut(400, function() {
-					bot.innerHTML = "";
-					tfs(40);
-					bfs(50);
-					$(bot).hide();
-					bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
-					top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
-					$(wrap).fadeIn(400, function() {
-						$(bot).fadeIn(400);
+				$(bot).fadeIn(1000);
+				setTimeout(function() {
+					$(wrap).fadeOut(1000, function() {
+						bot.innerHTML = "";
+						tfs(40);
+						bfs(50);
+						$(bot).hide();
+						bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
+						top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
+						$(wrap).fadeIn(400, function() {
+							$(bot).fadeIn(1000);
+						});
 					});
-				});
-			}, 2000);
+				}, 4000);
+			}, 1500);
 		});
 	}
 
