@@ -34,8 +34,8 @@ jsPsych.plugins["final"] = (function()
 		top.innerHTML = "Congratulations!";
 		bot.innerHTML = "The experiment is now over.";
 
-		$(bot).hide();
-		$(top).hide().fadeIn(1000, function() {
+		$(bot).css("opacity", "0");
+		$(top).css("opacity", "0").fadeIn(1000, function() {
 			setTimeout(function() {
 				$(bot).fadeIn(1000);
 				setTimeout(function() {
@@ -43,14 +43,16 @@ jsPsych.plugins["final"] = (function()
 						bot.innerHTML = "";
 						tfs(40);
 						bfs(50);
-						$(bot).hide();
+						$(bot).css("opacity", "0");
 						bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
 						top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
 						$(wrap).fadeIn(400, function() {
-							$(bot).fadeIn(1000);
+							setTimeout(function() {
+								$(bot).fadeIn(1000);
+							}, 500);
 						});
 					});
-				}, 4000);
+				}, 3000);
 			}, 1500);
 		});
 	}
