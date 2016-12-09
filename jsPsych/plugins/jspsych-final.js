@@ -47,7 +47,7 @@ jsPsych.plugins["final"] = (function()
 					bfs(50);
 					bot.style.opacity = "0";
 					bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
-					top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive");
+					top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
 
 					$(wrap).fadeIn(400, function() {
 						bot.fadeIn(
