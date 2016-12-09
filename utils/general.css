@@ -169,7 +169,7 @@ button:hover:not(:disabled) {
 	width: 100px;
 	height: 100px;
     	animation: wheel-spin 2s linear infinite;
-	display: absolute;
+	position: absolute;
     	left: -50px;
     	top: -50px;
 }
