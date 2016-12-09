@@ -18,8 +18,8 @@ jsPsych.plugins["final"] = (function()
 		bot.style.fontSize = "55px";
 		top.style.fontSize = "35px";
 
-		top.innerHTML("Congratulations!");
-		bot.innerHTML("The experiment is now over.");
+		top.innerHTML = "Congratulations!";
+		bot.innerHTML = "The experiment is now over.";
 	}
 
 	return plugin;
