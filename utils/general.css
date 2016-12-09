@@ -154,21 +154,24 @@ button:hover:not(:disabled) {
 	display: inline-block;
 }
 
+.wheel-loader-wrap {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	height: 0;
+	width: 0;
+}
+
 .wheel-loader {
     	border: 4px solid #f3f3f3;
     	border-top: 4px solid #db9834;
     	border-radius: 50%;
-    	width: 20vmin;
-    	height: 20vmin;
-	min-width: 50px;
-	max-height: 50px;
+	width: 100px;
+	height: 100px;
     	animation: wheel-spin 2s linear infinite;
-    	position: fixed;
-    	left: 50%;
-    	top: 40%;
-    	transform: translate(-50%, -50%);
-    	-ms-transform: translate(-50%, -50%);
-    	-webkit-transform: translate(-50%, -50%);
+	display: absolute;
+    	left: -50px;
+    	top: -50px;
 }
 
 @keyframes wheel-spin {
