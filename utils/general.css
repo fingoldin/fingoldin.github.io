@@ -168,10 +168,28 @@ button:hover:not(:disabled) {
     	border-radius: 50%;
 	width: 100px;
 	height: 100px;
-    	animation: wheel-spin 2s linear infinite;
+    	-webkit-animation: wheel-spin 2s linear infinite;
+	-moz-animation: wheel-spin 2s linear infinite;
+	-o-animation: wheel-spin 2s linear infinite;
+	animation: wheel-spin 2s linear infinite;
 	position: absolute;
     	left: -50px;
     	top: -50px;
+}
+
+@-webkit-keyframes wheel-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+}
+
+@-moz-keyframes wheel-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+}
+
+@-o-keyframes wheel-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
 }
 
 @keyframes wheel-spin {
