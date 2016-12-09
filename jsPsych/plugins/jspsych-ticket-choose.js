@@ -38,6 +38,8 @@ jsPsych.plugins["ticket-choose"] = (function()
       });*/
 
 
+			$("#points-s").html(trial.sequence);
+
 			var price = display_element.find(".number-animation");
 			next_price();
 
@@ -49,8 +51,6 @@ jsPsych.plugins["ticket-choose"] = (function()
 
 			var above = display_element.find(".number-animation-above");
 			var below = display_element.find(".number-animation-below");
-
-			$("#points-s").html(trial.sequence);
 
 			var listener = jsPsych.pluginAPI.getKeyboardResponse({
 				callback_function: next_price,
