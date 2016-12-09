@@ -35,20 +35,20 @@ jsPsych.plugins["final"] = (function()
 		bot.innerHTML = "The experiment is now over.";
 
 		$(bot).css("opacity", "0");
-		$(top).css("opacity", "0").fadeIn(1000, function() {
+		$(top).css("opacity", "0").animate({ "opacity": "1" }, 1000, function() {
 			setTimeout(function() {
-				$(bot).fadeIn(1000);
+				$(bot).animate({ "opacity": "1" }, 1000);
 				setTimeout(function() {
-					$(wrap).fadeOut(1000, function() {
+					$(wrap).animate({ "opacity": "1" }, 600, function() {
 						bot.innerHTML = "";
 						tfs(40);
 						bfs(50);
 						$(bot).css("opacity", "0");
 						bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
 						top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
-						$(wrap).fadeIn(400, function() {
+						$(wrap).animate({ "opacity": "1" }, 400, function() {
 							setTimeout(function() {
-								$(bot).fadeIn(1000);
+								$(bot).animate({ "opacity": "1" }, 400);
 							}, 500);
 						});
 					});
