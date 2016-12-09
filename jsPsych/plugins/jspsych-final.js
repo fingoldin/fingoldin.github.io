@@ -50,7 +50,7 @@ jsPsych.plugins["final"] = (function()
 					top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
 
 					$(wrap).fadeIn(400, function() {
-						bot.fadeIn(
+						bot.fadeIn(400);
 					});
 				});
 			});
