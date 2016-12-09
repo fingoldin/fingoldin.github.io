@@ -44,26 +44,28 @@ jsPsych.plugins["final"] = (function()
 						bfs(50);
 						$(bot).css("opacity", "0");
 
-						var sbot = [];
+						/*var sbot = [];
 						sbot[0] = trial.points;
 						sbot[1] = " * ";
 						sbot[2] = "0.025";
 						sbot[3] = " = ";
-						sbot[4] = "$" + (trial.points * 0.025);
+						sbot[4] = "$" + (trial.points * 0.025);*/
 
-						bot.innerHTML = sbot[0];
+						bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
 						top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
 
-						$(wrap).animate({ "opacity": "1" }, 400, function() {
+						$(wrap).animate({ "opacity": "1" }, 600, function() {
 							setTimeout(function() {
-								$(bot).css("opacity", "1");
+								//$(bot).css("opacity", "1");
 
-								var i = 1;
+								$(bot).animate({ "opacity": "1" }, 600);
+
+								/*var i = 1;
 								var id = setInterval(function() {
 									bot.innerHTML += sbot[i++];
 									if(i === sbot.length)
 										clearInterval(id);
-								}, 100);
+								}, 300);*/
 							}, 500);
 						});
 					});
