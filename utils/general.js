@@ -10,7 +10,11 @@ function showTicket(e)
 	var n = Math.floor(Math.random() * (NUM_TICKETS - 1));
 
 	$(e).empty();
-	$(e).append(TICKET_IMAGES[n]);
+
+	if(TICKET_IMAGES[n].complete)
+		$(e).append(TICKET_IMAGES[n]);
+	else
+		$(e).append("<img src='/utils/tickets/ticket" + (n+1) + ".jpg' class='ticket-img'></img>");
 }
 
 function showPoints(e, p)
