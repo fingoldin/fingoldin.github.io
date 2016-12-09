@@ -249,7 +249,7 @@ function preload()
 		TICKET_IMAGES[i].src = "/utils/tickets/ticket" + (i+1) + ".jpg";
 		TICKET_IMAGES[i].classList.add("ticket-img");
 
-		$("#jspsych-content").append(TICKET_IMAGES[i]);
+		console.log(TICKET_IMAGES[i].complete);
 	}
 }
 
