@@ -31,32 +31,26 @@ jsPsych.plugins["final"] = (function()
 		tfs(55);
 		bfs(35);
 
-		top.style.opacity = bot.style.opacity = "0";
-
-
 		top.innerHTML = "Congratulations!";
 		bot.innerHTML = "The experiment is now over.";
 
-		setTimeout(function() {
-			$(top).fadeIn(400, function() {
-				$(bot).fadeIn(400);
-
-				setTimeout(function() {
-					$(wrap).fadeOut(400, function() {
-						bot.innerHTML = "";
-						tfs(40);
-						bfs(50);
-						bot.style.opacity = "0";
-						bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
-						top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
-
-						$(wrap).fadeIn(400, function() {
-							$(bot).fadeIn(400);
-						});
+		$(bot).hide();
+		$(top).hide().fadeIn(400, function() {
+			$(bot).fadeIn(400);
+			setTimeout(function() {
+				$(wrap).fadeOut(400, function() {
+					bot.innerHTML = "";
+					tfs(40);
+					bfs(50);
+					$(bot).hide();
+					bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
+					top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
+					$(wrap).fadeIn(400, function() {
+						$(bot).fadeIn(400);
 					});
-				}, 2000);
-			});
-		}, 50);
+				});
+			}, 2000);
+		});
 	}
 
 	return plugin;
