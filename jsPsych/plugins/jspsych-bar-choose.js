@@ -37,6 +37,8 @@ jsPsych.plugins["bar-choose"] = (function()
 						responses: display_element.find("#bar-graph").barChooseGraph("get")
 					}
 
+					console.log(responses);
+
 					jsPsych.finishTrial(data);
 				});
 			});
