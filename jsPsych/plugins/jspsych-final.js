@@ -39,7 +39,7 @@ jsPsych.plugins["final"] = (function()
 			setTimeout(function() {
 				$(bot).animate({ "opacity": "1" }, 1000);
 				setTimeout(function() {
-					$(wrap).animate({ "opacity": "1" }, 600, function() {
+					$(wrap).animate({ "opacity": "0" }, 600, function() {
 						bot.innerHTML = "";
 						tfs(40);
 						bfs(50);
