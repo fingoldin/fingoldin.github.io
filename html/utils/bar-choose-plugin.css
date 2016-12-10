@@ -95,7 +95,7 @@
 	left: 0;
 	right: 0;
 	margin-right: 1px;
-	min-height: 15px;
+	min-height: 20px;
 	background-color: #008CBA;
 	-moz-transition: opacity 0.2s;
 	-webkit-transition: opacity 0.2s;
@@ -146,6 +146,11 @@
 	text-align: center;
 	background-color: white;
 	border: 1px solid #ccc;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: none;
+	border-radius: 0px;
 }
 
 .bar-graph-congrats-wrap {

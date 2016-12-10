@@ -60,13 +60,13 @@ jsPsych.plugins["final"] = (function()
 
 								$(bot).animate({ "opacity": "1" }, 600);
 
-								/*var i = 1;
-								var id = setInterval(function() {
-									bot.innerHTML += sbot[i++];
-									if(i === sbot.length)
-										clearInterval(id);
-								}, 300);*/
-							}, 500);
+								setTimeout(function() {
+									$(top).animate({ "opacity": "0" }, 400, function() {
+										$(top).html("Thanks for participating!");
+										$(top).animate({ "opacity": "1" }, 400);
+									});
+								}, 3000);
+							}, 800);
 						});
 					});
 				}, 3000);

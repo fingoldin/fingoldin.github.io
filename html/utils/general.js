@@ -4,17 +4,21 @@ Number.prototype.clamp = function(min, max) {
 
 var NUM_TICKETS = 30;
 var TICKET_IMAGES = [];
+TICKET_IMAGES[0] = [];
+TICKET_IMAGES[1] = [];
 
-function showTicket(e)
+function showTicket(p, e)
 {
 	var n = Math.floor(Math.random() * (NUM_TICKETS - 1));
 
 	$(e).empty();
 
-	if(TICKET_IMAGES[n].complete)
-		$(e).append(TICKET_IMAGES[n]);
-	else
+	if(TICKET_IMAGES[p][n].complete)
+		$(e).append(TICKET_IMAGES[p][n]);
+	else if(!p)
 		$(e).append("<img src='/utils/tickets/ticket" + (n+1) + ".jpg' class='ticket-img'></img>");
+	else
+		$(e).append("<img src='/utils/tickets/2ticket" + (n+1) + ".jpg' class='ticket-img'></img>");
 }
 
 function showPoints(e, p)

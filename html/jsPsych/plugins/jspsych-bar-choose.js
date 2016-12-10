@@ -31,13 +31,13 @@ jsPsych.plugins["bar-choose"] = (function()
 				$(this).html("Next section");
 
 				display_element.find("#bar-submit").off("click").click(function() {
-					display_element.html("");
-
 					var data = {
 						responses: display_element.find("#bar-graph").barChooseGraph("get")
 					}
 
-					console.log(responses);
+					display_element.html("");
+
+					console.log(JSON.stringify(data.responses));
 
 					jsPsych.finishTrial(data);
 				});

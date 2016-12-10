@@ -6,6 +6,7 @@ jsPsych.plugins["number-animation"] = (function()
 	{
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
+		trial.phase = trial.phase || 0;
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
@@ -60,7 +61,7 @@ jsPsych.plugins["number-animation"] = (function()
 				}
 				else if(price_num === 0) {
 					price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
-                                       	showTicket($("#ticket-wrap"));
+                                       	showTicket(trial.phase, $("#ticket-wrap"));
                                        	price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
 
 					display_element.find(".ticket-choose-main").css("opacity", "1");
@@ -68,7 +69,7 @@ jsPsych.plugins["number-animation"] = (function()
 				else {
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
 						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
-						showTicket($("#ticket-wrap"));
+						showTicket(trial.phase, $("#ticket-wrap"));
 						price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
 					});
 				}

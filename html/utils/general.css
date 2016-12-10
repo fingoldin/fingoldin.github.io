@@ -96,8 +96,8 @@ button:hover:not(:disabled) {
 }
 
 .number-animation-below {
-	line-height: 50px;
 	padding: 0px;
+	line-height: 32px;
 }
 
 .number-animation-above span, .number-animation-below span {

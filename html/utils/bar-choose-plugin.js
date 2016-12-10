@@ -10,8 +10,8 @@
 			var h = this.height();
 			var root = this;
 
-			$(root).data("categories", data.categories);
-			$(root).data("max_val", data.max);
+			$(this).data("categories", data.categories);
+			//$(this).data("max_val", data.max);
 
 			var bgm = document.createElement("DIV");
 			$(bgm).addClass("bar-graph-main");
@@ -98,18 +98,28 @@
 				$(root).find(".bar-graph-column").each(function() {
 					var bgc = this;
 
-					$(bgc).on("mousedown", function (e)
+					$(bgc).on("touchstart mousedown", function (e)
 					{
+						e.preventDefault();
+
+						if(e.originalEvent && (e.originalEvent.touches || e.originalEvent.changedTouches))
+							e = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] || e;
+
                                         	var sh = $(bgc).height();
                                         	var sy = e.pageY;
 						var maxh = bgc.parentNode.clientHeight;
-						var minh = 15;
+						var minh = 20;
 
-                                        	$(document).on("mouseup", function(me) {
-                                                	$(document).off("mouseup").off("mousemove");
+                                        	$(document).on("touchend mouseup", function(me) {
+                                                	$(document).off("touchstart mousedown").off("touchmove mousemove");
                                         	});
 
-                                        	$(document).on("mousemove", function(me) {
+                                        	$(document).on("touchmove mousemove", function(me) {
+							me.preventDefault();
+
+							if(me.originalEvent && (me.originalEvent.touches || me.originalEvent.changedTouches))
+								me = me.originalEvent.touches[0] || me.originalEvent.changedTouches[0] || me;
+
 							var cat = bgc.id.substr(4, bgc.id.length - 4);
                                                 	var my = (me.pageY - sy);
 							var input = $(root).find("#icat" + cat)[0];
@@ -148,7 +158,7 @@
                                                 }
 
 						var maxh = bar.parentNode.clientHeight;
-						var minh = 15;
+						var minh = 20;
 
 						bar.style.height = parseInt((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px";
 						$(bar).data("value", v);
@@ -163,14 +173,16 @@
 		}
 		else if(type == "get")
 		{
-			var vals = $(this).find(".bar-graph-column");
-			var cats = $(this).data("categories");
-			var data = [];
+			var root = this;
 
+			var vals = $(root).find(".bar-graph-column");
+			var cats = $(root).data("categories");
+			var res = [];
+//console.log($(vals[0]).data("value"));
 			for(var i = 0; i < vals.length && i < cats.length; i++)
-				data.push([ parseInt($(vals[i]).data("value")), cats[i] ]);
-console.log(data);
-			return data;
+				res.push({ value: parseInt($(vals[i]).data("value")), offby: parseInt($(vals[i]).data("offby")), category: cats[i] });
+//console.log(res);
+			return res;
 		}
 		else if(type == "show")
 		{
@@ -182,30 +194,33 @@ console.log(data);
 			var acols = $(root).find(".bar-graph-column-a");
 			var ccols = $(root).find(".bar-graph-column");
 			var diff = 0;
-			var maxdiff = 0;
+			//var maxdiff = 0;
 
 			for(var i = 0; i < acols.length && i < data.answers.length && i < ccols.length; i++)
 			{
 				var maxh = acols[i].parentNode.clientHeight;
-				var minh = 15;
+				var minh = 20;
 				var h = parseInt((maxh - minh) * data.answers[i] / data.max + minh) + "px";
 
 				$(acols[i]).css("opacity", "0.5").css("height", h);
 
 				var a = parseInt($(ccols[i]).data("value"));
-console.log(a);
-				diff += Math.abs(data.answers[i] - a);
-				maxdiff += Math.max(Math.abs(data.answers[i] - parseInt($(root).data("max_val"))), data.answers[i]);
+				//console.log($(ccols[i]).data("value"));
+
+				var d = a - data.answers[i];
+				diff += Math.abs(d);
+				$(ccols[i]).data("offby", d);
+			//	maxdiff += Math.max(Math.abs(data.answers[i] - parseInt($(root).data("max_val"))), data.answers[i]);
 			}
 
 			diff = Math.floor(diff);
 			var mes = "";
 			if(diff === 0)
 				mes = "Amazing! You were dead right";
-			else if(diff < maxdiff/2)
+			else if(diff < 10)
 				mes = "Nice! You were off by " + diff;
 			else
-				mes = "Better luck next time! You were off by " + diff;
+				mes = "Rats! You were off by " + diff;
 
 			window.setTimeout(function() {
 				$(root).find("#bar-graph-cw").css("display", "block").css("transform", "scale(1, 1)").find(".bar-graph-congrats-top").html(mes);

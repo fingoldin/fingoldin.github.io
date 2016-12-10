@@ -8,6 +8,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.sequence = trial.sequence || "";
 		trial.showpoints = trial.showpoints || false;
+		trial.phase = trial.phase || 0;
 
 		var num_prices = trial.prices.length;
 		if(!num_prices)
@@ -16,27 +17,10 @@ jsPsych.plugins["ticket-choose"] = (function()
     		trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
 
 		display_element.html("");
+
 		display_element.load("/utils/ticket-choose.html", function()
 		{
-//			if(trial.points)
-//				showPoints(display_element, trial.points, trial.sequence);
-
 			var price_num = -1;
-
-/*	var wrap = display_element.find("#jspsych-animation-image");
-      $(wrap).html("");
-      $(wrap).append("<div class='number-animation-above'>Price of ticket:</div>");
-
-      var number = document.createElement("DIV");
-      number.classList.add("number-animation");
-      number.innerHTML = "<span>" + trial.prefix + "</span>" + trial.stimuli[animate_frame];
-      $(wrap).append(number);
-
-      $(number).css("transform", "translateX(0px)").css("opacity", "0");
-      $(number).stop().animate({ transform: "translateX(0px)", opacity: "1" }, interval_time / 2, function() {
-        $(number).stop().animate({ transform: "translateX(0px)", opacity: "0" }, interval_time / 2);
-      });*/
-
 
 			$("#points-s").html(trial.sequence);
 
@@ -66,6 +50,12 @@ jsPsych.plugins["ticket-choose"] = (function()
 			{
 				if(price_num < num_prices)
 				{
+					display_element.find(".ticket-choose-main").css("opacity", "0");
+
+					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
+
+					setTimeout(function() {
+
 					var prices = trial.prices.slice(0);
 	                                prices.sort(function(a, b){return a - b});
 
@@ -113,17 +103,29 @@ jsPsych.plugins["ticket-choose"] = (function()
 					price.hide();
                                         above.html(am);
 					if(trial.showpoints)
-						below.html("You now have a total of " + (pr + points) + ((pr+points) === 1 ? " point" : " points") + " out of 100.");
+						below.html("You now have a total of " + (pr + points) + ((pr+points) === 1 ? " point." : " points."));
 
 					$("#ticket-wrap").hide();
 
-					jsPsych.pluginAPI.cancelKeyboardResponse(listener);
+					listener = jsPsych.pluginAPI.getKeyboardResponse({
+                                		callback_function: function() { end_trial(points); },
+                                		valid_responses: [32],
+                                		rt_method: "date",
+                                		persist: true,
+                                		allow_held_key: false
+                        		});
 
 					select.hide();
 					next.html(trial.continue_message).addClass("big-btn").off("click").click(function() { end_trial(points); });
 
 					selected = true;
+
+					display_element.find(".ticket-choose-main").css("opacity", "1");
+
+					}, 200);
 				}
+				else
+					end_trial(0);
 			}
 
 			function next_price()
@@ -138,7 +140,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 				}
 				else if(price_num === 0) {
 					price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
-                                       	showTicket($("#ticket-wrap"));
+                                       	showTicket(trial.phase, $("#ticket-wrap"));
                                        	price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
 
 					display_element.find(".ticket-choose-main").css("opacity", "1");
@@ -147,7 +149,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 					price.animate({ transform: "translateX(30px)", opacity: "0" }, 200, function() {
 						price.html("<span>$</span>" + trial.prices[price_num]).css("transform", "translateX(-30px)");
 						price.animate({ transform: "translateX(0px)", opacity: "1" }, 200);
-						showTicket($("#ticket-wrap"));
+						showTicket(trial.phase, $("#ticket-wrap"));
 						above.html("Ticket <span>" + (price_num + 1) + "</span> of <span>10</span>:");
 					});
 				}
@@ -157,10 +159,11 @@ jsPsych.plugins["ticket-choose"] = (function()
                 	{
 				display_element.find(".ticket-choose-main").css("opacity", "0");
                                 jsPsych.pluginAPI.cancelAllKeyboardResponses();
-console.log(ps);
+//console.log("answer: " + trial.prices[price_num]);
                         	var trial_data = {
                                 	"result": trial.prices[price_num],
-					"points": ps
+					"points": ps,
+					"sequence": trial.row
                         	};
 
                         	jsPsych.finishTrial(trial_data);
