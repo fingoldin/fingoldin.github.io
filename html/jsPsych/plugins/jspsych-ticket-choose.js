@@ -22,7 +22,8 @@ jsPsych.plugins["ticket-choose"] = (function()
 		{
 			var price_num = -1;
 
-			$("#points-s").html(trial.sequence);
+			if(trial.showpoints)
+				$("#points-s").html(trial.sequence);
 
 			var price = display_element.find(".number-animation");
 			next_price();

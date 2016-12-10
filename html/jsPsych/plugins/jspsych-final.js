@@ -51,7 +51,7 @@ jsPsych.plugins["final"] = (function()
 						sbot[3] = " = ";
 						sbot[4] = "$" + (trial.points * 0.025);*/
 
-						bot.innerHTML = trial.points + " * 0.025 = $" + (trial.points * 0.025);
+						bot.innerHTML = trial.points + " * 0.025 = $" + (Math.floor(trial.points * 2.5) / 100);
 						top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
 
 						$(wrap).animate({ "opacity": "1" }, 600, function() {
