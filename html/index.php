@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
 
 require("../includes.php");
@@ -7,6 +5,10 @@ require("../includes.php");
 startSession();
 
 ?>
+
+<!DOCTYPE html>
+
+<html>
 
 <head>
 
@@ -26,10 +28,15 @@ startSession();
 <link href="/jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/general.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/bar-choose-plugin.css" rel="stylesheet" type="text/css"></link>
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link href="/utils/consent.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/start.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/points.css" rel="stylesheet" type="text/css"></link>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, minimum-scale=0.8, user-scalable=yes">
+
+<title>Psychology experiment</title>
 
 <script type="text/javascript">
 
@@ -55,12 +62,9 @@ var start_trial = {
 	cont_btn: "start1"
 }
 
-var animdata = [222, 145, 186, 183, 152, 171, 210, 158, 185, 164, 170, 214, 144, 178, 161, 170, 227, 196, 137, 164, 176, 198, 192, 200, 181, 178, 153, 196, 182, 204, 181, 181, 181, 178, 180, 170, 171, 179, 154, 172, 166, 178, 176, 176, 202, 172, 172, 173, 191, 170];
-var animanswers = [1, 3, 8, 4, 3, 1, 0]; //[3, 7, 20, 10, 7, 2, 1];
-
 var animation_trial = {
 	type: "number-animation",
-	prices: animdata,
+	//prices: animdata,
 	phase: 0,
 	continue_message: "Next step"
 }
@@ -72,7 +76,9 @@ var training_trial = {
 	categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
 	min_val: 0,
 	max_val: 20,
-	answers: animanswers
+	phase: 0,
+	number: 0
+	//answers: animanswers
 }
 
 var testing_data = [];
@@ -88,7 +94,7 @@ var testing_instructions2_trial = {
 	type: "html",
 	url: "/utils/testing_after.html",
 	cont_btn: "testingstart",
-	on_finish: function() { $("#jspsych-points").css("opacity", "1"); }
+	on_finish: function() { $("#jspsych-points").css("display", "block"); }
 }
 
 // Second bar graph to see learning
@@ -99,7 +105,9 @@ var training_trial2 = {
         categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
         min_val: 0,
         max_val: 20,
-	answers: animanswers
+	phase: 0,
+	number: 1
+	//answers: animanswers
 }
 
 // Second training phase instructions
@@ -109,13 +117,10 @@ var p2_start_trial = {
 	cont_btn: "start2"
 }
 
-var animdata2 = [190, 105, 220, 151, 111, 213, 261, 183, 211, 191, 146, 127, 262, 226, 189, 128, 250, 228, 242, 188, 156, 193, 233, 205, 154, 235, 208, 200, 182, 219, 236, 184, 224, 280, 227, 143, 233, 210, 192, 170, 164, 233, 158, 213, 220, 274, 177, 202, 170, 209];
-var animanswers2 = [1, 2, 2, 5, 5, 3, 2]; // [4, 4, 6, 12, 13, 7, 4];
-
 // Second training phase
 var p2_animation_trial = {
         type: "number-animation",
-        prices: animdata2,
+        //prices: animdata2,
 	phase: 1,
         continue_message: "Next step"
 }
@@ -127,7 +132,9 @@ var p2_training_trial = {
         categories: ["$105 - $130", "$131 - $155", "$156 - $180", "$181 - $205", "$206 - $230", "$231 - $255", "$256 - $280"],
         min_val: 0,
         max_val: 20,
-	answers: animanswers2
+	phase: 1,
+	number: 0
+	//answers: animanswers2
 }
 
 var p2_testing_data = [];
@@ -137,7 +144,7 @@ var p2_testing_instructions_trial = {
         url: "/utils/testing2.html",
         cont_btn: "testingstart",
 	on_finish: function() {
-		$("#jspsych-points").css("opacity", "1");
+		$("#jspsych-points").css("display", "block");
 		$("#points-s").html("In sequence 1 out of 50");
 	}
 }
@@ -150,7 +157,9 @@ var p2_training_trial2 = {
         categories: ["$75 - $90", "$91 - $105", "$106 - $120", "$121 - $135", "$136 - $150", "$151 - $165"],
         min_val: 0,
         max_val: 20,
-	answers: animanswers2
+	phase: 1,
+	number: 1
+	//answers: animanswers2
 }
 
 var final_trial = {
@@ -181,15 +190,31 @@ function init()
 
 	$.post("/get.php", { f7g12d: "y" }, function(d) {
 
+	var animdata = [];
+	var animanswers = [];
+	var animdata2 = [];
+	var animanswers2 = [];
+
 	var da = JSON.parse(d);
-	testing_data = da[0];
-	p2_testing_data = da[1];
+	testing_data = da["testing"][0];
+	p2_testing_data = da["testing"][1];
+	animdata = da["training"][0];
+	animdata2 = da["training"][1];
+	animanswers = da["answers"][0];
+	animanswers2 = da["answers"][1];
+
+	animation_trial.prices = animdata;
+	p2_animation_trial.prices = animdata2;
+	training_trial.answers = animanswers;
+	training_trial2.answers = animanswers;
+	p2_training_trial.answers = animanswers2;
+	p2_training_trial2.answers = animanswers2;
 
 //	timeline.push(final_trial);
 
-	//timeline.push(consent_trial);
-        //timeline.push(instructions_trial);
-        //timeline.push(start_trial);
+	timeline.push(consent_trial);
+        timeline.push(instructions_trial);
+        timeline.push(start_trial);
         timeline.push(animation_trial);
         timeline.push(training_trial);
         //timeline.push(testing_instructions_trial);
@@ -203,9 +228,9 @@ function init()
 			sequence: ""
 	});
 
-	//timeline.push(testing_instructions2_trial);
+	timeline.push(testing_instructions2_trial);
 
-	for(var i = 0; i < 3/*testing_data.length*/; i++)
+	for(var i = 0; i < testing_data.length; i++)
 	{
         	timeline.push({ type: "ticket-choose",
 				prices: testing_data[i],
@@ -234,17 +259,17 @@ function init()
         	        $("#points-p").html(da.points);
                 });
 
-		$("#jspsych-points").css("opacity", "0");
+		$("#jspsych-points").css("display", "none");
 	};
 
 	timeline.push(training_trial2);
 
-	//timeline.push(p2_start_trial);
+	timeline.push(p2_start_trial);
         timeline.push(p2_animation_trial);
         timeline.push(p2_training_trial);
-        //timeline.push(p2_testing_instructions_trial);
+        timeline.push(p2_testing_instructions_trial);
 
-	for(var i = 0; i < 3/*p2_testing_data.length*/; i++)
+	for(var i = 0; i < p2_testing_data.length; i++)
         {
                 timeline.push({ type: "ticket-choose",
 				prices: p2_testing_data[i],
@@ -273,12 +298,12 @@ function init()
                         $("#points-p").html(da.points);
                 });
 
-                $("#jspsych-points").css("opacity", "0");
+                $("#jspsych-points").css("display", "none");
         };
 
 	timeline.push(p2_training_trial2);
 
-//	timeline.push(final_trial);
+	timeline.push(final_trial);
 
 	$("#wheel").css("display", "none");
 
@@ -301,7 +326,7 @@ function init()
 
 <body onload="init()">
 	<div class="wheel-loader-wrap" id="wheel"><div class="wheel-loader"></div></div>
-	<div id="jspsych-points" style="opacity:0">
+	<div id="jspsych-points" style="display:none">
 		<div class="points-main">
         		<div class="points-header">
                			<h2>Your Points:</h2>

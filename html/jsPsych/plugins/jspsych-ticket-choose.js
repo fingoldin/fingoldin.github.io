@@ -109,7 +109,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 					$("#ticket-wrap").hide();
 
 					listener = jsPsych.pluginAPI.getKeyboardResponse({
-                                		callback_function: function() { end_trial(points); },
+                                		callback_function: function() { end_trial(points, r); },
                                 		valid_responses: [32],
                                 		rt_method: "date",
                                 		persist: true,
@@ -117,7 +117,7 @@ jsPsych.plugins["ticket-choose"] = (function()
                         		});
 
 					select.hide();
-					next.html(trial.continue_message).addClass("big-btn").off("click").click(function() { end_trial(points); });
+					next.html(trial.continue_message).addClass("big-btn").off("click").click(function() { end_trial(points, r); });
 
 					selected = true;
 
@@ -126,7 +126,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 					}, 200);
 				}
 				else
-					end_trial(0);
+					end_trial(0, -1);
 			}
 
 			function next_price()
@@ -156,14 +156,19 @@ jsPsych.plugins["ticket-choose"] = (function()
 				}
 			}
 
-			function end_trial(ps)
+			function end_trial(ps, r)
                 	{
+				if(r == -1)
+					return;
+
 				display_element.find(".ticket-choose-main").css("opacity", "0");
                                 jsPsych.pluginAPI.cancelAllKeyboardResponses();
 //console.log("answer: " + trial.prices[price_num]);
                         	var trial_data = {
                                 	"result": trial.prices[price_num],
 					"points": ps,
+					"place": r,
+					"phase": trial.phase,
 					"sequence": trial.row
                         	};
 

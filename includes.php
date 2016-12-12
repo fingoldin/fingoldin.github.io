@@ -1,9 +1,104 @@
 <?php
 
+function get_time()
+{
+	date_default_timezone_set("America/New_York");
+        return date("Y-m-d H:i:s");
+}
+
+function get_points($phase, $sequence, $answer)
+{
+	if(!session_id())
+		session_start();
+
+	if(!isset($_SESSION["testing_data"]))
+		return 0;
+
+	$arr = $_SESSION["testing_data"][$phase][$sequence];
+        sort($arr);
+
+        $a = intval($answer);
+
+        $p = 0;
+
+        if($arr[0] == $a)
+                $p = 2;
+        else if($arr[1] == $a)
+                $p = 1;
+
+	return $p;
+}
+
+function submit_response($arr)
+{
+	$conn = dbConnect();
+
+	$result = dbQuery($conn, "INSERT INTO responses SET start_time=:start_time, end_time=:end_time, total_points=:total_points", [
+			"start_time" => $arr["start_time"],
+			"end_time" => $arr["end_time"],
+			"total_points" => $arr["total_points"]
+	]);
+
+	$id = $conn->lastInsertId();
+
+	foreach($arr["data"] as $trial)
+	{
+		if($trial["trial_type"] == "bar-choose")
+		{
+			foreach($trial["responses"] as $bar_response)
+			{
+				dbQuery($conn, "INSERT INTO bar_responses SET response=:value, offby=:offby, category=:category, category_index=:category_index, RID=$id, phase=" . $trial["phase"] . ", number=" . $trial["number"], $bar_response);
+			}
+		}
+		else if($trial["trial_type"] == "ticket-choose" && $trial["sequence"] > -1)
+		{
+//			var_dump($trial);
+			dbQuery($conn, "INSERT INTO test_responses SET response=:result, points=:points, phase=:phase, sequence=:sequence, place=:place, RID=$id", [
+					"result" => $trial["result"],
+					"points" => $trial["points"],
+					"phase" => $trial["phase"],
+					"sequence" => $trial["sequence"],
+					"place" => $trial["place"]
+			]);
+		}
+	}
+}
+
+function dbConnect() {
+    $dsn = "mysql:host=localhost;dbname=responses;charset=utf8";
+    $opts = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_ERRMODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ];
+    $conn = new PDO($dsn, "root", "root", $opts);
+    return $conn;
+}
+function dbQuery($conn, $query, $values = array()) {
+    if (isset($values)) {
+        $stmt = $conn->prepare($query);
+        $stmt->execute($values);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    else {
+        $stmt = $conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
 function startSession() {
 
 if(session_id())
 {
+	/*if(isset($_SESSION["finished"]) && isset($_SESSION["RID"]) && $_SESSION["finished"] == 1)
+	{
+		$conn = dbConnect();
+
+		dbQuery($conn, "DELETE FROM responses WHERE RID=:rid", ["rid" => $_SESSION["RID"]]);
+		dbQuery($conn, "DELETE FROM bar_responses WHERE RID=:rid", ["rid" => $_SESSION["RID"]]);
+		dbQuery($conn, "DELETE FROM test_responses WHERE RID=:rid", ["rid" => $_SESSION["RID"]]);
+	}*/
+
        	$_SESSION = array();
        	session_destroy();
 }
@@ -15,9 +110,20 @@ $_SESSION["checked"] = [];
 $_SESSION["checked"][0] = $_SESSION["checked"][1] = [];
 $_SESSION["got_data"] = 0;
 $_SESSION["finished"] = 0;
+$_SESSION["checked_assoc"] = [];
+$_SESSION["checked_assoc"][0] = $_SESSION["checked_assoc"][1] = [];
 
-date_default_timezone_set("America/New_York");
-$_SESSION["start_time"] = date("m/d/Y h:i:s a");
+$_SESSION["start_time"] = get_time();
+
+$_SESSION["training_data"] = [
+[222, 145, 186, 183, 152, 171, 210, 158, 185, 164, 170, 214, 144, 178, 161, 170, 227, 196, 137, 164, 176, 198, 192, 200, 181, 178, 153, 196, 182, 204, 181, 181, 181, 178, 180, 170, 171, 179, 154, 172, 166, 178, 176, 176, 202, 172, 172, 173, 191, 170],
+[190, 105, 220, 151, 111, 213, 261, 183, 211, 191, 146, 127, 262, 226, 189, 128, 250, 228, 242, 188, 156, 193, 233, 205, 154, 235, 208, 200, 182, 219, 236, 184, 224, 280, 227, 143, 233, 210, 192, 170, 164, 233, 158, 213, 220, 274, 177, 202, 170, 209]
+];
+
+$_SESSION["training_answers"] = [
+[1, 3, 8, 4, 3, 1, 0], //[3, 7, 20, 10, 7, 2, 1]
+[1, 2, 2, 5, 5, 3, 2] // [4, 4, 6, 12, 13, 7, 4]
+];
 
 $_SESSION["testing_data"] = [[
 [191, 168, 200, 169, 149, 209, 187, 171, 165, 150],

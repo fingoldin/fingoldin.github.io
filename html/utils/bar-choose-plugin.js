@@ -144,26 +144,29 @@
 
 				$(root).find(".bar-graph-input input").each(function() {
 					var self = this;
-					$(this).change(function() {
-						var cat = self.id.substr(4, self.id.length - 4);
-						var bar = $(root).find("#ccat" + cat)[0];
+					$(this).on("change keyup", function(e) {
+						if(!e.which || e.which == 13)
+						{
+							var cat = self.id.substr(4, self.id.length - 4);
+							var bar = $(root).find("#ccat" + cat)[0];
 
-						var v = (parseInt(self.value) || data.min).clamp(data.min, data.max);
-						var pv = parseInt($(bar).data("value"));
-						if(v >= (pv + remaining)) {
-                                                	v  = pv + remaining;
+							var v = (parseInt(self.value) || data.min).clamp(data.min, data.max);
+							var pv = parseInt($(bar).data("value"));
+							if(v >= (pv + remaining)) {
+                                                		v  = pv + remaining;
 
-                                                        //$(bgmr).find("span").addClass("highlight");
-                                                        //window.setTimeout(function() { $(bgmr).find("span").removeClass("hightlight"); }, 100);
-                                                }
+                                               	        	//$(bgmr).find("span").addClass("highlight");
+                                                	        //window.setTimeout(function() { $(bgmr).find("span").removeClass("hightlight"); }, 100);
+                                                	}
 
-						var maxh = bar.parentNode.clientHeight;
-						var minh = 20;
+							var maxh = bar.parentNode.clientHeight;
+							var minh = 20;
 
-						bar.style.height = parseInt((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px";
-						$(bar).data("value", v);
-						self.value = v;
-						checkRest();
+							bar.style.height = parseInt((maxh - minh) * (v - data.min) / (data.max - data.min) + minh) + "px";
+							$(bar).data("value", v);
+							self.value = v;
+							checkRest();
+						}
 					});
 					$(this).focus(function() {
 						self.select();
@@ -180,7 +183,7 @@
 			var res = [];
 //console.log($(vals[0]).data("value"));
 			for(var i = 0; i < vals.length && i < cats.length; i++)
-				res.push({ value: parseInt($(vals[i]).data("value")), offby: parseInt($(vals[i]).data("offby")), category: cats[i] });
+				res.push({ value: parseInt($(vals[i]).data("value")), offby: parseInt($(vals[i]).data("offby")), category: cats[i], category_index: i });
 //console.log(res);
 			return res;
 		}

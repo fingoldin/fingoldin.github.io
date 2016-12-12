@@ -196,3 +196,9 @@ button:hover:not(:disabled) {
  	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
 }
+
+.thanks {
+	font-size: 50px;
+	ling-height: 50px;
+}
+
