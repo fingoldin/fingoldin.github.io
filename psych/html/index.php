@@ -1,6 +1,6 @@
 <?php
 
-require("../includes.php");
+require("./includes.php");
 
 startSession();
 
@@ -238,9 +238,9 @@ function init()
 	timeline.push(consent_trial);
         timeline.push(instructions_trial);
         timeline.push(start_trial);
-//        timeline.push(animation_trial);
+        timeline.push(animation_trial);
         timeline.push(training_trial);
-        //timeline.push(testing_instructions_trial);
+        timeline.push(testing_instructions_trial);
 
 	// example testing sequence
 	timeline.push({ type: "ticket-choose",
