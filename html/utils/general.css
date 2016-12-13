@@ -165,12 +165,16 @@ button:hover:not(:disabled) {
 .wheel-loader {
     	border: 4px solid #f3f3f3;
     	border-top: 4px solid #db9834;
-    	border-radius: 50%;
+    	-webkit-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
 	width: 100px;
 	height: 100px;
     	-webkit-animation: wheel-spin 2s linear infinite;
 	-moz-animation: wheel-spin 2s linear infinite;
 	-o-animation: wheel-spin 2s linear infinite;
+	-ms-animation: wheel-spin 2s linear infinite;
 	animation: wheel-spin 2s linear infinite;
 	position: absolute;
     	left: -50px;
@@ -178,18 +182,23 @@ button:hover:not(:disabled) {
 }
 
 @-webkit-keyframes wheel-spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
 }
 
 @-moz-keyframes wheel-spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% { -moz-transform: rotate(0deg); }
+        100% { -moz-transform: rotate(360deg); }
 }
 
 @-o-keyframes wheel-spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% { -o-transform: rotate(0deg); }
+        100% { -o-transform: rotate(360deg); }
+}
+
+@-ms-keyframes wheel-spin {
+        0% { -ms-transform: rotate(0deg); }
+        100% { -ms-transform: rotate(360deg); }
 }
 
 @keyframes wheel-spin {

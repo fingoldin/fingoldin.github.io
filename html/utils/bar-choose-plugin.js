@@ -100,7 +100,7 @@
 
 					$(bgc).on("touchstart mousedown", function (e)
 					{
-						e.preventDefault();
+						e.preventDefault ? e.preventDefault() : (e.returnValue = false);
 
 						if(e.originalEvent && (e.originalEvent.touches || e.originalEvent.changedTouches))
 							e = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0] || e;
@@ -115,7 +115,7 @@
                                         	});
 
                                         	$(document).on("touchmove mousemove", function(me) {
-							me.preventDefault();
+							me.preventDefault ? me.preventDefault() : (me.returnValue = false);
 
 							if(me.originalEvent && (me.originalEvent.touches || me.originalEvent.changedTouches))
 								me = me.originalEvent.touches[0] || me.originalEvent.changedTouches[0] || me;
@@ -147,6 +147,8 @@
 					$(this).on("change keyup", function(e) {
 						if(!e.which || e.which == 13)
 						{
+							e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+
 							var cat = self.id.substr(4, self.id.length - 4);
 							var bar = $(root).find("#ccat" + cat)[0];
 

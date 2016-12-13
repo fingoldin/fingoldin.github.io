@@ -25,6 +25,7 @@ startSession();
 <script src="/utils/general.js"></script>
 <script src="/utils/bar-choose-plugin.js"></script>
 <script src="/utils/jquery.transform2d.js"></script>
+<script src="/utils/json2.js"></script>
 <link href="/jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/general.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/bar-choose-plugin.css" rel="stylesheet" type="text/css"></link>
@@ -37,6 +38,15 @@ startSession();
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, minimum-scale=0.8, user-scalable=yes">
 
 <title>Psychology experiment</title>
+
+<script type="text/javascript">
+
+// If internet Explorer
+window.useTranstitions = !(!!document.documentMode);
+
+</script>
+
+</div>
 
 <script type="text/javascript">
 
@@ -173,11 +183,11 @@ function preload()
 	{
 		TICKET_IMAGES[0][i] = new Image();
 		TICKET_IMAGES[0][i].src = "/utils/tickets/ticket" + (i+1) + ".jpg";
-		TICKET_IMAGES[0][i].classList.add("ticket-img");
+		TICKET_IMAGES[0][i].classList += " ticket-img";
 
 		TICKET_IMAGES[1][i] = new Image();
                 TICKET_IMAGES[1][i].src = "/utils/tickets/2ticket" + (i+1) + ".jpg";
-                TICKET_IMAGES[1][i].classList.add("ticket-img");
+                TICKET_IMAGES[1][i].classList += " ticket-img";
 	}
 }
 
@@ -186,7 +196,6 @@ preload();
 function init()
 {
 	var timeline = [];
-
 
 	$.post("/get.php", { f7g12d: "y" }, function(d) {
 
@@ -215,7 +224,7 @@ function init()
 	timeline.push(consent_trial);
         timeline.push(instructions_trial);
         timeline.push(start_trial);
-        timeline.push(animation_trial);
+//        timeline.push(animation_trial);
         timeline.push(training_trial);
         //timeline.push(testing_instructions_trial);
 
