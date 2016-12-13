@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<style>
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	background-color: #4CAF50;
+        border-radius: 0px;
+        border: none;
+        color: white;
+        outline: 0;
+	padding: 5px;
+}
+
+button:hover:not(:disabled) {
+	cursor: pointer;
+	background-color: #3B9E39;
+}
+
+button:active:not(:disabled) {
+	background-color: #2A8D28;
+}
+
+button:disabled {
+	background-color: #ccc;
+	color: black;
+}
+
+.main {
+	padding: 20px;
+}
+
+.container {
+        max-width: 800px;
+        margin: 20px auto;
+	display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+	flex-direction: column;
+        height: 600px;
+	text-align: center;
+	position: relative;
+}
+
+.bips-input {
+	padding: 20px;
+	-webkit-flex: 0 0 auto;
+        flex: 0 0 auto;
+	text-align: center;
+}
+
+.bips-form {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+}
+
+.bips-form input, .bips-form button {
+	vertical-align: top;
+}
+
+.bips-form input {
+	-webkit-flex: 1;
+	flex: 1;
+	text-align: left;
+	background-color: white;
+	border-radius: 0px;
+	outline: 0;
+	padding: 10px;
+	font-size: 25px;
+	line-height: 25px;
+	border: 1px solid #777;
+	min-width: 0px;
+}
+
+.bips-form button {
+	-webkit-flex: 0 0 auto;
+	flex: 0 0 auto;
+	margin-left: 10px;
+	font-size: 18px;
+	padding: 10px 15px;
+}
+
+.bips-list-wrap {
+        -webkit-flex: 1;
+	flex: 1;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.bips-list-wrap h2 {
+	-webkit-flex: 0 0 auto;
+	flex: 0 0 auto;
+}
+
+#bips-list {
+	-webkit-flex: 1;
+        flex: 1;
+        overflow: auto;
+	list-style-type: none;
+	border: 1px solid #111;
+	text-align: left;
+}
+
+.bip {
+	display: inline-block;
+	text-align: center;
+	border: 1px solid #aaa;
+	position: relative;
+	margin: 2px;
+	padding: 10px;
+}
+
+.causes-root {
+	position: absolute;
+	top: 50px;
+	left: -260px;
+	width: 250px;
+	height: auto;
+	padding: 10px 5px;
+	background-color: white;
+	border: 2px solid rgba(150, 150, 150, .25);
+	-webkit-box-shadow: 5px 8px 20px -18px rgba(50,50,50,50.75);
+	-moz-box-shadow: 5px 8px 20px -18px rgba(50,50,50,50.75);
+	box-shadow: 5px 8px 20px -18px rgba(50,50,50,0.75);
+	display: none;
+}
+
+.causes-wrap, .causes-root {
+	overflow: hidden;
+}
+
+.causes-body {
+	padding: 5px;
+	margin: 5px 0px;
+	border: 1px solid rgba(150, 150, 150, 0.2);
+	overflow: auto;
+	max-height: 300px;
+}
+
+.causes-header {
+	text-align: center;
+}
+
+.causes-list {
+	list-style-type: none;
+}
+
+.causes-list li {
+	border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+	text-align: center;
+	padding: 4px 1px;
+}
+
+.causes-list li:last-child {
+	border-bottom: none;
+}
+
+h2 {
+	font-weight: 500;
+	font-size: 25px;
+	margin: 15px 0;
+}
+
+</style>
+
+<script>
+
+function permutator(inputArr)
+{
+	var results = [];
+
+	function permute(arr, memo)
+	{
+    		var cur, memo = memo || [];
+
+    		for (var i = 0; i < arr.length; i++)
+		{
+      			cur = arr.splice(i, 1);
+      			if (arr.length === 0)
+        			results.push(memo.concat(cur));
+
+      			permute(arr.slice(), memo.concat(cur));
+      			arr.splice(i, 0, cur[0]);
+    		}
+
+    		return results;
+  	}
+
+  	return permute(inputArr);
+}
+
+function aComp(a, b, x)
+{
+	var res = true;
+
+	for(var i = 0; i < x; i++)
+	{
+		if(a[i] !== b[i])
+		{
+			res = false;
+			break;
+		}
+	}
+
+	return res;
+}
+
+function getBips(notes)
+{
+	var perms = permutator(notes);
+	var bips = [];
+
+	for(var i = 0; i < perms.length; i++)
+	{
+		var bip = [];
+
+		for(var j = 1; j < perms[i].length; j++)
+		{
+			var d = Math.abs(perms[i][j] - perms[i][j-1]);
+			if(d > 6)
+				d = 12 - d;
+		
+			bip.push(d);
+		}
+
+		bip.sort();
+		
+		var ex = false;
+		for(var j = 0; j < bips.length; j++)
+		{
+			if(aComp(bips[j].bip, bip, bip.length))
+			{
+				ex = true;
+				bips[j].causes.push(perms[i]);
+				break;
+			}
+		}
+		if(!ex)
+			bips.push({ bip: bip, causes: [perms[i]] });
+	}
+
+	return bips;
+}
+
+function getBipString(arr)
+{
+	var str = "";
+
+	for(var i = 0; i < arr.length - 1; i++)
+        	str = str.concat(arr[i] + ", ");
+
+	str = str.concat(arr[arr.length - 1]);
+
+	return str;
+}
+
+function togglePermsList(on, bip, causes)
+{
+	if(on) {
+		$("#causes-numbers-root").css("display", "initial");
+
+		$("#causes-numbers-list").empty();
+		for(var i = 0; i < causes.length; i++)
+			$(".causes-list").append("<li>" + getBipString(causes[i]) + "</li>");
+	
+
+		$("#causes-notes-root").css("display", "initial");
+
+		$("#causes-notes-list").empty();
+	}
+	else
+		$(".causes-root").css("display", "none");dd
+}
+
+var currentBip = {};
+
+function setBips()
+{
+	$("#bips-list").empty();
+
+        var notes = $("#notes").val().replace(/\s+/g, '').split(',');
+        if(notes.length < 2)
+                return;
+        else
+                for(var i = 0; i < notes.length; i++)
+                        notes[i] = parseInt(notes[i]);
+
+	$("#calc").html("Calculating...")[0].disabled = true;
+
+	window.setTimeout(function()
+	{
+        	var bips = getBips(notes);
+
+        	for(var i = 0; i < bips.length; i++)
+        	{
+        		var str = getBipString(bips[i].bip);
+
+			var li = document.createElement("LI");
+			li.classList.add("bip");
+			li.causes = bips[i].causes;
+			$(li).append(str);
+                	$("#bips-list").append(li);
+		
+			$(li).click(function(event) {		
+				togglePermsList(true, $(this).html(), this.causes);
+				$(this).css("border", "2px solid rgba(10, 10, 250, 0.6)");
+				
+				if(currentBip)
+					$(currentBip).css("border", "1px solid #aaa");
+				currentBip = this;
+			});
+		}    
+		
+		$("#calc").html("Calculate")[0].disabled = false;
+	}, 50);
+}
+
+$(document).ready(function()
+{
+	$("#calc").click(setBips);
+
+	$("#notes").keypress(function(e) {
+		if(e.which == 13)
+			setBips();
+	});
+
+	$("#bips-list").mouseout(function(event) {
+		//togglePermsList(false);
+	});
+});
+
+</script>
+
+</head>
+
+<body>
+
+<div class="main">
+        <div class="container">
+                <div class="bips-input">
+			<h2>Enter a comma-separated list of numbers (notes) here:</h2>
+			<div class="bips-form">
+                        	<input id="notes" type="text" placeholder="Enter here" value="1,2,3"></input>
+				<button id="calc">Calculate</button>
+                	</div>
+		</div>
+		<div class="bips-list-wrap">
+			<h2>And the calculated bips will be outputted here:</h2>
+			<ul id="bips-list">		
+			</ul>
+		</div>
+
+		<div class="tooltips">
+			<div class="tooltip causes-root">
+				<div class="causes-wrap">
+					<div class="causes-header">
+						<p>
+							Notes for this bip:
+						</p>
+					</div>
+					<div class="causes-body">
+						<ul class="causes-list">
+							<li>1, 2, 3</li>
+							<li>2, 3, 4</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>
+
+

@@ -28,7 +28,7 @@ jsPsych.plugins["bar-choose"] = (function()
 			display_element.find("#bar-graph").height(600).barChooseGraph("init", { categories: trial.categories, min: trial.min_val, max: trial.max_val });
 
 			display_element.find("#bar-submit").click(function() {
-				if($(".bar-graph-input input:focus").length)
+				if($(".bar-graph-input input:focus").length || !confirm("Are you sure you want to submit your answers?"))
 					return;
 
 				display_element.find("#bar-graph").barChooseGraph("show", { answers: trial.answers, max: trial.max_val });
@@ -36,6 +36,7 @@ jsPsych.plugins["bar-choose"] = (function()
 				$(this).html("Next section");
 
 				display_element.find("#bar-submit").off("click").click(function() {
+
 					var data = {
 						responses: display_element.find("#bar-graph").barChooseGraph("get")
 					}

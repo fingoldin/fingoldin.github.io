@@ -8,7 +8,21 @@ startSession();
 
 <!DOCTYPE html>
 
+<!--[if lt IE 8]>
+<html class="ie-warning">
+<![endif]-->
+
+<!--[if IE 8]>
+<html class="ie8">
+<![endif]-->
+
+<!--[if IE 9]>
+<html class="ie9">
+<![endif]-->
+
+<!--[if !IE]> -->
 <html>
+<!-- <![endif]-->
 
 <head>
 
@@ -26,6 +40,7 @@ startSession();
 <script src="/utils/bar-choose-plugin.js"></script>
 <script src="/utils/jquery.transform2d.js"></script>
 <script src="/utils/json2.js"></script>
+<script src="/utils/browserdetect.js"></script>
 <link href="/jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/general.css" rel="stylesheet" type="text/css"></link>
 <link href="/utils/bar-choose-plugin.css" rel="stylesheet" type="text/css"></link>
@@ -41,8 +56,9 @@ startSession();
 
 <script type="text/javascript">
 
-// If internet Explorer
-window.useTranstitions = !(!!document.documentMode);
+BrowserDetect.init();
+if(BrowserDetect.browser == "Explorer" && BrowserDetect.version == 10)
+	document.getElementsByTagName("html")[0].classList += " ie10";
 
 </script>
 
@@ -90,8 +106,6 @@ var training_trial = {
 	number: 0
 	//answers: animanswers
 }
-
-var testing_data = [];
 
 var testing_instructions_trial = {
 	type: "html",
@@ -147,8 +161,6 @@ var p2_training_trial = {
 	//answers: animanswers2
 }
 
-var p2_testing_data = [];
-
 var p2_testing_instructions_trial = {
         type: "html",
         url: "/utils/testing2.html",
@@ -203,6 +215,8 @@ function init()
 	var animanswers = [];
 	var animdata2 = [];
 	var animanswers2 = [];
+	var testing_data = [];
+	var p2_testing_data = [];
 
 	var da = JSON.parse(d);
 	testing_data = da["testing"][0];

@@ -44,7 +44,7 @@ button {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-        border: none;
+        border: 2px solid #4CAF50;
 	padding: 10px 15px;
 	font-size: 14px;
 }
@@ -56,6 +56,10 @@ button:disabled {
 button:hover:not(:disabled) {
 	background-color: #3A9E39;
 	cursor: pointer;
+}
+
+button:focus {
+	border-color: #555;
 }
 
 .big-btn {
@@ -124,6 +128,10 @@ button:hover:not(:disabled) {
 	opacity: 0;
 }
 
+.ie8 .ticket-choose-main, .ie9 .ticket-choose-main, .ie10 .ticket-choose-main {
+	margin-top: 100px;
+}
+
 .ticket-choose-footer {
 	position: absolute;
 	left: 0;
@@ -154,6 +162,18 @@ button:hover:not(:disabled) {
 	display: inline-block;
 }
 
+.ie10 .ticket-img {
+	width: 492px;
+	height: 207px;
+	max-width: none;
+}
+
+.ie9 .ticket-img, .ie8 .ticket-img {
+	width: 328px;
+	height: 138px;
+	max-width: none;
+}
+
 .wheel-loader-wrap {
 	position: fixed;
 	left: 50%;
@@ -179,6 +199,11 @@ button:hover:not(:disabled) {
 	position: absolute;
     	left: -50px;
     	top: -50px;
+}
+
+
+.ie8 .wheel-loader, .ie9 .wheel-loader {
+	display: none;
 }
 
 @-webkit-keyframes wheel-spin {

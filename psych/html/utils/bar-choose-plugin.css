@@ -35,6 +35,10 @@
 	user-select: none;
 }
 
+.ie9 .bar-graph-main, .ie8 .bar-graph-main, .ie9 .bar-graph-graph, .ie8 .bar-graph-graph {
+	height: 600px;
+}
+
 .bar-graph-columns {
 	-webkit-box-flex: 1;
 	-moz-box-flex: 1;
@@ -51,6 +55,10 @@
         -ms-flex-direction: row;
         -webkit-flex-direction: row;
         flex-direction: row;
+}
+
+.ie8 .bar-graph-columns, .ie9 .bar-graph-columns {
+	height: 460px;
 }
 
 .bar-graph-labels, .bar-graph-main-remaining {
@@ -86,6 +94,10 @@
         -webkit-flex: 1;
         -ms-flex: 1;
         flex: 1;
+}
+
+.ie8 .bar-graph-column-wrap, .ie9 .bar-graph-column-wrap {
+	height: 460px;
 }
 
 .bar-graph-column, .bar-graph-column-a {
