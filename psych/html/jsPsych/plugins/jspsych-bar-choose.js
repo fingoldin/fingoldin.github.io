@@ -18,7 +18,7 @@ jsPsych.plugins["bar-choose"] = (function()
 
 		display_element.empty();
 
-		display_element.load("/utils/bar-choose.html", function()
+		display_element.load("/tickets/utils/bar-choose.html", function()
 		{
 //			showPoints(display_element, trial.points);
 
@@ -46,7 +46,7 @@ jsPsych.plugins["bar-choose"] = (function()
 
 					display_element.html("");
 
-					console.log(JSON.stringify(data.responses));
+					//console.log(JSON.stringify(data.responses));
 
 					jsPsych.finishTrial(data);
 				});

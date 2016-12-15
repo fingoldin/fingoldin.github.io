@@ -1,9 +1,9 @@
 <?php
 
-require("./includes.php");
-
 if(!session_id())
 	session_start();
+
+require("./includes.php");
 
 //require("../data.php");
 
@@ -20,14 +20,14 @@ function checkAnswer($phase, $sequence, $answer)
 
 		$p = get_points($phase, $sequence, $answer);
 
-		$data["points"] = $_SESSION["points"] + $p;
+		$data["points"] = $_SESSION["points"][$phase] + $p;
 		if($data["points"] > 200)
 		{
 			$data["points"] = 200;
-			$_SESSION["points"] = 200;
+			$_SESSION["points"][$phase] = 200;
 		}
 		else
-			$_SESSION["points"] += $p;
+			$_SESSION["points"][$phase] += $p;
 		//$data["place"] = array_search($a, $arr) + 1;
 
 		array_push($_SESSION["checked"][$phase], $sequence);

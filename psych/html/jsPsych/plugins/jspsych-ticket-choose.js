@@ -18,8 +18,10 @@ jsPsych.plugins["ticket-choose"] = (function()
 
 		display_element.html("");
 
-		display_element.load("/utils/ticket-choose.html", function()
+		display_element.load("/tickets/utils/ticket-choose.html", function()
 		{
+			//window.viewportUnitsBuggyfill.refresh();
+
 			var price_num = -1;
 
 			if(trial.showpoints)

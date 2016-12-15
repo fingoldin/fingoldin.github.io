@@ -17,6 +17,12 @@ html, body {
 	margin: 0;
 }
 
+.ie-nope {
+	font-size: 30px;
+	text-align: center;
+	margin: 50px auto;
+}
+
 body {
 	text-align: center;
 }
@@ -155,22 +161,31 @@ button:focus {
 	margin-bottom: 4px;
 }
 
-.ticket-img {
-	width: 500px;
+.normal .ticket-img {
+	width: 98%;
 	height: auto;
-	max-width: 95vw;
+	max-width: 600px;
 	display: inline-block;
+}
+
+.ie9 .ticket-img {
+	width: 492px;
+	height: 207px;
+	max-height: 207px;
+	max-width: 492px;
 }
 
 .ie10 .ticket-img {
 	width: 492px;
-	height: 207px;
-	max-width: none;
+        height: 207px;
+	max-height: 207px;
+        max-width: 492px;
 }
 
-.ie9 .ticket-img, .ie8 .ticket-img {
+.ie8 .ticket-img {
 	width: 328px;
 	height: 138px;
+	display: block;
 	max-width: none;
 }
 
@@ -233,6 +248,36 @@ button:focus {
 
 .thanks {
 	font-size: 50px;
-	ling-height: 50px;
+	line-height: 50px;
 }
 
+.jspsych-content {
+	margin: auto;
+}
+
+.final-btn {
+	margin-top: 15px;
+}
+
+.check-head {
+	padding: 15px;
+	font-size: 30px;
+	line-height: 30px;
+}
+
+.check-bot button {
+	margin: 5px;
+}
+
+.top-alert {
+	position: fixed;
+	height: 38px;
+	top: -40px;
+	left: 0;
+	right: 0;
+	background-color: #e76712;
+	text-align: center;
+	line-height: 38px;
+	font-size: 18px;
+	color: white;
+}

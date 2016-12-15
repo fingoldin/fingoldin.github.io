@@ -15,8 +15,10 @@ jsPsych.plugins["number-animation"] = (function()
     		trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
 
 		display_element.html("");
-		display_element.load("/utils/number-animation.html", function()
+		display_element.load("/tickets/utils/number-animation.html", function()
 		{
+			//window.viewportUnitsBuggyfill.refresh();
+
 			var price_num = -1;
 
 /*	var wrap = display_element.find("#jspsych-animation-image");

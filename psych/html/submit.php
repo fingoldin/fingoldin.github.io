@@ -1,15 +1,15 @@
 <?php
 
-require("./includes.php");
-
 if(!session_id())
-	session_start();
+        session_start();
+
+require("./includes.php");
 
 if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["finished"] == 0 && isset($_POST["data"]) && isset($_SESSION["points"]))
 {
 	$time = get_time();
 
-	$arr = ["start_time" => $_SESSION["start_time"], "end_time" => $time, "total_points" => $_SESSION["points"], "data" => json_decode($_POST["data"], true)];
+	$arr = ["start_time" => $_SESSION["start_time"], "end_time" => $time, "points_phase0" => $_SESSION["points"][0], "points_phase1" => $_SESSION["points"][1], "data" => json_decode($_POST["data"], true)];
 
 	foreach($arr["data"] as $trial)
 	{
@@ -29,7 +29,7 @@ if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["
 		}
 	}
 
-	submit_response($arr);
+//	submit_response($arr);
 
 	$_SESSION["finished"] = 1;
 

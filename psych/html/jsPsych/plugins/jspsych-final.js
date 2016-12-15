@@ -4,7 +4,7 @@ jsPsych.plugins["final"] = (function()
 
 	plugin.trial = function(display_element, trial)
 	{
-		trial.points = trial.points || 0;
+		trial.points = trial.points || [0, 0];
 
 		trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
 
@@ -49,10 +49,12 @@ jsPsych.plugins["final"] = (function()
 						sbot[1] = " * ";
 						sbot[2] = "0.025";
 						sbot[3] = " = ";
-						sbot[4] = "$" + (trial.points * 0.025);*/
+						sbot[4] = "$" + ((trial.points[0] + trial.points[1]) * 0.025);*/
 
-						bot.innerHTML = trial.points + " * 0.025 = $" + (Math.floor(trial.points * 2.5) / 100);
-						top.innerHTML = "You scored " + trial.points + (trial.points === 1 ? " point" : " points") + ", and receive";
+						var tp = trial.points[0] + trial.points[1];
+
+						bot.innerHTML = "10 + " + tp + " * 0.025 = $" + (10 + Math.floor(tp * 2.5) / 100);
+						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + ", and receive";
 
 						$(wrap).animate({ "opacity": "1" }, 600, function() {
 							setTimeout(function() {
@@ -61,11 +63,52 @@ jsPsych.plugins["final"] = (function()
 								$(bot).animate({ "opacity": "1" }, 600);
 
 								setTimeout(function() {
-									$(top).animate({ "opacity": "0" }, 400, function() {
-										$(top).html("Thanks for participating!");
-										$(top).animate({ "opacity": "1" }, 400);
-									});
-								}, 3000);
+											var cont = document.createElement("BUTTON");
+											cont.classList += " big-btn final-btn";
+											cont.innerHTML = "Finish";
+											setTimeout(function() {
+												$(wrap).append(cont);
+											}, 300);
+
+											$(cont).click(function() {
+												top.innerHTML = "";
+												bot.style.fontSize = "30px";
+												bot.style.lineHeight = "40px";
+												bot.style.margin = "40px";
+												bot.innerHTML = "Before you're done, what else were you doing (if anything) during the experiment?";
+												cont.classList = "";
+												cont.style.margin = "40px";
+
+												var d = document.createElement("DIV");
+												d.style.display = "block";
+												var s = document.createElement("SELECT");
+												s.style.width = "300px";
+												s.style.maxWidth = "80vw";
+
+												var array = ["Nothing", "Watching TV", "Eating", "Talking with a friend", "Browsing the internet", "Playing an online game", "Other"];
+
+												for (var i = 0; i < array.length; i++)
+												{
+    													var option = document.createElement("option");
+    													option.value = array[i];
+    													option.text = array[i];
+    													s.appendChild(option);
+												}
+
+												d.appendChild(s);
+												wrap.insertBefore(d, cont);
+												$(s).select2({ minimumResultsForSearch: -1 });
+
+												$(cont).off("click").click(function() {
+													var data = { during: $(s).select2("val") };
+													display_element.animate({ opacity: 0 }, 200, function() {
+														display_element.empty().css("opacity", "1");
+														//console.log(data);
+														jsPsych.finishTrial(data);
+													});	
+												});
+											});
+								}, 1100);
 							}, 800);
 						});
 					});

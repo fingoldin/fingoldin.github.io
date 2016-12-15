@@ -3,7 +3,7 @@
 }
 
 .ie8 .start-main, .ie9 .start-main, .ie10 .start-main {
-	margin: auto;
+	margin: 80px auto;
 }
 
 .start-header {

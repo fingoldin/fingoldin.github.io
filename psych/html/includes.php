@@ -33,10 +33,11 @@ function submit_response($arr)
 {
 	$conn = dbConnect();
 
-	$result = dbQuery($conn, "INSERT INTO responses SET start_time=:start_time, end_time=:end_time, total_points=:total_points", [
+	$result = dbQuery($conn, "INSERT INTO responses SET start_time=:start_time, end_time=:end_time, points_phase0=:points_phase0, points_phase1=:points_phase1", [
 			"start_time" => $arr["start_time"],
 			"end_time" => $arr["end_time"],
-			"total_points" => $arr["total_points"]
+			"points_phase0" => $arr["points_phase0"],
+			"points_phase1" => $arr["points_phase1"],
 	]);
 
 	$id = $conn->lastInsertId();
@@ -65,7 +66,7 @@ function submit_response($arr)
 }
 
 function dbConnect() {
-    $dsn = "mysql:host=localhost;dbname=responses;charset=utf8";
+    $dsn = "mysql:host=localhost;dbname=tickets_responses;charset=utf8";
     $opts = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_ERRMODE => PDO::FETCH_ASSOC,
@@ -88,24 +89,11 @@ function dbQuery($conn, $query, $values = array()) {
 
 function startSession() {
 
-if(session_id())
-{
-	/*if(isset($_SESSION["finished"]) && isset($_SESSION["RID"]) && $_SESSION["finished"] == 1)
-	{
-		$conn = dbConnect();
+$_SESSION = array();
 
-		dbQuery($conn, "DELETE FROM responses WHERE RID=:rid", ["rid" => $_SESSION["RID"]]);
-		dbQuery($conn, "DELETE FROM bar_responses WHERE RID=:rid", ["rid" => $_SESSION["RID"]]);
-		dbQuery($conn, "DELETE FROM test_responses WHERE RID=:rid", ["rid" => $_SESSION["RID"]]);
-	}*/
-
-       	$_SESSION = array();
-       	session_destroy();
-}
-
-session_start();
-
-$_SESSION["points"] = 0;
+$_SESSION["points"] = [];
+$_SESSION["points"][0] = 0;
+$_SESSION["points"][1] = 0;
 $_SESSION["checked"] = [];
 $_SESSION["checked"][0] = $_SESSION["checked"][1] = [];
 $_SESSION["got_data"] = 0;
@@ -228,6 +216,23 @@ $_SESSION["testing_data"] = [[
 [171, 154, 181, 226, 226, 123, 245, 189, 251, 237],
 [171, 154, 181, 115, 115, 123, 245, 189, 251, 237]
 ]];
+
+$v = mt_rand(1, 2);
+
+if($v === 2)
+{
+	$temp = $_SESSION["training_data"][0];
+	$_SESSION["training_data"][0] = $_SESSION["training_data"][1];
+	$_SESSION["training_data"][1] = $temp;
+
+	$temp = $_SESSION["training_answers"][0];
+        $_SESSION["training_answers"][0] = $_SESSION["training_answers"][1];
+        $_SESSION["training_answers"][1] = $temp;
+
+	$temp = $_SESSION["testing_data"][0];
+        $_SESSION["testing_data"][0] = $_SESSION["testing_data"][1];
+        $_SESSION["testing_data"][1] = $temp;
+}
 
 }
 
