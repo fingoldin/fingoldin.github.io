@@ -68,10 +68,14 @@ jsPsych.plugins["ticket-choose"] = (function()
 					var points = 0;
 
 					var r = prices.indexOf(trial.prices[price_num]);
-                                	if(r === 0)
-                                        	points = 2;
-                                	else if(r === 1)
-                                        	points = 1;
+                                	if(r == 0)
+                                        	points = 3;
+					if (r == 1)
+						points = 2;
+																	else if (r == 2 || r == 3 || r ==4)
+																					points = 1;
+
+
 
 					//console.log(points);
 
@@ -99,6 +103,8 @@ jsPsych.plugins["ticket-choose"] = (function()
 							am = am.slice(0, -1).concat(" and get 1 point.");
 						else if(points == 2)
 							am = am.slice(0, -1).concat(" and get 2 points.");
+						else if(points == 3)
+						am = am.slice(0, -1).concat(" and get 3 points.");
 						else
 							am = am.slice(0, -1).concat(" and get " + points + " points.");
 					}

@@ -52,9 +52,11 @@ jsPsych.plugins["final"] = (function()
 						sbot[4] = "$" + ((trial.points[0] + trial.points[1]) * 0.025);*/
 
 						var tp = trial.points[0] + trial.points[1];
+						var tppercent = tp / 300;
+						var tppercent = tppercent.toFixed(2);
 
-						bot.innerHTML = "10 + " + tp + " * 0.025 = $" + (10 + Math.floor(tp * 2.5) / 100);
-						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + ", and receive";
+						bot.innerHTML = "$5 + " + tppercent + " * $5 = $" + (5 + tppercent * 5);
+						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + " out of 300 points. <br> This is " + tppercent + " % and you receive <br> ";
 
 						$(wrap).animate({ "opacity": "1" }, 600, function() {
 							setTimeout(function() {
@@ -105,7 +107,7 @@ jsPsych.plugins["final"] = (function()
 														display_element.empty().css("opacity", "1");
 														//console.log(data);
 														jsPsych.finishTrial(data);
-													});	
+													});
 												});
 											});
 								}, 1100);

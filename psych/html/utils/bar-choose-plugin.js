@@ -57,6 +57,8 @@
 				var bgcw = document.createElement("DIV");
 				$(bgcw).addClass("bar-graph-column-wrap");
 				bgcw.id = "cwcat" + i;
+				if($("html").hasClass("ie8") || $("html").hasClass("ie9"))
+					bgcw.style.width = (100 / nc) + "%";
 				$(bgcs).append(bgcw);
 
 				var bgc = document.createElement("DIV");

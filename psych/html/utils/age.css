@@ -17,10 +17,10 @@
 .age-header {
 	text-align: center;
 	font-size: 25px;
-	color : #444;
+	color : #111;
 }
 
-#age-form {
+.age-form {
 	width: 98%;
 	max-width: 300px;
 	margin: auto;

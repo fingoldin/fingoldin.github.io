@@ -281,3 +281,7 @@ button:focus {
 	font-size: 18px;
 	color: white;
 }
+
+.top-alert.green {
+	background-color: #45e734;
+}

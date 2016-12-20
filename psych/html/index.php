@@ -1,5 +1,8 @@
 <?php
 
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+
 session_start();
 
 require("./includes.php");
@@ -40,6 +43,7 @@ startSession();
 <script src="/tickets/jsPsych/plugins/jspsych-final.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-age.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-instructions_check.js"></script>
+<script src="/tickets/jsPsych/plugins/jspsych-training_avg.js"></script>
 <script src="/tickets/utils/general.js"></script>
 <script src="/tickets/utils/bar-choose-plugin.js"></script>
 <script src="/tickets/utils/jquery.transform2d.js"></script>
@@ -104,7 +108,7 @@ var training_trial = {
 	type: "bar-choose",
 	instructions: "Now let's imagine you would see 20 more tickets for your trip to Canada.",
 	subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. <br><br>Press continue when you are sure of your answers.",
-	categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
+//	categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
 	min_val: 0,
 	max_val: 20,
 	phase: 0,
@@ -131,7 +135,7 @@ var training_trial2 = {
 	type: "bar-choose",
         instructions: "Now let's see if you understand the tickets better. Imagine you would see yet another 20 tickets to Canada.",
         subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
-        categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
+//        categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
         min_val: 0,
         max_val: 20,
 	phase: 0,
@@ -158,7 +162,7 @@ var p2_training_trial = {
         type: "bar-choose",
         instructions: "Now let's imagine you would see 20 more tickets for your trip to Mexico City.",
         subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
-        categories: ["$105 - $130", "$131 - $155", "$156 - $180", "$181 - $205", "$206 - $230", "$231 - $255", "$256 - $280"],
+//        categories: ["$105 - $130", "$131 - $155", "$156 - $180", "$181 - $205", "$206 - $230", "$231 - $255", "$256 - $280"],
         min_val: 0,
         max_val: 20,
 	phase: 1,
@@ -181,7 +185,7 @@ var p2_training_trial2 = {
         type: "bar-choose",
         instructions: "Now let's see if you understand the tickets better. Imagine you would see yet another 20 tickets to Mexico City.",
         subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
-        categories: ["$75 - $90", "$91 - $105", "$106 - $120", "$121 - $135", "$136 - $150", "$151 - $165"],
+//        categories: ["$105 - $130", "$131 - $155", "$156 - $180", "$181 - $205", "$206 - $230", "$231 - $255", "$256 - $280"],
         min_val: 0,
         max_val: 20,
 	phase: 1,
@@ -219,7 +223,7 @@ function init()
 	}
 
 	BrowserDetect.init();
-	if(BrowserDetect.browser == "Explorer" && BrowserDetect.version == 10)  
+	if(BrowserDetect.browser == "Explorer" && BrowserDetect.version == 10)
         	$("html").addClass("ie10");
 
 	if(BrowserDetect.browser == "Explorer" && BrowserDetect.version == 8)
@@ -243,6 +247,7 @@ function init()
 	var animanswers2 = [];
 	var testing_data = [];
 	var p2_testing_data = [];
+	var training_ranges = [];
 
 	var da = JSON.parse(d);
 	testing_data = da["testing"][0];
@@ -251,22 +256,48 @@ function init()
 	animdata2 = da["training"][1];
 	animanswers = da["answers"][0];
 	animanswers2 = da["answers"][1];
+	training_ranges = da["training_ranges"];
 
-	animation_trial.prices = animdata;
-	p2_animation_trial.prices = animdata2;
+	//animation_trial.prices = animdata;
+	//p2_animation_trial.prices = animdata2;
 	training_trial.answers = animanswers;
 	training_trial2.answers = animanswers;
 	p2_training_trial.answers = animanswers2;
 	p2_training_trial2.answers = animanswers2;
 
-//	timeline.push(final_trial);
+	training_trial.categories = da["categories"][0];
+	training_trial2.categories = da["categories"][0];
+	p2_training_trial.categories = da["categories"][1];
+  p2_training_trial2.categories = da["categories"][1];
+
+
 
 	timeline.push(consent_trial);
 	timeline.push(age_trial);
-        timeline.push(instructions_trial);
-        timeline.push(start_trial);
-        timeline.push(animation_trial);
-        timeline.push(training_trial);
+  timeline.push(instructions_trial);
+  timeline.push(start_trial);
+
+	//timeline.push(animation_trial);
+	for(var i = 0; i < animdata.length; i++)
+	{
+		timeline.push({
+        		type: "number-animation",
+        		prices: animdata[i],
+        		phase: 0,
+       			continue_message: "Next"
+		});
+
+		timeline.push({
+			type: "training_avg",
+			phase: 0,
+			sequence_num: i,
+			sequence: animdata[i],
+			min_val: training_ranges[0][0],
+			max_val: training_ranges[0][1]
+		});
+	}
+
+	timeline.push(training_trial);
         timeline.push(testing_instructions_trial);
 
 	// example testing sequence
@@ -316,8 +347,28 @@ function init()
 	timeline.push(training_trial2);
 
 	timeline.push(p2_start_trial);
-        timeline.push(p2_animation_trial);
-        timeline.push(p2_training_trial);
+
+	//timeline.push(p2_animation_trial);
+  for(var i = 0; i < animdata2.length; i++)
+	{
+                timeline.push({
+                        type: "number-animation",
+                        prices: animdata2[i],
+                        phase: 1,
+                        continue_message: "Next"
+                });
+
+                timeline.push({
+                        type: "training_avg",
+                        phase: 1,
+                        sequence_num: i,
+                        sequence: animdata2[i],
+                        min_val: training_ranges[1][0],
+                        max_val: training_ranges[1][1]
+                });
+        }
+
+	timeline.push(p2_training_trial);
         timeline.push(p2_testing_instructions_trial);
 
 	for(var i = 0; i < p2_testing_data.length; i++)
@@ -356,15 +407,25 @@ function init()
 
 	timeline.push(final_trial);
 
+/*	var completion_code = {
+		type: 'html',
+		url: 'confirmation_code.html'
+	};
+        timeline.push(completion_code);
+*/
+
+
 	$("#wheel").css("display", "none");
 
 	jsPsych.init({
 		timeline: timeline,
 		display_element: $("#jspsych-main"),
 		on_finish: function(data) {
-			$("#jspsych-main").html("<div class='thanks'>Thank you for participating!</div>");
+			$("#jspsych-main").empty().load("/tickets/confirmation_code.html");
 
-			$.post("/tickets/submit.php", { data: JSON.stringify(data) });
+			$.post("/tickets/submit.php", { data: JSON.stringify(data) }, function(r) {
+				//console.log(r);
+			});
 		}
 	});
 

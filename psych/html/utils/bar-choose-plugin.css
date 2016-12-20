@@ -99,7 +99,6 @@
 .ie8 .bar-graph-column-wrap, .ie9 .bar-graph-column-wrap {
 	height: 460px;
 	display: inline-block;
-	width: 14.286%;
 }
 
 .bar-graph-column, .bar-graph-column-a {

@@ -5,11 +5,22 @@ if(!session_id())
 
 require("./includes.php");
 
-if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["finished"] == 0 && isset($_POST["data"]) && isset($_SESSION["points"]))
+if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["finished"] == 0 && isset($_POST["data"]) && isset($_SESSION["points"]) && isset($_SESSION["phase_order"]))
 {
 	$time = get_time();
 
-	$arr = ["start_time" => $_SESSION["start_time"], "end_time" => $time, "points_phase0" => $_SESSION["points"][0], "points_phase1" => $_SESSION["points"][1], "data" => json_decode($_POST["data"], true)];
+	$arr = [
+		"start_time" => $_SESSION["start_time"],
+		"end_time" => $time,
+		"points_phase0" => $_SESSION["points"][0],
+		"points_phase1" => $_SESSION["points"][1],
+		"phase_order" => $_SESSION["phase_order"],
+		"age" => 0,
+		"gender" => "m",
+		"tries" => 1,
+		"during" => "Nothing",
+		"data" => json_decode($_POST["data"], true)
+	];
 
 	foreach($arr["data"] as $trial)
 	{
@@ -27,9 +38,18 @@ if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["
 				exit;
 			}
 		}
+		else if($trial["trial_type"] == "age")
+		{
+			$arr["age"] = $trial["age"];
+			$arr["gender"] = $trial["gender"];
+		}
+		else if($trial["trial_type"] == "instructions_check")
+			$arr["tries"] = $trial["tries"];
+		else if($trial["trial_type"] == "final")
+			$arr["during"] = $trial["during"];
 	}
 
-//	submit_response($arr);
+	submit_response($arr);
 
 	$_SESSION["finished"] = 1;
 

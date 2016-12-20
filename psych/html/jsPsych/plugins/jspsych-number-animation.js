@@ -3,12 +3,14 @@ jsPsych.plugins["number-animation"] = (function()
 	var plugin = {};
 
 	plugin.trial = function(display_element, trial)
+
 	{
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.phase = trial.phase || 0;
 
 		var num_prices = trial.prices.length;
+		//xxvar num_prices = 2;
 		if(!num_prices)
 			jsPsych.finishTrial({ "result": "error" });
 
