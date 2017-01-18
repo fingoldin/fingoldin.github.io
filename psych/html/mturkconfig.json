@@ -1,0 +1,6 @@
+{
+"use_sandbox" : false,
+"verify_mturk_ssl" : true,
+"aws_key" : "ACCESSID",
+"aws_secret_key" : "PASSWORD"
+}

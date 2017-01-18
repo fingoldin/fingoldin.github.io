@@ -55,8 +55,8 @@ jsPsych.plugins["final"] = (function()
 						var tppercent = tp / 300;
 						var tppercent = tppercent.toFixed(2);
 
-						bot.innerHTML = "$5 + " + tppercent + " * $5 = $" + (5 + tppercent * 5);
-						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + " out of 300 points. <br> This is " + tppercent + " % and you receive <br> ";
+						bot.innerHTML = "$4 + " + tppercent + " * $4 = $" + (4 + tppercent * 4);
+						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + " out of 300 points. <br> This is " + tppercent*100 + " % and you receive <br> ";
 
 						$(wrap).animate({ "opacity": "1" }, 600, function() {
 							setTimeout(function() {

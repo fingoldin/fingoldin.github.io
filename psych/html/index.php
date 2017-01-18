@@ -7,7 +7,19 @@ session_start();
 
 require("./includes.php");
 
-startSession();
+//var_dump($_SESSION["testing_data_order"]);
+
+$preview = true;
+//if(isset($_GET["assignmentId"]) && $_GET["assignmentId"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["assignmentId"]) && isset($_GET["hitId"]) && isset($_GET["turkSubmitTo"]) && isset($_GET["workerId"]))
+{
+	$preview = false;	
+
+	startSession();
+	$_SESSION["assignmentId"] = $_GET["assignmentId"];
+	$_SESSION["hitId"] = $_GET["hitId"];
+	$_SESSION["turkSubmitTo"] = $_GET["turkSubmitTo"];
+	$_SESSION["workerId"] = $_GET["workerId"];
+}
 
 ?>
 
@@ -44,6 +56,8 @@ startSession();
 <script src="/tickets/jsPsych/plugins/jspsych-age.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-instructions_check.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-training_avg.js"></script>
+<script src="/tickets/jsPsych/plugins/jspsych-call-function.js"></script>
+<script src="/tickets/jsPsych/plugins/jspsych-store_order.js"></script>
 <script src="/tickets/utils/general.js"></script>
 <script src="/tickets/utils/bar-choose-plugin.js"></script>
 <script src="/tickets/utils/jquery.transform2d.js"></script>
@@ -106,8 +120,8 @@ var animation_trial = {
 
 var training_trial = {
 	type: "bar-choose",
-	instructions: "Now let's imagine you would see 20 more tickets for your trip to Canada.",
-	subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. <br><br>Press continue when you are sure of your answers.",
+	instructions: "Imagine you would see 20 more tickets for your trip to Canada.",
+	subtitle: "Please drag the bar or type in the input field to determine the amount of tickets <br> that are in the equivalent price range for this trip. <br><br>Press continue when you are sure of your answers.",
 //	categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
 	min_val: 0,
 	max_val: 20,
@@ -122,6 +136,12 @@ var testing_instructions_trial = {
         cont_btn: "testingstart"
 }
 
+var testing_order_trial = {
+	type: "store_order",
+	phase: 0,
+	order: []
+}
+
 // Second testing instructions (after example sequence)
 var testing_instructions2_trial = {
 	type: "html",
@@ -133,8 +153,8 @@ var testing_instructions2_trial = {
 // Second bar graph to see learning
 var training_trial2 = {
 	type: "bar-choose",
-        instructions: "Now let's see if you understand the tickets better. Imagine you would see yet another 20 tickets to Canada.",
-        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
+        instructions: "Imagine you would see yet another 20 tickets to Canada.",
+        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets <br> that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
 //        categories: ["$135 - $150", "$151 - $165", "$166 - 180", "$181 - $195", "$196 - $210", "$211 - $225", "$226 - $240"],
         min_val: 0,
         max_val: 20,
@@ -160,8 +180,8 @@ var p2_animation_trial = {
 
 var p2_training_trial = {
         type: "bar-choose",
-        instructions: "Now let's imagine you would see 20 more tickets for your trip to Mexico City.",
-        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
+        instructions: "Imagine you would see 20 more tickets for your trip to Mexico City.",
+        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets <br> that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
 //        categories: ["$105 - $130", "$131 - $155", "$156 - $180", "$181 - $205", "$206 - $230", "$231 - $255", "$256 - $280"],
         min_val: 0,
         max_val: 20,
@@ -180,11 +200,17 @@ var p2_testing_instructions_trial = {
 	}
 }
 
+var p2_testing_order_trial = {
+        type: "store_order",
+        phase: 1,
+        order: []
+}
+
 // Second bar graph to see learning
 var p2_training_trial2 = {
         type: "bar-choose",
-        instructions: "Now let's see if you understand the tickets better. Imagine you would see yet another 20 tickets to Mexico City.",
-        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
+        instructions: "Imagine you would see yet another 20 tickets to Mexico City.",
+        subtitle: "Please drag the bar or type in the input field to determine the amount of tickets <br> that are in the equivalent price range for this trip. Press continue when you are sure of your answers.",
 //        categories: ["$105 - $130", "$131 - $155", "$156 - $180", "$181 - $205", "$206 - $230", "$231 - $255", "$256 - $280"],
         min_val: 0,
         max_val: 20,
@@ -248,6 +274,8 @@ function init()
 	var testing_data = [];
 	var p2_testing_data = [];
 	var training_ranges = [];
+	var testing_orders = [];
+	var p2_testing_orders = [];
 
 	var da = JSON.parse(d);
 	testing_data = da["testing"][0];
@@ -270,6 +298,11 @@ function init()
 	p2_training_trial.categories = da["categories"][1];
   p2_training_trial2.categories = da["categories"][1];
 
+	testing_orders = da["orders"][0];
+	p2_testing_order = da["orders"][1];
+
+	testing_order_trial.order = testing_orders;
+	p2_testing_order_trial.order = p2_testing_orders;
 
 
 	timeline.push(consent_trial);
@@ -278,7 +311,7 @@ function init()
   timeline.push(start_trial);
 
 	//timeline.push(animation_trial);
-	for(var i = 0; i < animdata.length; i++)
+	/*for(var i = 0; i < animdata.length; i++)
 	{
 		timeline.push({
         		type: "number-animation",
@@ -295,10 +328,11 @@ function init()
 			min_val: training_ranges[0][0],
 			max_val: training_ranges[0][1]
 		});
-	}
+	}*/
 
 	timeline.push(training_trial);
         timeline.push(testing_instructions_trial);
+	timeline.push(testing_order_trial);
 
 	// example testing sequence
 	timeline.push({ type: "ticket-choose",
@@ -311,7 +345,7 @@ function init()
 
 	timeline.push(testing_instructions2_trial);
 
-	for(var i = 0; i < testing_data.length; i++)
+	for(var i = 0; i < 3/*testing_data.length*/; i++)
 	{
         	timeline.push({ type: "ticket-choose",
 				prices: testing_data[i],
@@ -349,7 +383,8 @@ function init()
 	timeline.push(p2_start_trial);
 
 	//timeline.push(p2_animation_trial);
-  for(var i = 0; i < animdata2.length; i++)
+
+	/*for(var i = 0; i < animdata2.length; i++)
 	{
                 timeline.push({
                         type: "number-animation",
@@ -366,12 +401,14 @@ function init()
                         min_val: training_ranges[1][0],
                         max_val: training_ranges[1][1]
                 });
-        }
+        }*/
 
 	timeline.push(p2_training_trial);
         timeline.push(p2_testing_instructions_trial);
+	timeline.push(p2_testing_order_trial);
 
-	for(var i = 0; i < p2_testing_data.length; i++)
+	//for(var i = 0; i < 2; i++)
+	for(var i = 0; i < 3/*p2_testing_data.length*/; i++)
         {
                 timeline.push({ type: "ticket-choose",
 				prices: p2_testing_data[i],
@@ -414,17 +451,50 @@ function init()
         timeline.push(completion_code);
 */
 
+//save data
+
+
+
+			// function to save data
+	/*		function saveData(filename, filedata){
+				$.ajax({
+					type:'post',
+					cache: false,
+					url: '/tickets/save_data.php', // this is the path to the above PHP script
+					data: {filename: filename, filedata: filedata},
+				// complete: function() {
+				// 				window.location.href = "confirmation_code.html";
+				// 			}
+				});
+			}
+
+
+	var save_data = {
+		type: 'call-function',
+		func: function()
+		{
+			saveData(subject_id + '_output.csv', jsPsych.data.getDataAsCSV())
+		}
+		,timing_post_trial: 0
+	};
+
+	timeline.push(save_data);*/
+
+	// save data end
+
+
 
 	$("#wheel").css("display", "none");
+
+	var subject_id = "<?= $_SESSION['workerId'] ?>";
 
 	jsPsych.init({
 		timeline: timeline,
 		display_element: $("#jspsych-main"),
 		on_finish: function(data) {
 			$("#jspsych-main").empty().load("/tickets/confirmation_code.html");
-
-			$.post("/tickets/submit.php", { data: JSON.stringify(data) }, function(r) {
-				//console.log(r);
+			$.post("/tickets/submit.php", { data: JSON.stringify(data), subject_id: subject_id }, function(r) {
+				console.log(r);
 			});
 		}
 	});
@@ -432,11 +502,30 @@ function init()
 	});
 }
 
+function init_preview()
+{
+	var accept_trial = {
+		type: "html",
+		url: "/tickets/utils/accept.html"
+	};
+
+	$("#wheel").css("display", "none");
+
+	jsPsych.init({
+		timeline: [consent_trial, accept_trial],
+		display_element: $("#jspsych-main")
+	});
+}
+
 </script>
 
 </head>
 
-<body onload="init()">
+<?php if($preview): ?>
+	<body onload="init_preview()">
+<?php else: ?>
+	<body onload="init()">
+<?php endif; ?>
 	<div class="wheel-loader-wrap" id="wheel"><div class="wheel-loader"></div></div>
 	<div id="jspsych-points" style="display:none">
 		<div class="points-main">
