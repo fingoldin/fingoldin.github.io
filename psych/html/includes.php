@@ -44,27 +44,40 @@ function get_points($phase, $sequence, $answer)
 	return $p;
 }
 
+
+// returns an integer for the number of cents
 function get_bonus($points)
 {
-	$percent = round(100 * ($points / 300)) / 100;
+	$percent = round(100 * ($points / 300));
+	$b = intval(round(4 * $percent));
 
-	return (4 * $percent);
+	if($b > 400)
+		return 400;
+	else if($b < 0)
+		return 0;
+	else
+		return $b;
 }
 
-function save_to_mturk()
+function grant_bonus($b)
 {
-	$b = get_bonus(intval($arr["points_phase0"]) + intval($arr["points_phase1"]));
+	//$b = get_bonus(intval($arr["points_phase0"]) + intval($arr["points_phase1"])) / 100;
 	
+	// b is inputted as an int of cents
+	$bonus = $b / 100;
+
+	//echo "bonus: " . $bonus;
+
 	$m = new MechanicalTurk();
 	$m->request('GrantBonus', array(
 		"WorkerId" => $_SESSION["workerId"],
 		"AssignmentId" => $_SESSION["assignmentId"],
-		"BonusAmount.1.Amount" => $b,
+		"BonusAmount.1.Amount" => $bonus,
 		"BonusAmount.1.CurrencyCode" => "USD",
 		"Reason" => "Thanks!"
 	));
 
-	httpPost("https://www.mturk.com/mturk/externalSubmit", [ "assignmentId" => $_SESSION["assignmentId"] ]);
+	//httpPost("https://www.mturk.com/mturk/externalSubmit", [ "assignmentId" => $_SESSION["assignmentId"] ]);
 }
 
 function log_save_response($arr)
@@ -76,7 +89,7 @@ function log_save_response($arr)
 
 function subject_save_response($arr)
 {
-	$filename = "./data/" . $arr["subject_id"] . "_output.json";
+	$filename = "./data/" . $arr["worker_id"] . "_output.json";
 
         file_put_contents($filename, json_encode($arr));
 }
@@ -85,7 +98,7 @@ function mysql_save_response($arr)
 {
 	$conn = dbConnect();
 
-	$result = dbQuery($conn, "INSERT INTO responses SET start_time=:start_time, end_time=:end_time, phase_order=:phase_order, age=:age, gender=:gender, tries=:tries, during=:during, points_phase0=:points_phase0, points_phase1=:points_phase1, subject_id=:subject_id", [
+	$result = dbQuery($conn, "INSERT INTO responses SET start_time=:start_time, end_time=:end_time, phase_order=:phase_order, age=:age, gender=:gender, tries=:tries, during=:during, points_phase0=:points_phase0, points_phase1=:points_phase1, worker_id=:worker_id, assignment_id=:assignment_id, bonus=:bonus", [
 			"start_time" => $arr["start_time"],
 			"end_time" => $arr["end_time"],
 			"phase_order" => $_SESSION["phase_order"],
@@ -95,7 +108,9 @@ function mysql_save_response($arr)
                 	"during" => $arr["during"],
 			"points_phase0" => $arr["points_phase0"],
 			"points_phase1" => $arr["points_phase1"],
-			"subject_id" => $arr["subject_id"]
+			"worker_id" => $arr["worker_id"],
+			"assignment_id" => $arr["assignment_id"],
+			"bonus" => $arr["bonus"]
 	]);
 
 	$id = $conn->lastInsertId();
@@ -112,13 +127,24 @@ function mysql_save_response($arr)
 		else if($trial["trial_type"] == "ticket-choose" && $trial["sequence"] > -1)
 		{
 //			var_dump($trial);
-			dbQuery($conn, "INSERT INTO test_responses SET response=:result, points=:points, phase=:phase, sequence=:sequence, place=:place, RID=$id", [
+			dbQuery($conn, "INSERT INTO test_responses SET response=:result, points=:points, phase=:phase, sequence=:sequence, place=:place, RID=$id, next_num=:next_num", [
 					"result" => $trial["result"],
 					"points" => $trial["points"],
 					"phase" => $trial["phase"],
 					"sequence" => $trial["sequence"],
-					"place" => $trial["place"]
+					"place" => $trial["place"],
+					"next_num" => $trial["next_num"]
 			]);
+
+			for($i = 0; $i < count($trial["times"]); $i++)
+			{
+				dbQuery($conn, "INSERT INTO testing_times SET sequence=:sequence, RID=$id, place=:place, phase=:phase, time=:time", [
+					"sequence" => $trial["sequence"],
+					"place" => $i,
+					"phase" => $trial["phase"],
+					"time" => $trial["times"][$i]
+				]);
+			}
 		}
 		else if($trial["trial_type"] == "training_avg")
 		{
@@ -128,6 +154,17 @@ function mysql_save_response($arr)
 					"response" => $trial["response"],
 					"phase" => $trial["phase"]
 			]);
+		}
+		else if($trial["trial_type"] == "store_order")
+		{
+			for($i = 0; $i < count($trial["order"]); $i++)
+			{
+				dbQuery($conn, "INSERT INTO testing_orders SET phase=:phase, sequence=:sequence, order_index=:order, RID=$id", [
+					"phase" => $trial["phase"],
+					"sequence" => $i,
+					"order" => $trial["order"][$i]
+				]);
+			}
 		}
 	}
 }

@@ -52,11 +52,21 @@ jsPsych.plugins["final"] = (function()
 						sbot[4] = "$" + ((trial.points[0] + trial.points[1]) * 0.025);*/
 
 						var tp = trial.points[0] + trial.points[1];
-						var tppercent = tp / 300;
-						var tppercent = tppercent.toFixed(2);
+						
+						// in decimal (0.3 is 30%);
+						var tpfraction = Math.round(100 * (tp / 300)) / 100;
+						
+						// bonus is counted in cents
+						var bonus = parseInt(Math.round(100 * tpfraction * 4));
+						
+						// in dollars
+						var totalmoney = 4 + bonus/100;
+					
+						// in percent
+						var tppercent = parseInt(tpfraction * 100);
 
-						bot.innerHTML = "$4 + " + tppercent + " * $4 = $" + (4 + tppercent * 4);
-						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + " out of 300 points. <br> This is " + tppercent*100 + " % and you receive <br> ";
+						bot.innerHTML = "$4 + " + tpfraction.toFixed(2) + " * $4 = $" + totalmoney.toFixed(2);
+						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + " out of 300 points. <br> This is " + tppercent + " % and you receive <br> ";
 
 						$(wrap).animate({ "opacity": "1" }, 600, function() {
 							setTimeout(function() {
@@ -102,7 +112,11 @@ jsPsych.plugins["final"] = (function()
 												$(s).select2({ minimumResultsForSearch: -1 });
 
 												$(cont).off("click").click(function() {
-													var data = { during: $(s).select2("val") };
+													var data = {
+														during: $(s).select2("val"),
+														bonus: bonus
+													};
+
 													display_element.animate({ opacity: 0 }, 200, function() {
 														display_element.empty().css("opacity", "1");
 														//console.log(data);

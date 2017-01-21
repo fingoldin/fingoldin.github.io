@@ -5,9 +5,12 @@ if(!session_id())
 
 require("./includes.php");
 
-if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["finished"] == 0 && isset($_POST["data"]) && isset($_SESSION["points"]) && isset($_SESSION["phase_order"]) && isset($_POST["subject_id"]))
+
+if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["finished"] == 0 && isset($_POST["data"]) && isset($_SESSION["points"]) && isset($_SESSION["phase_order"]) && isset($_POST["worker_id"]) && isset($_POST["assignment_id"]))
 {
 	$time = get_time();
+
+	echo "got here";
 
 	$arr = [
 		"start_time" => $_SESSION["start_time"],
@@ -19,8 +22,10 @@ if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["
 		"gender" => "m",
 		"tries" => 1,
 		"during" => "Nothing",
-		"subject_id" => $_POST["subject_id"],
-		"data" => json_decode($_POST["data"], true)
+		"worker_id" => $_POST["worker_id"],
+		"assignment_id" => $_POST["assignment_id"],
+		"data" => json_decode($_POST["data"], true),
+		"bonus" => 0
 	];
 
 	foreach($arr["data"] as $trial)
@@ -47,12 +52,24 @@ if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["
 		else if($trial["trial_type"] == "instructions_check")
 			$arr["tries"] = $trial["tries"];
 		else if($trial["trial_type"] == "final")
+		{
 			$arr["during"] = $trial["during"];
+
+			$b = intval($trial["bonus"]);
+			if(get_bonus(intval($arr["points_phase0"]) + intval($arr["points_phase1"])) !== $b)
+			{
+				echo "Looks like we've got ourselves a script kiddie here.";
+				exit;
+			}
+			$arr["bonus"] = $b;
+		}
 	}
 
+	subject_save_response($arr);
 	mysql_save_response($arr);
 	log_save_response($arr);
-	subject_save_response($arr);
+	grant_bonus($arr["bonus"]);
+	//subject_save_response($arr);
 
 	$_SESSION["finished"] = 1;
 

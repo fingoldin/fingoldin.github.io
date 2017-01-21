@@ -10,14 +10,12 @@ require("./includes.php");
 //var_dump($_SESSION["testing_data_order"]);
 
 $preview = true;
-//if(isset($_GET["assignmentId"]) && $_GET["assignmentId"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["assignmentId"]) && isset($_GET["hitId"]) && isset($_GET["turkSubmitTo"]) && isset($_GET["workerId"]))
+if(isset($_GET["assignmentId"]) && $_GET["assignmentId"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["assignmentId"]) && isset($_GET["workerId"]))
 {
-	$preview = false;	
+	$preview = false;
 
 	startSession();
 	$_SESSION["assignmentId"] = $_GET["assignmentId"];
-	$_SESSION["hitId"] = $_GET["hitId"];
-	$_SESSION["turkSubmitTo"] = $_GET["turkSubmitTo"];
 	$_SESSION["workerId"] = $_GET["workerId"];
 }
 
@@ -299,7 +297,7 @@ function init()
   p2_training_trial2.categories = da["categories"][1];
 
 	testing_orders = da["orders"][0];
-	p2_testing_order = da["orders"][1];
+	p2_testing_orders = da["orders"][1];
 
 	testing_order_trial.order = testing_orders;
 	p2_testing_order_trial.order = p2_testing_orders;
@@ -310,8 +308,8 @@ function init()
   timeline.push(instructions_trial);
   timeline.push(start_trial);
 
-	//timeline.push(animation_trial);
-	/*for(var i = 0; i < animdata.length; i++)
+	/*timeline.push(animation_trial);
+	for(var i = 0; i < animdata.length; i++)
 	{
 		timeline.push({
         		type: "number-animation",
@@ -382,9 +380,9 @@ function init()
 
 	timeline.push(p2_start_trial);
 
-	//timeline.push(p2_animation_trial);
+	/*timeline.push(p2_animation_trial);
 
-	/*for(var i = 0; i < animdata2.length; i++)
+	for(var i = 0; i < animdata2.length; i++)
 	{
                 timeline.push({
                         type: "number-animation",
@@ -486,14 +484,15 @@ function init()
 
 	$("#wheel").css("display", "none");
 
-	var subject_id = "<?= $_SESSION['workerId'] ?>";
+	var worker_id = "<?= $_SESSION['workerId'] ?>";
+	var assignment_id = "<?= $_SESSION['assignmentId'] ?>";
 
 	jsPsych.init({
 		timeline: timeline,
 		display_element: $("#jspsych-main"),
 		on_finish: function(data) {
 			$("#jspsych-main").empty().load("/tickets/confirmation_code.html");
-			$.post("/tickets/submit.php", { data: JSON.stringify(data), subject_id: subject_id }, function(r) {
+			$.post("/tickets/submit.php", { data: JSON.stringify(data), worker_id: worker_id, assignment_id: assignment_id }, function(r) {
 				console.log(r);
 			});
 		}
