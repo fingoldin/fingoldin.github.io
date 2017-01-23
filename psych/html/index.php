@@ -9,15 +9,17 @@ require("./includes.php");
 
 //var_dump($_SESSION["testing_data_order"]);
 
-$preview = true;
-if(isset($_GET["assignmentId"]) && $_GET["assignmentId"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["assignmentId"]) && isset($_GET["workerId"]))
+startSession();
+
+/*$preview = true;
+if(isset($_GET["assignmentId"]) && $_GET["assignmentId"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["workerId"]))
 {
 	$preview = false;
 
 	startSession();
 	$_SESSION["assignmentId"] = $_GET["assignmentId"];
 	$_SESSION["workerId"] = $_GET["workerId"];
-}
+}*/
 
 ?>
 
@@ -236,7 +238,7 @@ function preload()
 	}
 }
 
-function init()
+function init_exp(worker_id, assignment_id)
 {
 //	if(Function('/*@cc_on return document.documentMode===10@*/')()){ $("body").addClass("ie10"); }
 
@@ -308,7 +310,7 @@ function init()
   timeline.push(instructions_trial);
   timeline.push(start_trial);
 
-	/*timeline.push(animation_trial);
+	timeline.push(animation_trial);
 	for(var i = 0; i < animdata.length; i++)
 	{
 		timeline.push({
@@ -326,7 +328,7 @@ function init()
 			min_val: training_ranges[0][0],
 			max_val: training_ranges[0][1]
 		});
-	}*/
+	}
 
 	timeline.push(training_trial);
         timeline.push(testing_instructions_trial);
@@ -343,7 +345,7 @@ function init()
 
 	timeline.push(testing_instructions2_trial);
 
-	for(var i = 0; i < 3/*testing_data.length*/; i++)
+	for(var i = 0; i < testing_data.length; i++)
 	{
         	timeline.push({ type: "ticket-choose",
 				prices: testing_data[i],
@@ -380,7 +382,7 @@ function init()
 
 	timeline.push(p2_start_trial);
 
-	/*timeline.push(p2_animation_trial);
+	timeline.push(p2_animation_trial);
 
 	for(var i = 0; i < animdata2.length; i++)
 	{
@@ -399,14 +401,14 @@ function init()
                         min_val: training_ranges[1][0],
                         max_val: training_ranges[1][1]
                 });
-        }*/
+        }
 
 	timeline.push(p2_training_trial);
         timeline.push(p2_testing_instructions_trial);
 	timeline.push(p2_testing_order_trial);
 
 	//for(var i = 0; i < 2; i++)
-	for(var i = 0; i < 3/*p2_testing_data.length*/; i++)
+	for(var i = 0; i < p2_testing_data.length; i++)
         {
                 timeline.push({ type: "ticket-choose",
 				prices: p2_testing_data[i],
@@ -484,9 +486,6 @@ function init()
 
 	$("#wheel").css("display", "none");
 
-	var worker_id = "<?= $_SESSION['workerId'] ?>";
-	var assignment_id = "<?= $_SESSION['assignmentId'] ?>";
-
 	jsPsych.init({
 		timeline: timeline,
 		display_element: $("#jspsych-main"),
@@ -501,30 +500,43 @@ function init()
 	});
 }
 
-function init_preview()
+function init_preview(tri)
 {
-	var accept_trial = {
-		type: "html",
-		url: "/tickets/utils/accept.html"
-	};
-
 	$("#wheel").css("display", "none");
 
 	jsPsych.init({
-		timeline: [consent_trial, accept_trial],
+		timeline: [consent_trial, tri],
 		display_element: $("#jspsych-main")
 	});
+}
+
+var accept_trial = {
+	type: "html",
+	url: "/tickets/utils/accept.html"
+};
+
+var outside_trial = {
+	type: "html",
+	url: "/tickets/utils/outside.html"
+};
+
+function init()
+{
+	var tinfo = jsPsych.turk.turkInfo();
+
+	if(tinfo.outsideTurk)
+		init_preview(outside_trial);
+	else if(tinfo.previewMode)
+		init_preview(accept_trial);
+	else
+		init_exp(tinfo.workerId, tinfo.assignmentId);
 }
 
 </script>
 
 </head>
 
-<?php if($preview): ?>
-	<body onload="init_preview()">
-<?php else: ?>
-	<body onload="init()">
-<?php endif; ?>
+<body onload="init()">
 	<div class="wheel-loader-wrap" id="wheel"><div class="wheel-loader"></div></div>
 	<div id="jspsych-points" style="display:none">
 		<div class="points-main">

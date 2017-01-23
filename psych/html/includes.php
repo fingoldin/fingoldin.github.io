@@ -59,7 +59,7 @@ function get_bonus($points)
 		return $b;
 }
 
-function grant_bonus($b)
+function grant_bonus($b, $worker_id, $assignment_id)
 {
 	//$b = get_bonus(intval($arr["points_phase0"]) + intval($arr["points_phase1"])) / 100;
 	
@@ -70,8 +70,8 @@ function grant_bonus($b)
 
 	$m = new MechanicalTurk();
 	$m->request('GrantBonus', array(
-		"WorkerId" => $_SESSION["workerId"],
-		"AssignmentId" => $_SESSION["assignmentId"],
+		"WorkerId" => $worker_id,
+		"AssignmentId" => $assignment_id,
 		"BonusAmount.1.Amount" => $bonus,
 		"BonusAmount.1.CurrencyCode" => "USD",
 		"Reason" => "Thanks!"

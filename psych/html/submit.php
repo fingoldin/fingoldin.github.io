@@ -68,7 +68,7 @@ if(isset($_SESSION["start_time"]) && isset($_SESSION["finished"]) && $_SESSION["
 	subject_save_response($arr);
 	mysql_save_response($arr);
 	log_save_response($arr);
-	grant_bonus($arr["bonus"]);
+	grant_bonus($arr["bonus"], $arr["worker_id"], $arr["assignment_id"]);
 	//subject_save_response($arr);
 
 	$_SESSION["finished"] = 1;
