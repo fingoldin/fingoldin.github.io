@@ -11,15 +11,33 @@ require("./includes.php");
 
 startSession();
 
-/*$preview = true;
-if(isset($_GET["assignmentId"]) && $_GET["assignmentId"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["workerId"]))
-{
-	$preview = false;
+$preview = true;
 
+
+// CHANGE THIS TO EITHER GET THE WORKER AND ASSIGNMENT IDS FROM $_GET OR GENERATE RANDOM ONES
+$use_random = true;
+
+if($use_random)
+{
+	$workerid = rand(1, 1000000);
+	$assignmentid = rand(1, 1000000);
+
+	$preview = false;
 	startSession();
-	$_SESSION["assignmentId"] = $_GET["assignmentId"];
-	$_SESSION["workerId"] = $_GET["workerId"];
-}*/
+	$_SESSION["assignmentId"] = $assignmentid;
+	$_SESSION["workerId"] = $workerid;
+}
+else
+{
+	if(isset($_GET["assignmentID"]) && $_GET["assignmentID"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["workerID"]))
+	{
+		$preview = false;
+
+		startSession();
+		$_SESSION["assignmentId"] = $_GET["assignmentID"];
+		$_SESSION["workerId"] = $_GET["workerID"];
+	}
+}
 
 ?>
 
@@ -238,7 +256,7 @@ function preload()
 	}
 }
 
-function init_exp(worker_id, assignment_id)
+function init_exp()
 {
 //	if(Function('/*@cc_on return document.documentMode===10@*/')()){ $("body").addClass("ie10"); }
 
@@ -482,6 +500,8 @@ function init_exp(worker_id, assignment_id)
 
 	// save data end
 
+	var worker_id = "<?= $_SESSION['workerId']; ?>";
+	var assignment_id = "<?= $_SESSION['assignmentId']; ?>";
 
 
 	$("#wheel").css("display", "none");
@@ -522,14 +542,24 @@ var outside_trial = {
 
 function init()
 {
-	var tinfo = jsPsych.turk.turkInfo();
+	/*var tinfo = jsPsych.turk.turkInfo();
 
 	if(tinfo.outsideTurk)
 		init_preview(outside_trial);
 	else if(tinfo.previewMode)
 		init_preview(accept_trial);
 	else
-		init_exp(tinfo.workerId, tinfo.assignmentId);
+		init_exp(tinfo.workerId, tinfo.assignmentId);*/
+
+	var prev = <?php if($preview)
+				echo('true');
+			else
+				echo('false'); ?>;
+
+	if(prev)
+		init_preview(accept_trial);
+	else
+		init_exp();
 }
 
 </script>
