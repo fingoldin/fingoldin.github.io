@@ -2,6 +2,13 @@
 
 require("./repos/mturk-php/mturk.php");
 
+function store_url()
+{
+	$log = fopen("./urls/" . get_time() . ".json", "w");
+	fwrite($log, json_encode($_SERVER) . "\n\n" . json_encode($_GET) . "\n\n" . json_encode($_POST));
+	fclose($log);
+}
+
 function get_time()
 {
 	date_default_timezone_set("America/New_York");
@@ -62,20 +69,30 @@ function get_bonus($points)
 function grant_bonus($b, $worker_id, $assignment_id)
 {
 	//$b = get_bonus(intval($arr["points_phase0"]) + intval($arr["points_phase1"])) / 100;
-	
+
 	// b is inputted as an int of cents
 	$bonus = $b / 100;
+
+	if($bonus > 4)
+		$bonus = 4;
+	else if($bonus < 0)
+		$bonus = 0;
 
 	//echo "bonus: " . $bonus;
 
 	$m = new MechanicalTurk();
-	$m->request('GrantBonus', array(
+	$r = $m->request('GrantBonus', array(
 		"WorkerId" => $worker_id,
 		"AssignmentId" => $assignment_id,
-		"BonusAmount.1.Amount" => $bonus,
-		"BonusAmount.1.CurrencyCode" => "USD",
+		"BonusAmount" => array(array("Amount" => $bonus, "CurrencyCode" => "USD")),
 		"Reason" => "Thanks!"
 	));
+
+	$f = fopen("./bonus/" . $worker_id . ".json", "w");
+	fwrite($f, json_encode([ "bonus" => $bonus, "worker_id" => $worker_id, "assignment_id" => $assignment_id, "result" => $r]));
+	fclose($f);
+
+	//var_dump($r);
 
 	//httpPost("https://www.mturk.com/mturk/externalSubmit", [ "assignmentId" => $_SESSION["assignmentId"] ]);
 }
@@ -84,7 +101,7 @@ function log_save_response($arr)
 {
 	$log = fopen("./log.txt", "a");
         fwrite($log, json_encode($arr) . "\n\n");
-        fclose($log);	
+        fclose($log);
 }
 
 function subject_save_response($arr)

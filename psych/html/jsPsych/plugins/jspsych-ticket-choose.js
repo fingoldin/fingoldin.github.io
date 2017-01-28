@@ -16,6 +16,8 @@ jsPsych.plugins["ticket-choose"] = (function()
 		trial.showpoints = trial.showpoints || false;
 		trial.phase = trial.phase || 0;
 
+		//console.log(trial.prices);
+
 		var num_prices = trial.prices.length;
 		if(!num_prices)
 			jsPsych.finishTrial({ "result": "error" });
@@ -85,7 +87,7 @@ jsPsych.plugins["ticket-choose"] = (function()
 					var r = prices.indexOf(trial.prices[price_num]);
                                 	if(r == 0)
                                         	points = 3;
-					if (r == 1)
+					else if (r == 1)
 						points = 2;
 																	else if (r == 2 || r == 3 || r ==4)
 																					points = 1;
@@ -116,10 +118,10 @@ jsPsych.plugins["ticket-choose"] = (function()
 					{
 						if(points == 1)
 							am = am.slice(0, -1).concat(" and get 1 point.");
-						else if(points == 2)
+						/*else if(points == 2)
 							am = am.slice(0, -1).concat(" and get 2 points.");
 						else if(points == 3)
-						am = am.slice(0, -1).concat(" and get 3 points.");
+							am = am.slice(0, -1).concat(" and get 3 points.");*/
 						else
 							am = am.slice(0, -1).concat(" and get " + points + " points.");
 					}

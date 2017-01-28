@@ -227,7 +227,7 @@
 			else if(diff < 10)
 				mes = "Nice! You were off by " + diff;
 			else
-				mes = "Rats! You were off by " + diff;
+				mes = "You were off by " + diff;
 
 			window.setTimeout(function() {
 				$(root).find("#bar-graph-cw").css("display", "block").css("transform", "scale(1, 1)").find(".bar-graph-congrats-top").html(mes);

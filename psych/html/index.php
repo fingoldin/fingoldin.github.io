@@ -7,35 +7,37 @@ session_start();
 
 require("./includes.php");
 
+store_url();
+
 //var_dump($_SESSION["testing_data_order"]);
+
+
+//grant_bonus(1, "AKNYT1NTK2UFK", "3TVSS0C0E2TNWH8KT9UMPVR1C9JTWC");
+
 
 startSession();
 
 $preview = true;
 
-
 // CHANGE THIS TO EITHER GET THE WORKER AND ASSIGNMENT IDS FROM $_GET OR GENERATE RANDOM ONES
-$use_random = true;
+$use_random = !isset($_GET["assignmentID"]);
 
 if($use_random)
 {
-	$workerid = rand(1, 1000000);
 	$assignmentid = rand(1, 1000000);
 
 	$preview = false;
 	startSession();
 	$_SESSION["assignmentId"] = $assignmentid;
-	$_SESSION["workerId"] = $workerid;
 }
 else
 {
-	if(isset($_GET["assignmentID"]) && $_GET["assignmentID"] != "ASSIGNMENT_ID_NOT_AVAILABLE" && isset($_GET["workerID"]))
+	if(isset($_GET["assignmentID"]) && $_GET["assignmentID"] != "ASSIGNMENT_ID_NOT_AVAILABLE")
 	{
 		$preview = false;
 
 		startSession();
-		$_SESSION["assignmentId"] = $_GET["assignmentID"];
-		$_SESSION["workerId"] = $_GET["workerID"];
+		$_SESSION["assignmentId"] = htmlspecialchars($_GET["assignmentID"]);
 	}
 }
 
@@ -76,6 +78,7 @@ else
 <script src="/tickets/jsPsych/plugins/jspsych-training_avg.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-call-function.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-store_order.js"></script>
+<script src="/tickets/jsPsych/plugins/jspsych-workerid.js"></script>
 <script src="/tickets/utils/general.js"></script>
 <script src="/tickets/utils/bar-choose-plugin.js"></script>
 <script src="/tickets/utils/jquery.transform2d.js"></script>
@@ -111,6 +114,10 @@ var consent_trial = {
 
 var age_trial = {
 	type: "age"
+}
+
+var workerid_trial = {
+	type: "workerid"
 }
 
 var instructions_trial = {
@@ -323,12 +330,21 @@ function init_exp()
 	p2_testing_order_trial.order = p2_testing_orders;
 
 
+	var worker_id = "";
+	var assignment_id = "<?= $_SESSION['assignmentId'] ?>";
+
+
 	timeline.push(consent_trial);
 	timeline.push(age_trial);
-  timeline.push(instructions_trial);
-  timeline.push(start_trial);
 
-	timeline.push(animation_trial);
+	workerid_trial.on_finish = function(data) {
+		worker_id = data.worker_id;
+	};
+  	timeline.push(workerid_trial);
+
+	timeline.push(instructions_trial);
+  	timeline.push(start_trial);
+
 	for(var i = 0; i < animdata.length; i++)
 	{
 		timeline.push({
@@ -363,7 +379,7 @@ function init_exp()
 
 	timeline.push(testing_instructions2_trial);
 
-	for(var i = 0; i < testing_data.length; i++)
+	for(var i = 0; i < p2_testing_data.length; i++)
 	{
         	timeline.push({ type: "ticket-choose",
 				prices: testing_data[i],
@@ -399,8 +415,6 @@ function init_exp()
 	timeline.push(training_trial2);
 
 	timeline.push(p2_start_trial);
-
-	timeline.push(p2_animation_trial);
 
 	for(var i = 0; i < animdata2.length; i++)
 	{
@@ -500,8 +514,8 @@ function init_exp()
 
 	// save data end
 
-	var worker_id = "<?= $_SESSION['workerId']; ?>";
-	var assignment_id = "<?= $_SESSION['assignmentId']; ?>";
+	//var worker_id = "<?= $_SESSION['workerId']; ?>";
+	//var assignment_id = "<?= $_SESSION['assignmentId']; ?>";
 
 
 	$("#wheel").css("display", "none");
@@ -511,6 +525,7 @@ function init_exp()
 		display_element: $("#jspsych-main"),
 		on_finish: function(data) {
 			$("#jspsych-main").empty().load("/tickets/confirmation_code.html");
+			//console.log(worker_id);
 			$.post("/tickets/submit.php", { data: JSON.stringify(data), worker_id: worker_id, assignment_id: assignment_id }, function(r) {
 				console.log(r);
 			});

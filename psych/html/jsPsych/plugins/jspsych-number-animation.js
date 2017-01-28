@@ -3,11 +3,12 @@ jsPsych.plugins["number-animation"] = (function()
 	var plugin = {};
 
 	plugin.trial = function(display_element, trial)
-
 	{
 		trial.prices = trial.prices || [];
 		trial.continue_message = trial.continue_message || "Continue";
 		trial.phase = trial.phase || 0;
+
+		//console.log(trial.prices);
 
 		var num_prices = trial.prices.length;
 		//xxvar num_prices = 2;
@@ -55,6 +56,7 @@ jsPsych.plugins["number-animation"] = (function()
 
 			function next_price()
 			{
+				console.log("next");
 //				if(selected)
 //					end_trial();
 				if(price.is(":animated"))

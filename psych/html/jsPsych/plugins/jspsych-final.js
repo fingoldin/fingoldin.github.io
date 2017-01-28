@@ -52,20 +52,20 @@ jsPsych.plugins["final"] = (function()
 						sbot[4] = "$" + ((trial.points[0] + trial.points[1]) * 0.025);*/
 
 						var tp = trial.points[0] + trial.points[1];
-						
+
 						// in decimal (0.3 is 30%);
 						var tpfraction = Math.round(100 * (tp / 300)) / 100;
-						
+
 						// bonus is counted in cents
 						var bonus = parseInt(Math.round(100 * tpfraction * 4));
-						
+
 						// in dollars
-						var totalmoney = 4 + bonus/100;
-					
+						var totalmoney = 2 + bonus/100;
+
 						// in percent
 						var tppercent = parseInt(tpfraction * 100);
 
-						bot.innerHTML = "$4 + " + tpfraction.toFixed(2) + " * $4 = $" + totalmoney.toFixed(2);
+						bot.innerHTML = "$2 + " + tpfraction.toFixed(2) + " * $4 = $" + totalmoney.toFixed(2);
 						top.innerHTML = "You scored " + trial.points[0] + " + " + trial.points[1] + " = " + tp + (tp === 1 ? " point" : " points") + " out of 300 points. <br> This is " + tppercent + " % and you receive <br> ";
 
 						$(wrap).animate({ "opacity": "1" }, 600, function() {
