@@ -208,11 +208,12 @@ jsPsych.plugins["ticket-choose"] = (function()
 					"place": r,
 					"phase": trial.phase,
 					"sequence": trial.row,
+					"prices": trial.prices,
 					"times": ti,
 					"next_num": next_num
                         	};
 
-				console.log(ti);
+				console.log("Prices for this sequence: " + trial.prices);
 
                         	jsPsych.finishTrial(trial_data);
                 	}

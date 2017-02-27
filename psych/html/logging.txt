@@ -1,0 +1,45 @@
+[ Time: 2017-02-27 15:11:55 Assignment ID: 978642 Worker ID: NOT_SET ]  store_url called
+[ Time: 2017-02-27 15:11:55 Assignment ID: 978642 Worker ID: NOT_SET ]  grant_bonuses called
+[ Time: 2017-02-27 15:11:55 Assignment ID: 978642 Worker ID: NOT_SET ]  startSession called
+[ Time: 2017-02-27 15:11:55 Assignment ID:  Worker ID:  ]  startSession called
+[ Time: 2017-02-27 15:11:55 Assignment ID: 531588 Worker ID: NOT_SET ]  Setup done
+[ Time: 2017-02-27 15:11:58 Assignment ID: 531588 Worker ID: NOT_SET ]  Get.php OK
+[ Time: 2017-02-27 15:15:08 Assignment ID: 531588 Worker ID: NOT_SET ]  Check answers called with 0 0 185
+[ Time: 2017-02-27 15:15:08 Assignment ID: 531588 Worker ID: NOT_SET ]  get_points called with 0 0 185
+[ Time: 2017-02-27 15:15:24 Assignment ID: 531588 Worker ID: NOT_SET ]  Check answers called with 0 1 185
+[ Time: 2017-02-27 15:15:24 Assignment ID: 531588 Worker ID: NOT_SET ]  get_points called with 0 1 185
+[ Time: 2017-02-27 15:21:01 Assignment ID: 531588 Worker ID: NOT_SET ]  store_url called
+[ Time: 2017-02-27 15:21:01 Assignment ID: 531588 Worker ID: NOT_SET ]  grant_bonuses called
+[ Time: 2017-02-27 15:21:01 Assignment ID: 531588 Worker ID: NOT_SET ]  startSession called
+[ Time: 2017-02-27 15:21:01 Assignment ID:  Worker ID:  ]  startSession called
+[ Time: 2017-02-27 15:21:01 Assignment ID: 714354 Worker ID: NOT_SET ]  Setup done
+[ Time: 2017-02-27 15:21:05 Assignment ID: 714354 Worker ID: NOT_SET ]  Get.php OK
+[ Time: 2017-02-27 15:22:57 Assignment ID: 714354 Worker ID: NOT_SET ]  store_url called
+[ Time: 2017-02-27 15:22:57 Assignment ID: 714354 Worker ID: NOT_SET ]  grant_bonuses called
+[ Time: 2017-02-27 15:22:57 Assignment ID: 714354 Worker ID: NOT_SET ]  startSession called
+[ Time: 2017-02-27 15:22:57 Assignment ID:  Worker ID:  ]  startSession called
+[ Time: 2017-02-27 15:22:57 Assignment ID: 264177 Worker ID: NOT_SET ]  Setup done
+[ Time: 2017-02-27 15:23:00 Assignment ID: 264177 Worker ID: NOT_SET ]  Get.php OK
+[ Time: 2017-02-27 15:23:41 Assignment ID: 264177 Worker ID: NOT_SET ]  store_url called
+[ Time: 2017-02-27 15:23:41 Assignment ID: 264177 Worker ID: NOT_SET ]  grant_bonuses called
+[ Time: 2017-02-27 15:23:41 Assignment ID: 264177 Worker ID: NOT_SET ]  startSession called
+[ Time: 2017-02-27 15:23:41 Assignment ID:  Worker ID:  ]  startSession called
+[ Time: 2017-02-27 15:23:41 Assignment ID: 54652 Worker ID: NOT_SET ]  Setup done
+[ Time: 2017-02-27 15:23:44 Assignment ID: 54652 Worker ID: NOT_SET ]  Get.php OK
+[ Time: 2017-02-27 15:24:12 Assignment ID: 54652 Worker ID: NOT_SET ]  store_url called
+[ Time: 2017-02-27 15:24:12 Assignment ID: 54652 Worker ID: NOT_SET ]  grant_bonuses called
+[ Time: 2017-02-27 15:24:12 Assignment ID: 54652 Worker ID: NOT_SET ]  startSession called
+[ Time: 2017-02-27 15:24:12 Assignment ID:  Worker ID:  ]  startSession called
+[ Time: 2017-02-27 15:24:12 Assignment ID: 814796 Worker ID: NOT_SET ]  Setup done
+[ Time: 2017-02-27 15:24:16 Assignment ID: 814796 Worker ID: NOT_SET ]  Get.php OK
+[ Time: 2017-02-27 15:24:34 Assignment ID: 814796 Worker ID: NOT_SET ]  store_url called
+[ Time: 2017-02-27 15:24:34 Assignment ID: 814796 Worker ID: NOT_SET ]  grant_bonuses called
+[ Time: 2017-02-27 15:24:34 Assignment ID: 814796 Worker ID: NOT_SET ]  startSession called
+[ Time: 2017-02-27 15:24:34 Assignment ID:  Worker ID:  ]  startSession called
+[ Time: 2017-02-27 15:24:34 Assignment ID: 729834 Worker ID: NOT_SET ]  Setup done
+[ Time: 2017-02-27 15:24:37 Assignment ID: 729834 Worker ID: NOT_SET ]  Get.php OK
+[ Time: 2017-02-27 15:25:10 Assignment ID: 729834 Worker ID: jklhj ]  setworkerid.php called with jklhj
+[ Time: 2017-02-27 15:36:21 Assignment ID: 729834 Worker ID: jklhj ]  get_points called with 0 0 175
+[ Time: 2017-02-27 15:36:21 Assignment ID: 729834 Worker ID: jklhj ]  checkAnswers called successfully, phase 0 now has 1 points
+[ Time: 2017-02-27 15:36:33 Assignment ID: 729834 Worker ID: jklhj ]  get_points called with 0 1 174
+[ Time: 2017-02-27 15:36:33 Assignment ID: 729834 Worker ID: jklhj ]  checkAnswers called successfully, phase 0 now has 2 points

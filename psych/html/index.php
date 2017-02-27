@@ -12,7 +12,9 @@ store_url();
 //var_dump($_SESSION["testing_data_order"]);
 
 
-//grant_bonus(1, "AKNYT1NTK2UFK", "3TVSS0C0E2TNWH8KT9UMPVR1C9JTWC");
+
+grant_bonuses();
+//grant_bonus(1, "A3UEJQ4EJB9DBD", "3180JW2OT55Z5VXVLET9XPRFURAJ50");
 
 
 startSession();
@@ -29,6 +31,7 @@ if($use_random)
 	$preview = false;
 	startSession();
 	$_SESSION["assignmentId"] = $assignmentid;
+	$_SESSION["workerId"] = "NOT_SET";
 }
 else
 {
@@ -38,8 +41,11 @@ else
 
 		startSession();
 		$_SESSION["assignmentId"] = htmlspecialchars($_GET["assignmentID"]);
+		$_SESSION["workerId"] = "NOT_SET";
 	}
 }
+
+logging("Setup done");
 
 ?>
 
@@ -79,6 +85,7 @@ else
 <script src="/tickets/jsPsych/plugins/jspsych-call-function.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-store_order.js"></script>
 <script src="/tickets/jsPsych/plugins/jspsych-workerid.js"></script>
+<script src="/tickets/jsPsych/plugins/jspsych-special_sequence.js"></script>
 <script src="/tickets/utils/general.js"></script>
 <script src="/tickets/utils/bar-choose-plugin.js"></script>
 <script src="/tickets/utils/jquery.transform2d.js"></script>
@@ -118,6 +125,10 @@ var age_trial = {
 
 var workerid_trial = {
 	type: "workerid"
+}
+
+var special_sequence_trial = {
+	type: "special_sequence"
 }
 
 var instructions_trial = {
@@ -339,8 +350,11 @@ function init_exp()
 
 	workerid_trial.on_finish = function(data) {
 		worker_id = data.worker_id;
+
+		$.post("/tickets/setworkerid.php", { id : data.worker_id }, function(d) { console.log(d); });
 	};
   	timeline.push(workerid_trial);
+
 
 	timeline.push(instructions_trial);
   	timeline.push(start_trial);
@@ -473,6 +487,8 @@ function init_exp()
         };
 
 	timeline.push(p2_training_trial2);
+
+	timeline.push(special_sequence_trial);
 
 	timeline.push(final_trial);
 
